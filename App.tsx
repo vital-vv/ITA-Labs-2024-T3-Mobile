@@ -10,7 +10,7 @@ import {
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
-import { LotScreen } from './screens/Lot'
+import { LotViewScreen } from './screens/LotView/LotView'
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -40,7 +40,7 @@ function App(): React.JSX.Element {
     <SafeAreaView style={backgroundStyle}>
       <StatusBar/>
       <ScrollView>
-        <LotScreen />
+        <LotViewScreen />
       </ScrollView>
     </SafeAreaView>
   );
