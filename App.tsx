@@ -10,6 +10,8 @@ import {
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
+import { LotScreen } from './screens/Lot'
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -36,27 +38,9 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text
-            style={[
-              styles.sectionTitle,
-              {
-                color: isDarkMode ? Colors.light : Colors.dark,
-              },
-            ]}>
-            AgroEx initial project
-          </Text>
-        </View>
+      <StatusBar/>
+      <ScrollView>
+        <LotScreen />
       </ScrollView>
     </SafeAreaView>
   );
