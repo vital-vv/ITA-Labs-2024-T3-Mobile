@@ -1,67 +1,99 @@
-import { useState } from 'react';
 import {
   Text,
-  TouchableOpacity,
+  Pressable,
   View,
+  ActivityIndicator,
+  RefreshControl,
+  Alert,
+  FlatList,
 } from 'react-native';
 
-import info from '../../assets/mock-entities.json'
-import ListItem from '../../components/ListItem'
-import styles from './lotListStyles'
+import ListItem from '../../components/ListItem';
+import styles from './lotListStyles';
+import React, {useState, useEffect} from 'react';
 
+type LotType = {
+  lot_id: number;
+  title: string;
+  product_type: string;
+  product_subtype: string;
+  quantity: number;
+  price_per_unit: number;
+  location: {
+    country: string;
+    region: string;
+  };
+  description: string;
+  status: string;
+  image_url: string;
+  expiration_date: string;
+  variety: string;
+  size: string;
+  packaging: string;
+  created_at: string;
+};
 
-function LotList(props: any): React.JSX.Element {
+type SubtypeProps = {
+  product_subtype: string;
+};
 
-  const filter=props.product_subtype;
+const LotList = (props: SubtypeProps) => {
+  const [isLoading, setLoading] = useState(true);
+  const [lotList, setLotList] = useState<LotType[]>([]);
 
+  const filter: string = props.product_subtype;
+  const url: string =
+    'https://65bb963e52189914b5bc9435.mockapi.io/mock-entities/lots' +
+    `?product_subtype=${filter}`;
 
-  function filterInfo (data: any) {
-    const filteredInfo = [];
-    for (const item of data) {
-      if (item.product_subtype === filter ) {
-        filteredInfo.push(item);
-      }
-      console.log(filteredInfo)
+  const getLotList = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setLotList(data);
+    } catch (error) {
+      Alert.alert('Error', 'Sorry, Network error');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    return filteredInfo
-  }
+  useEffect(() => {
+    getLotList();
+  }, []);
 
-  const lotsA=filterInfo(info.lots)
-
-  const lots = lotsA.map(lot => {
+  if (isLoading) {
     return (
-      <ListItem 
-          key={lot.lot_id}
-          lot={lot}
-          />       
-        )
-  })
+      <View style={styles.downloading}>
+        <ActivityIndicator size={'large'} />
+        <Text style={styles.downloading_text}>Downloading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View>
       <View style={styles.sort__block}>
-        <TouchableOpacity style={styles.sort__button}>
-          <Text>
-            Popular lots
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sort__button}>
-          <Text>
-            Best price
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sort__button}>
-          <Text>
-            New lots
-          </Text>
-        </TouchableOpacity>
+        <Pressable style={styles.sort__button}>
+          <Text>Popular lots</Text>
+        </Pressable>
+        <Pressable style={styles.sort__button}>
+          <Text>Best price</Text>
+        </Pressable>
+        <Pressable style={styles.sort__button}>
+          <Text>New lots</Text>
+        </Pressable>
       </View>
-      <View>
-        {lots}
-      </View>
+      <FlatList
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={getLotList} />
+        }
+        data={lotList}
+        renderItem={({item}) => <ListItem lot={item} />}
+      />
     </View>
   );
-}
+};
 
 export default LotList;
