@@ -1,4 +1,5 @@
 import {Image, Text, Pressable} from 'react-native';
+import React from 'react';
 
 import styles from './buttonWithIconStyle';
 
