@@ -22,7 +22,6 @@ export const HomeScreen: FC<Props> = ({navigation, route}) => {
     isLoading,
     refetch: refetchAllCategoriesData,
   } = useGetAllCategoriesQuery();
-  console.log(allCategoriesData);
 
   if (isLoading) return <SpinnerWrapper />;
   return (
