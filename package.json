@@ -7,17 +7,15 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest",
-    "server": "json-server --host 0.0.0.0 --watch ./mock-entities.json -p 3001"
+    "test": "jest"
   },
   "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@reduxjs/toolkit": "^2.1.0",
     "@shopify/flash-list": "^1.6.3",
-    "json-server": "^1.0.0-alpha.23",
+    "luxon": "^3.4.4",
     "npm": "^10.4.0",
     "react": "18.2.0",
     "react-native": "0.73.2",
@@ -34,6 +32,7 @@
     "@react-native/eslint-config": "0.73.2",
     "@react-native/metro-config": "0.73.3",
     "@react-native/typescript-config": "0.73.1",
+    "@types/luxon": "^3.4.2",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",

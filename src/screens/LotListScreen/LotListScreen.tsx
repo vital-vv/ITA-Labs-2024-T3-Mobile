@@ -21,7 +21,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
     data: lotsInSubCategoryData,
     isLoading,
     refetch: refetchlotsInSubCategory,
-  } = useGetLotsInSubCategoryQuery(2);
+  } = useGetLotsInSubCategoryQuery(subCategory);
 
   if (isLoading) return <SpinnerWrapper />;
   return (

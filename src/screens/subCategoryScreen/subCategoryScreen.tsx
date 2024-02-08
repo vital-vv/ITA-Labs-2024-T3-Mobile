@@ -17,19 +17,15 @@ export const SubCategoryScreen: FC<Props> = ({route, navigation}) => {
   const {
     data: categoriesData,
     isLoading,
-    isError,
     refetch: refetchCategoriesData,
   } = useGetCategoryQuery(subCategory);
-
-  const subcategory = categoriesData ? categoriesData[0].subcategories : null;
-  const categoryName = categoriesData ? categoriesData[0].name : '';
-
+  
   if (isLoading) return <SpinnerWrapper />;
   return (
     <MainWrapper>
       <MainWrapper style={setMargin(8, 0, 0, 0)}>
         <FlashList
-          data={subcategory}
+          data={categoriesData?.subcategories}
           estimatedItemSize={200}
           refreshControl={
             <RefreshControl
@@ -41,7 +37,7 @@ export const SubCategoryScreen: FC<Props> = ({route, navigation}) => {
             <Pressable
               onPress={() => {
                 navigation.navigate(ROUTES.LotList, {
-                  subCategory: item.subcategory_id,
+                  subCategory: item.category_id,
                   headerTitle: item.name,
                 });
               }}>

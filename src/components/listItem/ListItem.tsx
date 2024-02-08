@@ -11,6 +11,7 @@ import {textTypographyStyles} from '../../styles/textTypographyStyles';
 import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
+import {DateCounter} from '../DateCounter/dateCounter';
 
 type Props = {
   lot: Lot;
@@ -30,12 +31,7 @@ export const ListItem: FC<Props> = ({lot}) => {
         <View style={styles.lot_info}>
           <AppText text={title} variant={TEXT_VARIANT.MAIN_16_400} />
           <View style={styles.lot_block}>
-            <AppText
-              text={expiration_date}
-              variant={TEXT_VARIANT.MAIN_10_500}
-              color={Colors.SYSTEM_DARK}
-              style={styles.expiration}
-            />
+            <DateCounter date={expiration_date} />
             <AppText
               text={lot_id}
               variant={TEXT_VARIANT.MAIN_10_400}

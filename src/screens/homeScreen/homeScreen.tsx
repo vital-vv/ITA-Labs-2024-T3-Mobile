@@ -1,4 +1,4 @@
-import {Pressable, RefreshControl} from 'react-native';
+import {Pressable, RefreshControl, Text} from 'react-native';
 import {AppText} from '../../components/appText/appText.tsx';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -24,6 +24,7 @@ export const HomeScreen: FC<Props> = ({navigation, route}) => {
   } = useGetAllCategoriesQuery();
 
   if (isLoading) return <SpinnerWrapper />;
+
   return (
     <MainWrapper>
       <AppText

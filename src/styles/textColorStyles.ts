@@ -32,4 +32,10 @@ export const textColorStyles = StyleSheet.create<{
   [Colors.BUTTON_PRIMARY]: {
     color: Colors.BUTTON_PRIMARY,
   },
+  [Colors.ERROR_BASE]: {
+    color: Colors.ERROR_BASE,
+  },
+  [Colors.ERROR_BACKGROUND]: {
+    color: Colors.ERROR_BACKGROUND,
+  },
 });
