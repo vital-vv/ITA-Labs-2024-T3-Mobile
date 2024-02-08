@@ -9,23 +9,16 @@ import {textColorStyles} from '../../styles/textColorStyles';
 export type AppTextProps = TextProps & {
   text: string | number;
   style?: TextStyle;
-  children?: React.ReactNode;
   variant?: TEXT_VARIANT;
   color?: TEXT_COLOR_VARIANT;
 };
 
 export const AppText: FC<AppTextProps> = ({
   text,
-  children,
   variant = TEXT_VARIANT.MAIN_18_400,
   color = Colors.PRIMARY,
   style,
 }) => {
-  if (
-    (text === undefined || text === null) &&
-    (children === undefined || children === null)
-  )
-    return null;
   return (
     <Text
       style={[textTypographyStyles[variant], textColorStyles[color], style]}>
