@@ -1,0 +1,242 @@
+{
+  "categories": [
+    {
+      "category_id": 1,
+      "name": "Fruits",
+      "subcategory_id": 1,
+      "subcategories": []
+    },
+    {
+      "category_id": 2,
+      "name": "Vegetables",
+      "subcategory_id": 1,
+      "subcategories": []
+    },
+    {
+      "category_id": 3,
+      "name": "Grains",
+      "subcategory_id": 1,
+      "subcategories": []
+    }
+  ],
+
+  "category": [
+    {
+      "category_id": 1,
+      "subcategory_id": 1,
+      "name": "Fruits",
+      "subcategories": [
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"}
+      ]
+    },
+    {
+      "category_id": 2,
+      "subcategory_id": 1,
+      "name": "Vegetables",
+      "subcategories": [
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"}
+      ]
+    },
+    {
+      "category_id": 3,
+      "subcategory_id": 1,
+      "name": "Grains",
+      "subcategories": [
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"},
+        {"subcategory_id": 1, "category_id": 1, "name": "Golden Apples"}
+      ]
+    }
+  ],
+  "lots": [
+    {
+      "lot_id": 1,
+      "title": "Golden Apple Lot",
+      "category_name": "Apples",
+      "category_id": 1,
+      "quantity": 1000,
+      "price_per_unit": 1.5,
+      "location": {
+        "country": "United States",
+        "region": "California"
+      },
+      "description": "Fresh and high-quality golden apples",
+      "status": "active",
+      "image_url": "https://example.com/apple_image.jpg",
+      "expiration_date": "2024-10-15",
+      "variety": "Golden",
+      "size": "Medium",
+      "packaging": "Carton",
+      "created_at": "2024-03-05T15:20:00Z"
+    },
+    {
+      "lot_id": 2,
+      "title": "Golden Apple Lot",
+      "category_name": "Apples",
+      "category_id": 1,
+      "quantity": 1000,
+      "price_per_unit": 1.5,
+      "location": {
+        "country": "United States",
+        "region": "California"
+      },
+      "description": "Fresh and high-quality golden apples",
+      "status": "active",
+      "image_url": "https://example.com/apple_image.jpg",
+      "expiration_date": "2024-10-15",
+      "variety": "Golden",
+      "size": "Medium",
+      "packaging": "Carton",
+      "created_at": "2024-03-05T15:20:00Z"
+    },
+    {
+      "lot_id": 3,
+      "title": "Golden Apple Lot",
+      "category_name": "Apples",
+      "category_id": 1,
+      "quantity": 1000,
+      "price_per_unit": 1.5,
+      "location": {
+        "country": "United States",
+        "region": "California"
+      },
+      "description": "Fresh and high-quality golden apples",
+      "status": "active",
+      "image_url": "https://example.com/apple_image.jpg",
+      "expiration_date": "2024-10-15",
+      "variety": "Golden",
+      "size": "Medium",
+      "packaging": "Carton",
+      "created_at": "2024-03-05T15:20:00Z"
+    },
+    {
+      "lot_id": 4,
+      "title": "Golden Apple Lot",
+      "category_name": "Apples",
+      "category_id": 1,
+      "quantity": 1000,
+      "price_per_unit": 1.5,
+      "location": {
+        "country": "United States",
+        "region": "California"
+      },
+      "description": "Fresh and high-quality golden apples",
+      "status": "active",
+      "image_url": "https://example.com/apple_image.jpg",
+      "expiration_date": "2024-10-15",
+      "variety": "Golden",
+      "size": "Medium",
+      "packaging": "Carton",
+      "created_at": "2024-03-05T15:20:00Z"
+    },
+    {
+      "lot_id": 5,
+      "title": "Golden Apple Lot",
+      "category_name": "Apples",
+      "category_id": 1,
+      "quantity": 1000,
+      "price_per_unit": 1.5,
+      "location": {
+        "country": "United States",
+        "region": "California"
+      },
+      "description": "Fresh and high-quality golden apples",
+      "status": "active",
+      "image_url": "https://example.com/apple_image.jpg",
+      "expiration_date": "2024-10-15",
+      "variety": "Golden",
+      "size": "Medium",
+      "packaging": "Carton",
+      "created_at": "2024-03-05T15:20:00Z"
+    },
+    {
+      "lot_id": 6,
+      "title": "Golden Apple Lot",
+      "category_name": "Apples",
+      "category_id": 1,
+      "quantity": 1000,
+      "price_per_unit": 1.5,
+      "location": {
+        "country": "United States",
+        "region": "California"
+      },
+      "description": "Fresh and high-quality golden apples",
+      "status": "active",
+      "image_url": "https://example.com/apple_image.jpg",
+      "expiration_date": "2024-10-15",
+      "variety": "Golden",
+      "size": "Medium",
+      "packaging": "Carton",
+      "created_at": "2024-03-05T15:20:00Z"
+    }
+  ],
+
+  "bids": [
+    {
+      "id": 1,
+      "lot_id": 1,
+      "expiration_date": "2024-10-15",
+      "quantity": 800,
+      "price": 1.2
+    },
+    {
+      "id": 2,
+      "lot_id": 1,
+      "expiration_date": "2024-09-30",
+      "quantity": 500,
+      "price": 1.1
+    },
+    {
+      "id": 3,
+      "lot_id": 2,
+      "expiration_date": "2024-11-15",
+      "quantity": 700,
+      "price": 1.8
+    },
+    {
+      "id": 4,
+      "lot_id": 2,
+      "expiration_date": "2024-09-20",
+      "quantity": 300,
+      "price": 1.5
+    },
+    {
+      "id": 5,
+      "lot_id": 3,
+      "expiration_date": "2024-08-05",
+      "quantity": 400,
+      "price": 1.4
+    },
+    {
+      "id": 6,
+      "lot_id": 3,
+      "expiration_date": "2024-10-01",
+      "quantity": 600,
+      "price": 1.7
+    },
+    {
+      "id": 7,
+      "lot_id": 4,
+      "expiration_date": "2024-09-10",
+      "quantity": 200,
+      "price": 1.9
+    },
+    {
+      "id": 8,
+      "lot_id": 4,
+      "expiration_date": "2024-11-01",
+      "quantity": 100,
+      "price": 2.0
+    }
+  ]
+}
