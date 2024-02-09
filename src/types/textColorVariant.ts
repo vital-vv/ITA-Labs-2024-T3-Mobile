@@ -9,4 +9,5 @@ export type TEXT_COLOR_VARIANT =
   | Colors.WARNING
   | Colors.BUTTON_PRIMARY
   | Colors.WHITE
-
+  | Colors.ERROR_BACKGROUND
+  | Colors.ERROR_BASE

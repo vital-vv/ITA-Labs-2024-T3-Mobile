@@ -11,37 +11,29 @@ import {AppText} from '../../components/appText/appText';
 import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import ShoppingIcon from '../../assets/icons/shopping.svg';
+import luxon, {DateTime} from 'luxon';
+import {DateCounter} from '../../components/DateCounter/dateCounter';
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.Lot>;
 
 export const LotScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
-  const {data: lots, isLoading, refetch: refetchLot} = useGetLotQuery(id);
+  const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
 
-  const lotData = lots ? lots[0] : null;
-  const lotName = lots ? lots[0].category_name : '';
   if (isLoading) return <SpinnerWrapper />;
 
   return (
-    lotData && (
+    lot && (
       <ScrollView style={styles.lotScreenWrapper}>
         <Image
           style={styles.image}
           source={require('../../assets/images/apple_image.png')}
         />
         <View style={styles.titleWrapper}>
-          <AppText
-            text={`${lotData.title}`}
-            variant={TEXT_VARIANT.MAIN_20_500}
-          />
+          <AppText text={`${lot.title}`} variant={TEXT_VARIANT.MAIN_20_500} />
           <View style={styles.dateInfo}>
+            <DateCounter date={lot.expiration_date} />
             <AppText
-              text={`${lotData.expiration_date}`}
-              variant={TEXT_VARIANT.MAIN_10_500}
-              color={Colors.SYSTEM_DARK}
-              style={styles.expiration}
-            />
-            <AppText
-              text={`${lotData.lot_id}`}
+              text={`${lot.lot_id}`}
               variant={TEXT_VARIANT.MAIN_10_400}
               color={Colors.SECONDARY}
             />
@@ -50,28 +42,24 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
         <View style={styles.mainInfoWrapper}>
           <View style={styles.pricesWrapper}>
             <AppText
-              text={`$${(lotData.price_per_unit * lotData.quantity).toFixed(
-                2,
-              )}`}
+              text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_24_500}
               color={Colors.WARNING}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`$${(lotData.price_per_unit * lotData.quantity).toFixed(
-                2,
-              )}`}
+              text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_24_500}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`$${lotData.price_per_unit}/kg`}
+              text={`$${lot.price_per_unit}/kg`}
               variant={TEXT_VARIANT.MAIN_12_400}
               color={Colors.SECONDARY}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`$${lotData.price_per_unit}/kg`}
+              text={`$${lot.price_per_unit}/kg`}
               variant={TEXT_VARIANT.MAIN_12_400}
               color={Colors.SECONDARY}
               style={[styles.text, styles.price]}
@@ -84,7 +72,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lotData.variety}`}
+            text={`${lot.variety}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -95,7 +83,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lotData.quantity}`}
+            text={`${lot.quantity}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -106,7 +94,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lotData.size}`}
+            text={`${lot.size}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -117,7 +105,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lotData.packaging}`}
+            text={`${lot.packaging}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -128,7 +116,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lotData.location.country}, ${lotData.location.region}`}
+            text={`${lot.location.country}, ${lot.location.region}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -139,7 +127,8 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lotData.created_at}`}
+            text={`${DateTime.fromISO('2024-03-05T15:20:00Z').toFormat(
+              'yyyy.LL.dd, HH:mm ')}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />

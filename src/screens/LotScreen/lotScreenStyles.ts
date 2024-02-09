@@ -23,11 +23,6 @@ export const styles = StyleSheet.create({
     ...setMargin(8, 0, 0, 0),
   },
   price: {...setPadding(0, 16, 4, 16)},
-  expiration: {
-    backgroundColor: Colors.SYSTEM_EXTRALIGHT,
-    ...setPadding(4, 8, 4, 8),
-    borderRadius: 5,
-  },
   mainInfoWrapper: {
     flex: 1,
     flexDirection: 'row',

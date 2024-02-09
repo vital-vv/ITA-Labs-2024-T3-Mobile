@@ -1,12 +1,14 @@
 export type SubCategory = {
   subcategory_id: string;
   category_id: number;
+  parent_id: number | null;
   name: string;
 };
 
 export type Category = {
   category_id: number;
   name: string;
+  parent_id: number | null;
   subcategories: SubCategory[];
 };
 
@@ -27,7 +29,6 @@ export type Lot = {
   size: string;
   packaging: string;
 };
-
 
 export type Location = {
   id: number;
