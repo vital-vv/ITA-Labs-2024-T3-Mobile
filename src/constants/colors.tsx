@@ -16,4 +16,6 @@ export enum Colors {
   ERROR_BASE = '#DC3737',
   ERROR_DARK = '#D40000',
   ERROR_BACKGROUND = '#FDECE9',
+  BTN_BORDER = '#DDE7E7',
+  ERROR = '#D40000'
 }
