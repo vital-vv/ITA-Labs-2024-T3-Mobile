@@ -1,11 +1,11 @@
 import {FC} from 'react';
 import {StyleProp, TextInput} from 'react-native';
-import {TEXT_VARIANT} from '../../../types/textVariant';
-import {TEXT_COLOR_VARIANT} from '../../../types/textColorVariant';
-import {textTypographyStyles} from '../../../styles/textTypographyStyles';
-import {textColorStyles} from '../../../styles/textColorStyles';
+import {TEXT_VARIANT} from '../../ReactNative/ITA-Labs-2024-T3-Mobile/src/types/textVariant';
+import {TEXT_COLOR_VARIANT} from '../../ReactNative/ITA-Labs-2024-T3-Mobile/src/types/textColorVariant';
+import {textTypographyStyles} from '../../ReactNative/ITA-Labs-2024-T3-Mobile/src/styles/textTypographyStyles';
+import {textColorStyles} from '../../ReactNative/ITA-Labs-2024-T3-Mobile/src/styles/textColorStyles';
 import styles from './inputStyles';
-import {Colors} from '../../../constants/colors';
+import {Colors} from '../../ReactNative/ITA-Labs-2024-T3-Mobile/src/constants/colors';
 import { useFormikContext, useField } from "formik";
 
 export type AppInputProps =  {

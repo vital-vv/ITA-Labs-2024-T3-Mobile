@@ -11,13 +11,14 @@ type Props = {
   icon?: ReactNode;
   style?: StyleProp<ViewStyle>;
   variant?: TEXT_VARIANT;
+  onPress?: () => void;
 };
 
-const ButtonWithIcon: FC<Props> = ({title, type = 'dark', icon, style,  variant = TEXT_VARIANT.MAIN_18_400}) => {
+const ButtonWithIcon: FC<Props> = ({title, type = 'dark', icon, style,  variant = TEXT_VARIANT.MAIN_18_400, onPress}) => {
   const wrapperStyle = type === 'light' ? styles.ligth : styles.dark;
   const textColor = type === 'light' ? Colors.BUTTON_PRIMARY : Colors.WHITE;
   return (
-    <Pressable style={[styles.buttonWrapper, wrapperStyle, style]} 
+    <Pressable style={[styles.buttonWrapper, wrapperStyle, style]}  onPress={() => (onPress? onPress() : null)}
       >
       {icon}
       <AppText

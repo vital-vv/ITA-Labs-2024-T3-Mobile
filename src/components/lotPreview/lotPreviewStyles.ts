@@ -12,21 +12,16 @@ const lotPreviewStyles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
   },
   titleWrapper: {
-    ...setMargin(8, 0, 16, 0)
+    ...setMargin(8, 16, 16, 16)
   },
-//   dateInfo: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     gap: 8,
-//     ...setMargin(8, 0, 0, 0),
-//   },
   bets: {
-    width: '50%',
     textAlign: 'center',
     ...setMargin(0, 0, 16, 0)
   },
-  price: {...setPadding(0, 16, 4, 16)},
+  price: {...setPadding(0, 16, 4, 16),
+    width: '100%',
+    textAlign: 'right'
+},
   expiration: {
     backgroundColor: Colors.SYSTEM_EXTRALIGHT,
     ...setPadding(4, 8, 4, 8),

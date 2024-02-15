@@ -7,7 +7,7 @@ import styles from './lotPreviewStyles';
 
 export type Props = {
   values: { 
-        title?: string;
+    title?: string;
     category?: string;
     subcategory?: string;
     quantity?: string;
@@ -20,9 +20,10 @@ export type Props = {
     packaging?: string;
     variety?: string;
 }
+  data: any
 }
 
-export const LotPreview: FC<Props> = ({values}) => {
+export const LotPreview: FC<Props> = ({values, data}) => {
   
     return (
         <ScrollView style={styles.lotScreenWrapper}>
@@ -33,48 +34,41 @@ export const LotPreview: FC<Props> = ({values}) => {
           <View style={styles.titleWrapper}>
             {values.title &&
             <AppText
+              color={Colors.PRIMARY}
               text={`${values.title}`}
               variant={TEXT_VARIANT.MAIN_20_500}
             />
             }
-            {/* <View style={styles.dateInfo}>
-              <AppText
-                text={`${lotData.expiration_date}`}
-                variant={TEXT_VARIANT.MAIN_10_500}
-                color={Colors.SYSTEM_DARK}
-                style={styles.expiration}
-              />
-            </View> */}
           </View>
           <View style={styles.mainInfoWrapper}>
               <AppText
                 text={'No bets'}
                 variant={TEXT_VARIANT.MAIN_24_500}
                 color={Colors.TERTIARY}
-                style={[styles.text, styles.price, styles.bets]}
+                style={[styles.text, styles.bets]}
               />
             <View style={styles.pricesWrapper}>
               <AppText
                 text={'Total price'}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 color={Colors.SECONDARY}
-                style={[styles.text, styles.price]}
+                style={[styles.price]}
                 />
-             {values.price && values.quantity &&
+             {values.price && !isNaN(Number(values.price)) &&
               <AppText
-                text={`$${(Number(values.price) * Number(values.quantity)).toFixed(
+                text={`$${(Number(values.price)).toFixed(
                   2,
                 )}`}
                 variant={TEXT_VARIANT.MAIN_24_500}
-                style={[styles.text, styles.price]}
+                style={[styles.price]}
               /> }
-            {values.price && values.quantity &&
+            {values.price && values.quantity && !isNaN(Number(values.price)) && !isNaN(Number(values.quantity)) &&
               <AppText
                 text={`$${(Number(values.price) / Number(values.quantity)).toFixed(
                     2,)}/kg`}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 color={Colors.SECONDARY}
-                style={[styles.text, styles.price]}
+                style={[styles.price]}
               />
             }
             </View>
@@ -103,7 +97,7 @@ export const LotPreview: FC<Props> = ({values}) => {
               color={Colors.SECONDARY}
               style={styles.text}
             />
-            {values.quantity &&
+            {values.quantity && !isNaN(Number(values.quantity)) &&
             <AppText
               text={`${values.quantity}`}
               variant={TEXT_VARIANT.MAIN_16_400}
@@ -124,7 +118,7 @@ export const LotPreview: FC<Props> = ({values}) => {
             />
             {values.size &&
             <AppText
-              text={`${values.size}`}
+              text={`${data.size[Number(values.size)-1].value}`}
               variant={TEXT_VARIANT.MAIN_16_400}
               style={styles.text}
             />
@@ -143,7 +137,7 @@ export const LotPreview: FC<Props> = ({values}) => {
             />
             {values.packaging &&
             <AppText
-              text={`${values.packaging}`}
+              text={`${data.packaging[Number(values.packaging)-1].value}`}
               variant={TEXT_VARIANT.MAIN_16_400}
               style={styles.text}
             />
@@ -162,7 +156,7 @@ export const LotPreview: FC<Props> = ({values}) => {
             />
             {values.country && values.region &&
             <AppText
-              text={`${values.country}, ${values.region}`}
+              text={`${data.countries[Number(values.country)-1].countryName}, ${data.countries[Number(values.country)-1].regions[Number(values.region)-1].regionName}`}
               variant={TEXT_VARIANT.MAIN_16_400}
               style={styles.text}
             />

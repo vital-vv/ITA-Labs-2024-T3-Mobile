@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../../constants/colors';
 
-const dropDownInputStyles = StyleSheet.create({
+const appDropDownInputStyles = StyleSheet.create({
     input: {
         borderColor: Colors.TERTIARY,
         borderRadius: 2,
@@ -34,4 +34,4 @@ const dropDownInputStyles = StyleSheet.create({
       }
 });
 
-export default dropDownInputStyles;
+export default appDropDownInputStyles;
