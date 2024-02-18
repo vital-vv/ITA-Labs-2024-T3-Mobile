@@ -99,17 +99,6 @@
     "id": "81b4"
   }
 ],
-
-"unitsOfWeight" : [
-    { "id": "1", "value" : "ton" },
-    { "id" : "2" , "value" : "kg" },
-    { "id" : "3" , "value" : "pcs" }
-  ],
-  "typeOfCurrency" : [
-    { "id" : "1", "value": "USD" },
-    { "id" : "2", "value": "BYN" },
-    { "id" : "3", "value": "EUR" }
-  ],
   "countries" : [
     { "id": "1", 
     "countryName" : "Uzbekistan", 
@@ -129,17 +118,5 @@
                { "region_id":"5", "regionName": "Vitebsk region"},
                { "region_id":"6", "regionName": "Mogilev region"}]
   }
-  ],
-  
-  "packaging" : [
-    { "id": "1", "value" : "bins" },
-    { "id" : "2" , "value" : "plastic bag" },
-    { "id" : "3" , "value" : "plastic box" },
-    { "id" : "4" , "value" : "wooden box" }
-  ],
-  "size" : [
-    { "id": "1", "value" : "Large" },
-    { "id" : "2" , "value" : "Small" },
-    { "id" : "3" , "value" : "Medium" }
   ]
 }

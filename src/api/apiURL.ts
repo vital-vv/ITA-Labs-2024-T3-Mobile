@@ -4,4 +4,5 @@ export const API_URL = {
   category: (id: number) => `/categories/${id}`,
   lotsInSubCategory: (id: number) => `/categories/${id}/lots`,
   lot: (id: number) => `/lots/${id}`,
+  dataSelection: '/data-selection',
 };

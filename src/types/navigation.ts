@@ -18,8 +18,3 @@ export type HomeStackParams = {
   [ROUTES.LotList]: {subCategory: number; headerTitle: string};
   [ROUTES.Lot]: {id: number; headerTitle: string};
 };
-
-export type NewAdsStackParams = {
-  [ROUTES.NewAds]: {headerTitle: string};
-  [ROUTES.Lot]: {id: number; headerTitle: string};
-};

@@ -37,6 +37,7 @@ export const textColorStyles = StyleSheet.create<{
   },
   [Colors.ERROR_BACKGROUND]: {
     color: Colors.ERROR_BACKGROUND,
+  },
   [Colors.ERROR]: {
     color: Colors.ERROR,
   },

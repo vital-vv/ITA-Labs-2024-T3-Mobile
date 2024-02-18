@@ -35,3 +35,12 @@ export type Location = {
   country: string;
   region: string;
 };
+
+export type Selection = {
+  packaging: [string];
+  weight: [string];
+  size: [string];
+  role: [string];
+  status: [string];
+  currency: [string];
+};
