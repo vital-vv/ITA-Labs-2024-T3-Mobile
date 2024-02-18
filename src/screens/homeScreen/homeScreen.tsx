@@ -1,11 +1,11 @@
-import {Pressable, RefreshControl, Text} from 'react-native';
+import {Pressable, RefreshControl} from 'react-native';
 import {AppText} from '../../components/appText/appText.tsx';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {ProductCategory} from '../../components/productCategory/productCategory.tsx';
 import {HorizontalDivider} from '../../components/horizontalDivider/horizontalDivider.tsx';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParams} from '../../types/navigation.ts';
+import {HomeStackParams, RootStackParams} from '../../types/navigation.ts';
 import {ROUTES} from '../../constants/routes.ts';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper.tsx';
 import {FlashList} from '@shopify/flash-list';
@@ -14,7 +14,7 @@ import {FC} from 'react';
 import {setPadding} from '../../utils/styling/padding.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 
-type Props = NativeStackScreenProps<RootStackParams, ROUTES.Home>;
+type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Home>;
 
 export const HomeScreen: FC<Props> = ({navigation, route}) => {
   const {
@@ -24,7 +24,6 @@ export const HomeScreen: FC<Props> = ({navigation, route}) => {
   } = useGetAllCategoriesQuery();
 
   if (isLoading) return <SpinnerWrapper />;
-
   return (
     <MainWrapper>
       <AppText

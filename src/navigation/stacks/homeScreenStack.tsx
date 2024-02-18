@@ -5,7 +5,7 @@ import {HomeScreen} from '../../screens/homeScreen/homeScreen';
 import {SubCategoryScreen} from '../../screens/subCategoryScreen/subCategoryScreen';
 import {LotListScreen} from '../../screens/LotListScreen/LotListScreen';
 import {LotScreen} from '../../screens/LotScreen/LotScreen';
-import { Header } from '../../components/header/header';
+import {Header} from '../../components/header/header';
 
 const HomeStack = createNativeStackNavigator<HomeStackParams>();
 

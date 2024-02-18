@@ -13,13 +13,18 @@ import NewAds from '../assets/icons/bottomTabNavIcons/plus-square.svg';
 import DeliveryIcon from '../assets/icons/bottomTabNavIcons/truck.svg';
 import AccountIcon from '../assets/icons/bottomTabNavIcons/account.svg';
 import {HomeScreenStack} from './stacks/homeScreenStack';
+import {OnBoardingScreen} from '../screens/onBoardingScreen/onBoardingScreen';
+import {useAppSelector} from '../store/hooks';
+import {selector} from '../store/selector';
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
 export const Navigation = () => {
+  const {isOnboarded} = useAppSelector(selector.currentUserSliceData);
   return (
     <NavigationContainer>
       <RootStack.Navigator
+        initialRouteName={isOnboarded ? ROUTES.HomeStack : ROUTES.OnBoarding}
         screenOptions={{
           tabBarActiveTintColor: Colors.SELECTED_TAB_NAV,
           tabBarInactiveTintColor: Colors.BLACK,
@@ -59,6 +64,14 @@ export const Navigation = () => {
           component={AccountScreen}
           options={{
             tabBarIcon: ({color}) => <AccountIcon fill={`${color}`} />,
+          }}
+        />
+        <RootStack.Screen
+          name={ROUTES.OnBoarding}
+          component={OnBoardingScreen}
+          options={{
+            tabBarButton: () => null,
+            tabBarStyle: {display: 'none'},
           }}
         />
       </RootStack.Navigator>

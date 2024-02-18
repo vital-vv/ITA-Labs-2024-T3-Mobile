@@ -3,7 +3,7 @@ import {ListItem} from '../../components/listItem/ListItem';
 import {styles} from './lotListScreenStyles';
 import {FC} from 'react';
 import {FlashList} from '@shopify/flash-list';
-import {RootStackParams} from '../../types/navigation';
+import {HomeStackParams} from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
@@ -13,7 +13,7 @@ import {AppText} from '../../components/appText/appText';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 import {setPadding} from '../../utils/styling/padding';
 
-type Props = NativeStackScreenProps<RootStackParams, ROUTES.LotList>;
+type Props = NativeStackScreenProps<HomeStackParams, ROUTES.LotList>;
 
 export const LotListScreen: FC<Props> = ({navigation, route}) => {
   const {subCategory} = route.params;
@@ -24,6 +24,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
   } = useGetLotsInSubCategoryQuery(subCategory);
 
   if (isLoading) return <SpinnerWrapper />;
+
   return (
     <MainWrapper style={{...setPadding(0, 16, 0, 16)}}>
       <View style={styles.sort__block}>
@@ -45,7 +46,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
             onRefresh={refetchlotsInSubCategory}
           />
         }
-        data={lotsInSubCategoryData}
+        data={lotsInSubCategoryData?.content}
         renderItem={({item}) => (
           <Pressable
             onPress={() => {

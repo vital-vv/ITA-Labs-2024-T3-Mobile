@@ -1,6 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
 export type CurrentUserStateType = {
+  isOnboarded: boolean;
   isLogged: boolean;
   email: string;
   phone: string;
@@ -10,6 +11,7 @@ export type CurrentUserStateType = {
 
 const initialState: CurrentUserStateType = {
   isLogged: false,
+  isOnboarded: true,
   email: '',
   role: '',
   phone: '',
