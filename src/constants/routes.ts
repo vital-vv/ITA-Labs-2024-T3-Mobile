@@ -7,5 +7,6 @@ export enum ROUTES {
   Home = 'Home',
   SubCategory = 'SubCategory',
   LotList = 'LotList',
-  Lot = 'Lot'
+  Lot = 'Lot',
+  OnBoarding = 'OnBoarding',
 }
