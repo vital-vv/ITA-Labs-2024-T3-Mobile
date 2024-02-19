@@ -1,7 +1,7 @@
 import {Children, Dispatch, ReactNode, SetStateAction, useState} from 'react';
 import {View, Modal, ScrollView, Pressable, Text} from 'react-native';
 import {styles} from './modalStyles';
-import React from 'react';
+import CloseIcon from '../../assets/icons/close.svg';
 type Props = {
   children?: ReactNode;
   isOpen: boolean;
@@ -22,8 +22,9 @@ export const ModalWindow = ({children, isOpen, onClose}: Props) => {
             onPress={() => {
               onClose(false);
             }}>
+            <CloseIcon />
           </Pressable>
-          <View>{children}</View>
+          <ScrollView>{children}</ScrollView>
         </View>
       </View>
     </Modal>

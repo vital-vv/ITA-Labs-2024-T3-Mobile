@@ -2,7 +2,7 @@ import {Pressable, RefreshControl} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppText} from '../../components/appText/appText';
 import {ROUTES} from '../../constants/routes';
-import {RootStackParams} from '../../types/navigation';
+import {HomeStackParams} from '../../types/navigation';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
 import {useGetCategoryQuery} from '../../api/endpoints';
 import {FC} from 'react';
@@ -11,7 +11,7 @@ import {setPadding} from '../../utils/styling/padding';
 import {setMargin} from '../../utils/styling/margin';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 
-type Props = NativeStackScreenProps<RootStackParams, ROUTES.SubCategory>;
+type Props = NativeStackScreenProps<HomeStackParams, ROUTES.SubCategory>;
 export const SubCategoryScreen: FC<Props> = ({route, navigation}) => {
   const {subCategory} = route.params;
   const {
@@ -19,7 +19,7 @@ export const SubCategoryScreen: FC<Props> = ({route, navigation}) => {
     isLoading,
     refetch: refetchCategoriesData,
   } = useGetCategoryQuery(subCategory);
-  
+
   if (isLoading) return <SpinnerWrapper />;
   return (
     <MainWrapper>

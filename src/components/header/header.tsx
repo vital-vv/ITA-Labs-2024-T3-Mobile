@@ -12,7 +12,7 @@ export type Props = {
   title?: string;
 };
 
-export const Header: FC = () => {
+export const Header: FC = ({title}: Props) => {
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.headerTitle}>

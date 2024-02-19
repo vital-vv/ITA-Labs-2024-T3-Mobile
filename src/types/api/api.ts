@@ -36,6 +36,17 @@ export type Location = {
   region: string;
 };
 
+export type PaginationMetaData = {
+  page: number;
+  size: number;
+  totalElements: number;
+};
+
+export type LotsInSubCategoryResponse = {
+  content: Lot[];
+  metadata: PaginationMetaData;
+};
+
 export type Selection = {
   packaging: [string];
   weight: [string];

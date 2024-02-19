@@ -7,12 +7,10 @@ function App(): React.JSX.Element {
   const store = setupStore();
 
   return (
-    <>
-      <Provider store={store}>
-        <StatusBar barStyle="default" />
-        <Navigation />
-      </Provider>
-    </>
+    <Provider store={store}>
+      <StatusBar barStyle="default" />
+      <Navigation />
+    </Provider>
   );
 }
 
