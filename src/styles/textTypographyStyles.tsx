@@ -15,10 +15,19 @@ export const textTypographyStyles = StyleSheet.create<{
   [TEXT_VARIANT.MAIN_12_400]: {
     fontFamily: 'IBMPlexSans-Regular',
     fontSize: 12,
+    lineHeight: 16,
   },
   [TEXT_VARIANT.MAIN_16_400]: {
     fontFamily: 'IBMPlexSans-Regular',
     fontSize: 16,
+    lineHeight: 24,
+    letterSpacing: 0.2,
+  },
+  [TEXT_VARIANT.MAIN_16_500]: {
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 16,
+    lineHeight: 24,
+    letterSpacing: 0.3,
   },
   [TEXT_VARIANT.MAIN_16_500]: {
     fontFamily: 'IBMPlexSans-Medium',
@@ -27,14 +36,20 @@ export const textTypographyStyles = StyleSheet.create<{
   [TEXT_VARIANT.MAIN_18_400]: {
     fontFamily: 'IBMPlexSans-Regular',
     fontSize: 18,
+    lineHeight: 28,
+    letterSpacing: 0.4,
   },
   [TEXT_VARIANT.MAIN_18_500]: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 18,
+    lineHeight: 28,
+    letterSpacing: 0.4,
   },
   [TEXT_VARIANT.MAIN_20_500]: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 20,
+    lineHeight: 28,
+    letterSpacing: 0.15,
   },
   [TEXT_VARIANT.MAIN_24_400]: {
     fontFamily: 'IBMPlexSans-Regular',

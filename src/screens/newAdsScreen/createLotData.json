@@ -1,0 +1,122 @@
+{ "categories": [
+  {
+    "category_id": 1,
+    "subcategory_id": 1,
+    "name": "Fruits",
+    "subcategories": [
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      }
+    ],
+    "id": "8163"
+  },
+  {
+    "category_id": 2,
+    "subcategory_id": 1,
+    "name": "Vegetables",
+    "subcategories": [
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      }
+    ],
+    "id": "8c2a"
+  },
+  {
+    "category_id": 3,
+    "subcategory_id": 1,
+    "name": "Grains",
+    "subcategories": [
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      },
+      {
+        "subcategory_id": 1,
+        "category_id": 1,
+        "name": "Golden Apples"
+      }
+    ],
+    "id": "81b4"
+  }
+],
+  "countries" : [
+    { "id": "1", 
+    "countryName" : "Uzbekistan", 
+      "regions": [{ "region_id":"1", "regionName": "Andijan region"},
+                { "region_id":"2", "regionName": "Bukhara region"},
+                { "region_id":"3", "regionName": "Republic of Karakalpakstan"},
+                { "region_id":"4", "regionName": "Namangan region"},
+                { "region_id":"5", "regionName": "Navoiy region"},
+                { "region_id":"6", "regionName": "Qashqadaryo region"}]
+   },
+   { "id" : "2", 
+   "countryName": "Belarus", 
+     "regions": [{ "region_id":"1", "regionName": "Minsk region"},
+               { "region_id":"2", "regionName": "Brest region"},
+               { "region_id":"3", "regionName": "Grodno region"},
+               { "region_id":"4", "regionName": "Gomel region"},
+               { "region_id":"5", "regionName": "Vitebsk region"},
+               { "region_id":"6", "regionName": "Mogilev region"}]
+  }
+  ]
+}

@@ -46,3 +46,12 @@ export type LotsInSubCategoryResponse = {
   content: Lot[];
   metadata: PaginationMetaData;
 };
+
+export type Selection = {
+  packaging: [string];
+  weight: [string];
+  size: [string];
+  role: [string];
+  status: [string];
+  currency: [string];
+};
