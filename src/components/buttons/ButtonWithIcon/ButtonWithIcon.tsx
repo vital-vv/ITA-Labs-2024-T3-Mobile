@@ -29,11 +29,7 @@ const ButtonWithIcon: FC<Props> = ({
       style={[styles.buttonWrapper, wrapperStyle, style]}
       onPress={() => (onPress ? onPress() : null)}>
       {icon}
-      <AppText 
-        text={`${title}`} 
-        variant={variant} 
-        color={textColor} 
-      />
+      <AppText text={`${title}`} variant={variant} color={textColor} />
     </Pressable>
   );
 };

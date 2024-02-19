@@ -37,7 +37,7 @@ import {
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 import {Selection} from '../../types/api/api';
 import React from 'react';
-import { Text } from 'react-native-svg';
+import {Text} from 'react-native-svg';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
@@ -100,10 +100,12 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     weightArray = mapData(allSelectionData.weight);
     currencyArray = mapData(allSelectionData.currency);
     packagingArray = mapData(allSelectionData.packaging);
-    sizeArray = mapData(allSelectionData.size);   
+    sizeArray = mapData(allSelectionData.size);
   };
 
-  if (isLoading) {return <SpinnerWrapper />;}
+  if (isLoading) {
+    return <SpinnerWrapper />;
+  }
   if (!isLoading) {
     mapAllSelectionData(allSelectionData);
   }
@@ -271,7 +273,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   name="unitOfWeight"
                   items={weightArray}
                   zIndex={1}
-                  placeholder='ton'
+                  placeholder="ton"
                 />
               </View>
             </View>
@@ -281,7 +283,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
-            />
+              />
             )}
             <AppText
               text={'Price'}
@@ -310,7 +312,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   items={currencyArray}
                   zIndex={3}
                   placeholder={currencyArray[0].label}
-                  defaultValue='USD'
+                  defaultValue="USD"
                 />
               </View>
             </View>
@@ -379,7 +381,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
-            />
+              />
             )}
             <AppText
               text={'Size'}
@@ -419,7 +421,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
-            />
+              />
             )}
             <AppText
               text={'Product images'}
@@ -439,7 +441,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               <ButtonWithoutIcon
                 style={styles.preview_button}
                 onPress={() => setisModalVisible(true)}
-                title="Preview" 
+                title="Preview"
                 type="light"
               />
               <AppText
@@ -450,7 +452,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(0, 0, 16, 0)}}
               />
-              { (values.title &&
+              {values.title &&
               values.category &&
               values.subcategory &&
               //  values.variety &&
@@ -458,13 +460,13 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               values.price &&
               values.country &&
               values.region &&
-              values.size && 
-              values.packaging) ? (
+              values.size &&
+              values.packaging ? (
                 <ButtonWithoutIcon
                   style={styles.preview_button}
                   onPress={handleSubmit}
                   // TODO: add setFieldTouched with submit
-                  // onPress={() => {   
+                  // onPress={() => {
                   // formikRef.current?.setFieldTouched('currency', true);
                   // formikRef.current?.setFieldTouched('unitOfWeight', true);
                   // handleSubmit}}
@@ -543,7 +545,9 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                     style={[styles.preview_button, styles.success_button]}
                     onPress={() => {
                       setisSuccessModalVisible(false);
-                      navigation.navigate(ROUTES.Home);
+                      navigation.navigate(ROUTES.HomeStack, {
+                        screen: ROUTES.Home,
+                      });
                     }}
                     title="Okay"
                     type="dark"
@@ -571,7 +575,9 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                       onPress={() => {
                         formikRef.current?.resetForm();
                         setIsDiscardModalVisible(false);
-                        navigation.navigate(ROUTES.Home);
+                        navigation.navigate(ROUTES.HomeStack, {
+                          screen: ROUTES.Home,
+                        });
                       }}>
                       <AppText
                         text={'Discard'}
