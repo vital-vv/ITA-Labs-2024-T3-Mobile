@@ -3,7 +3,7 @@ import {NavigatorScreenParams, Route} from '@react-navigation/native';
 
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
-  [ROUTES.Bets]: {headerTitle: string};
+  [ROUTES.BetStack]: NavigatorScreenParams<BetStackParams>;
   [ROUTES.Delivery]: {headerTitle: string};
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.Account]: {headerTitle: string};
@@ -16,4 +16,9 @@ export type HomeStackParams = {
   [ROUTES.LotList]: {subCategory: number; headerTitle: string};
   [ROUTES.Lot]: {id: number; headerTitle: string};
   [ROUTES.OnBoarding]: undefined;
+};
+
+export type BetStackParams = {
+  [ROUTES.Bets]: undefined;
+  [ROUTES.BetView]: {id: number; headerTitle: string};
 };

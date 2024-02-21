@@ -175,7 +175,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.title && errors.title && (
               <AppText
                 text={errors.title}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -208,7 +208,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.category && errors.category && (
               <AppText
                 text={errors.category}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -243,7 +243,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.subcategory && errors.subcategory && (
               <AppText
                 text={errors.subcategory}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -280,7 +280,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.quantity && errors.quantity && (
               <AppText
                 text={errors.quantity}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -319,7 +319,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.price && errors.price && (
               <AppText
                 text={errors.price}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -345,7 +345,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.country && errors.country && (
               <AppText
                 text={errors.country}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -378,7 +378,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.region && errors.region && (
               <AppText
                 text={errors.region}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -398,7 +398,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.size && errors.size && (
               <AppText
                 text={errors.size}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -418,7 +418,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.packaging && errors.packaging && (
               <AppText
                 text={errors.packaging}
-                color={Colors.ERROR}
+                color={Colors.ERROR_DARK}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />

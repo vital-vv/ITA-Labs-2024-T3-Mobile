@@ -9,4 +9,6 @@ export enum ROUTES {
   LotList = 'LotList',
   Lot = 'Lot',
   OnBoarding = 'OnBoarding',
+  BetStack = 'BetStack',
+  BetView = 'BetView',
 }

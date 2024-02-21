@@ -13,6 +13,7 @@ import NewAds from '../assets/icons/bottomTabNavIcons/plus-square.svg';
 import DeliveryIcon from '../assets/icons/bottomTabNavIcons/truck.svg';
 import AccountIcon from '../assets/icons/bottomTabNavIcons/account.svg';
 import {HomeScreenStack} from './stacks/homeScreenStack';
+import { BetScreenStack } from './stacks/betScreenStack';
 import {OnBoardingScreen} from '../screens/onBoardingScreen/onBoardingScreen';
 import {useAppSelector} from '../store/hooks';
 import {selector} from '../store/selector';
@@ -46,8 +47,8 @@ export const Navigation = () => {
           }}
         />
         <RootStack.Screen
-          name={ROUTES.Bets}
-          component={BetsScreen}
+          name={ROUTES.BetStack}
+          component={BetScreenStack}
           options={{
             tabBarIcon: ({color}) => <BettingIcon fill={`${color}`} />,
           }}
