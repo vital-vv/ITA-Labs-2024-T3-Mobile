@@ -37,7 +37,8 @@ import {
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 import {Selection} from '../../types/api/api';
 import React from 'react';
-import {Text} from 'react-native-svg';
+import { Text } from 'react-native-svg';
+import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
@@ -72,6 +73,18 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isSuccessModalVisible, setisSuccessModalVisible] = useState(false);
   const [isDiscardModalVisible, setIsDiscardModalVisible] = useState(false);
   const formikRef = useRef<FormikProps<Record<string, string>>>(null);
+  const [imageUrl, setImageUrl] = useState([
+    {id: 1, imageURL: ''}, 
+    {id: 2, imageURL: ''},
+    {id: 3, imageURL: ''}, 
+    {id: 4, imageURL: ''},
+    {id: 5, imageURL: ''},
+  ])
+
+  const getUri = (id: number, val: string) => {
+    setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
+    ])
+  }
 
   const {
     data: allSelectionData,
@@ -445,6 +458,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               variant={TEXT_VARIANT.MAIN_12_400}
               style={{...setMargin(0, 0, 16, 0)}}
             />
+            <ImagePickerCarousel imageUrl={imageUrl} getUri={getUri}/>
             <View style={styles.send_block}>
               <ButtonWithoutIcon
                 style={styles.preview_button}
