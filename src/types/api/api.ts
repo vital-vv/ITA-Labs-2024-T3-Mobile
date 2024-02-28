@@ -61,3 +61,17 @@ export type Selection = {
   status: string[];
   currency: string[];
 };
+
+export type LotCreate = {
+  category_id: number;
+  price_per_unit: number;
+  title: string;
+  quantity: number;
+  weight: string;
+  location: Location;
+  description: string;
+  status: string;
+  variety: string;
+  size: number;
+  packaging: string;
+};

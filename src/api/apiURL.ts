@@ -12,4 +12,5 @@ export const API_URL = {
   ) => `categories/${id}/lots?page=${page}&limit=${limit}${filterArgs}`,
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
+  lots: `/lots`,
 };

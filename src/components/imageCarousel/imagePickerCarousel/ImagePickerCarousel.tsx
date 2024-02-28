@@ -38,7 +38,7 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
     }
     slidesRef.current?.scrollToIndex({index: slide - 1});
   };
-console.log(imageUrl)
+
   return (
     <View>
       <FlashList

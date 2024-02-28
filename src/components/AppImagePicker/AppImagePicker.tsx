@@ -32,7 +32,6 @@ export const AppImagePicker: FC<Props> = ({id, getUri}) => {
       setFilePath(response);
       if(response.assets){
         getUri(id, response.assets[0].uri)}
-      console.log(filePath)
     });
   };
     

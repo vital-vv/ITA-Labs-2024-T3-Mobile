@@ -2,7 +2,6 @@ import {
   View,
   TextInput,
   ScrollView,
-  Button,
   Pressable,
   Modal,
   Image,
@@ -31,19 +30,21 @@ import StickyArrowLeftIcon from '../../assets/icons/sticky-arrow-left.svg';
 import ArrowLeftIcon from '../../assets/icons/arrow-left.svg';
 import {ModalWindow} from '../../components/modal/modal.tsx';
 import {
+  useCreateLotMutation,
   useGetAllCategoriesQuery,
   useGetAllSelectionQuery,
+  useGetCategoryQuery,
 } from '../../api/endpoints/index.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
-import {Selection} from '../../types/api/api';
 import React from 'react';
-import { Text } from 'react-native-svg';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
+import {LotCreate} from '../../types/api/api';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
 const ReviewSchema = yup.object({
-  title: yup.string().required().min(3),
+  title: yup.string().required().min(3).max(40),
+  description: yup.string().min(3).max(300),
   category: yup.string().required(),
   subcategory: yup.string().required(),
   quantity: yup
@@ -80,6 +81,9 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     {id: 4, imageURL: ''},
     {id: 5, imageURL: ''},
   ])
+  const [subCatValue, setSubCatValue] = useState(1);
+  const [skip, setSkip] = useState(true)
+  const [createLot, {isError, error, isSuccess }] = useCreateLotMutation()
 
   const getUri = (id: number, val: string) => {
     setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
@@ -88,9 +92,19 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
 
   const {
     data: allSelectionData,
-    isLoading,
+    isLoading: isLoadingSelection,
     refetch: refetchallSelectionData,
   } = useGetAllSelectionQuery();
+
+  const {
+    data: allCategoriesData,
+    isLoading: isLoadingCategories,
+    refetch: refetchallCategoriesData,
+  } = useGetAllCategoriesQuery();
+
+  const {
+    data: allSubCategoriesData,
+  } = useGetCategoryQuery(subCatValue, {skip});
 
   let weightArray: Array<any>;
   let currencyArray: Array<any>;
@@ -104,7 +118,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       let newArr = arr.map(function (elem: string, index: number) {
         return {
           label: elem,
-          value: index,
+          value: index+1,
         };
       });
       return newArr;
@@ -116,14 +130,39 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     sizeArray = mapData(allSelectionData.size);
   };
 
-  if (isLoading) {
-    return <SpinnerWrapper />;
-  }
-  if (!isLoading) {
+  if (isLoadingSelection && isLoadingCategories) {return <SpinnerWrapper />;}
+
+  if (allSelectionData) {
     mapAllSelectionData(allSelectionData);
   }
 
+  const transformValuesToRequest: (values: any) => void = values => {
+    console.log(weightArray)
+      const requestValues: LotCreate = {
+        category_id: Number(values.category),
+        price_per_unit: Number((Number(values.price) / Number(values.quantity)).toFixed(2)),
+        title: values.title,
+        quantity: Number(values.quantity),
+        weight: (weightArray[Number(values.unitOfWeight)-1]['label']).toUpperCase(),
+        location: {
+          id: 0,
+          country: data.countries[Number(values.country) - 1].countryName,
+          region: data.countries[Number(values.country) - 1].regions[
+            Number(values.region) - 1
+          ].regionName
+        },
+        description: values.description,
+        status: 'MODERATED',
+        variety: values.variety || '',
+        size: Number(values.size),
+        packaging: (packagingArray[Number(values.packaging)-1]['label']).toUpperCase(),
+      };
+
+      return requestValues;
+    }
+
   return (
+    allSelectionData && allCategoriesData && (
     <MainWrapper>
       <Pressable
         style={[styles.preview_nav, {...setMargin(16, 0, 16, 16)}]}
@@ -141,13 +180,14 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       <Formik
         initialValues={{
           title: '',
+          description: '',
           category: '',
           subcategory: '',
           // variety: '',
           quantity: '',
-          unitOfWeight: '0',
+          unitOfWeight: '1',
           price: '',
-          currency: '0',
+          currency: '1',
           country: '',
           region: '',
           size: '',
@@ -155,6 +195,15 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         }}
         validationSchema={ReviewSchema}
         onSubmit={(values, {resetForm}) => {
+          console.log(values);
+          let newValues = transformValuesToRequest(values);
+          createLot(newValues);        
+          if (isError) {
+            console.log(error)
+          }
+          if (isSuccess) {
+            console.log("post success!")
+          };
           resetForm();
           setisSuccessModalVisible(true);
         }}
@@ -194,6 +243,28 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               />
             )}
             <AppText
+              text={'Description'}
+              color={Colors.PRIMARY}
+              variant={TEXT_VARIANT.MAIN_18_500}
+              style={{...setMargin(24, 0, 8, 0)}}
+            />
+            <TextInput
+              style={[textTypographyStyles.MAIN_16_400, inputStyles.input]}
+              onChangeText={handleChange('description')}
+              onBlur={handleBlur('description')}
+              value={values.description}
+              placeholder="For example: Apples from my farm..."
+              keyboardType="default"
+            />
+            {touched.description && errors.description && (
+              <AppText
+                text={errors.description}
+                color={Colors.ERROR}
+                variant={TEXT_VARIANT.MAIN_12_400}
+                style={{...setMargin(4, 0, 0, 0)}}
+              />
+            )}
+            <AppText
               text={'Category'}
               color={Colors.PRIMARY}
               variant={TEXT_VARIANT.MAIN_18_500}
@@ -215,9 +286,10 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               }}
               name="category"
               placeholder="Select a category"
-              items={data.categories}
+              items={allCategoriesData}
               zIndex={2}
               multiple={false}
+              onSelectItem={(val:any) => {setSubCatValue(val.category_id); setSkip(false)}}
             />
             {touched.category && errors.category && (
               <AppText
@@ -227,18 +299,16 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 style={{...setMargin(4, 0, 0, 0)}}
               />
             )}
-            {values.category && (
+            {values.category && allSubCategoriesData && (
               // @ts-ignore
               <AppDropDown
                 schema={{
                   label: 'name',
-                  value: 'subcategory_id',
-                }}
+                  value: 'category_id',
+                }} 
                 name="subcategory"
                 placeholder="Select a product type"
-                items={
-                  data.categories[Number(values.category) - 1].subcategories
-                }
+                items={allSubCategoriesData?.subcategories}
                 zIndex={2}
                 style={{...setMargin(16, 0, 0, 0)}}
               />
@@ -487,11 +557,6 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 <ButtonWithoutIcon
                   style={styles.preview_button}
                   onPress={handleSubmit}
-                  // TODO: add setFieldTouched with submit
-                  // onPress={() => {
-                  // formikRef.current?.setFieldTouched('currency', true);
-                  // formikRef.current?.setFieldTouched('unitOfWeight', true);
-                  // handleSubmit}}
                   title="Place an advertisment"
                   type="dark"
                 />
@@ -633,5 +698,5 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         )}
       </Formik>
     </MainWrapper>
-  );
+  ))
 };
