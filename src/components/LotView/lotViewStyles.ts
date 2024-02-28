@@ -42,6 +42,15 @@ const LotViewStyles = StyleSheet.create({
     paddingHorizontal: 16,
     columnGap: 8,
   },
+  bets_block: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexShrink: 1,
+    width: '50%',
+    gap: 8,
+  },
 });
 
 export default LotViewStyles

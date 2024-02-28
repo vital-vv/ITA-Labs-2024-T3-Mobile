@@ -20,5 +20,5 @@ export type HomeStackParams = {
 
 export type BetStackParams = {
   [ROUTES.Bets]: undefined;
-  [ROUTES.BetView]: {id: number; headerTitle: string};
+  [ROUTES.BetView]: {id: number; headerTitle: string; position?: 'leading'|'outbid'};
 };

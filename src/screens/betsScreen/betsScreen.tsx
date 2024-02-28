@@ -19,13 +19,18 @@ type Props = NativeStackScreenProps<BetStackParams, ROUTES.Bets>;
 export const BetsScreen: FC<Props> = ({navigation, route}) => {
   
   const [isActiveFirst, setIsActiveFirst] = useState(true);
-  const [isActiveSecond, setIsActiveSecond] = useState(false);
   
   const {
     data: lotsInSubCategoryData,
     isLoading,
     refetch: refetchlotsInSubCategory,
   } = useGetLotsInSubCategoryQuery(1);
+
+  const {
+    data: lot2sInSubCategoryData,
+    isLoading: isLot2Loading,
+    refetch: refetchlot2sInSubCategory,
+  } = useGetLotsInSubCategoryQuery(2);
 
   if (isLoading) return <SpinnerWrapper />;
 
@@ -34,7 +39,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
       <View style={styles.button_wrapper}>
         <Pressable 
         onPress={() => {setIsActiveFirst(!isActiveFirst);
-        setIsActiveSecond(false)}}
+      }}
         style={ isActiveFirst ? [styles.button, styles.button_pressed] : styles.button}
         >
           <AppText
@@ -45,9 +50,9 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           />
         </Pressable>
         <Pressable
-          onPress={() => {setIsActiveSecond(!isActiveSecond);
-          setIsActiveFirst(false)}}
-          style={ isActiveSecond ? [styles.button, styles.button_pressed] : styles.button}
+          onPress={() => {setIsActiveFirst(!isActiveFirst);
+        }}
+          style={ !isActiveFirst ? [styles.button, styles.button_pressed] : styles.button}
           >
           <AppText
             text={'Outbid'}
@@ -57,6 +62,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           />
         </Pressable>
       </View>
+      {isActiveFirst ? (
         <FlashList 
           estimatedItemSize={300}
           refreshControl={
@@ -73,13 +79,39 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 navigation.navigate(ROUTES.BetView, {
                   id: item.lot_id,
                   headerTitle: item.category_name,
+                  position:'leading',
                 });
               }}
               >
-              <ListItem lot={item} />
+              <ListItem lot={item} position='leading'/>
+            </Pressable>
+          )}
+        />) : 
+        <FlashList 
+          estimatedItemSize={300}
+          refreshControl={
+            <RefreshControl
+              refreshing={isLot2Loading}
+              onRefresh={refetchlot2sInSubCategory}
+            />
+          }
+          data={lot2sInSubCategoryData?.content}
+          renderItem={({item}) => (
+            <Pressable
+              style={{...setPadding(0, 16, 0, 16)}}
+              onPress={() => {
+                navigation.navigate(ROUTES.BetView, {
+                  id: item.lot_id,
+                  headerTitle: item.category_name,
+                  position:'outbid',
+                });
+              }}
+              >
+              <ListItem lot={item} position='outbid'/>
             </Pressable>
           )}
         />
+      }
     </MainWrapper>
   );
 };

@@ -7,12 +7,14 @@ import {Colors} from '../../constants/colors';
 import {DateTime} from 'luxon';
 import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {Lot} from '../../types/api/api';
+import AlertIcon from '../../assets/icons/alert.svg';
 
 type Props = {
   lot: Lot;
+  position?: 'leading'|'outbid'
 };
 
-export const LotView: FC<Props> = ({lot}) => {
+export const LotView: FC<Props> = ({lot, position}) => {
 
   return (
     <ScrollView>
@@ -33,12 +35,16 @@ export const LotView: FC<Props> = ({lot}) => {
       </View>
       <View style={styles.mainInfoWrapper}>
         <View style={styles.pricesWrapper}>
+          <View style={[styles.bets_block, styles.price]}>
+            {position == 'outbid' && <AlertIcon/>}
           <AppText
             text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
             variant={TEXT_VARIANT.MAIN_24_500}
-            color={Colors.WARNING}
-            style={[styles.text, styles.price]}
+            color={
+              (position == 'leading') ? Colors.SYSTEM_BASE :
+              (position == 'outbid') ? Colors.ERROR_BASE : Colors.WARNING}
           />
+          </View>
           <AppText
             text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
             variant={TEXT_VARIANT.MAIN_24_500}

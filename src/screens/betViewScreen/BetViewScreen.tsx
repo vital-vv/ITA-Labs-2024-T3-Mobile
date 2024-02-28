@@ -34,7 +34,7 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetchLot} />
         }>
-      <LotView lot={lot}/>
+      <LotView lot={lot} position={route.params.position}/>
       <View style={styles.buttons}>
           <ButtonWithIcon
             title="New bet"

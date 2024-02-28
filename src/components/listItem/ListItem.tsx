@@ -12,12 +12,14 @@ import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
 import {DateCounter} from '../DateCounter/dateCounter';
+import AlertIcon from '../../assets/icons/alert.svg';
 
 type Props = {
   lot: Lot;
+  position?: 'leading'|'outbid'
 };
 
-export const ListItem: FC<Props> = ({lot}) => {
+export const ListItem: FC<Props> = ({lot, position}) => {
   const {title, expiration_date, lot_id, quantity, price_per_unit} = lot;
 
   return (
@@ -38,12 +40,17 @@ export const ListItem: FC<Props> = ({lot}) => {
               color={Colors.SECONDARY}
             />
           </View>
-          <AppText
-            text={'No bets'}
-            variant={TEXT_VARIANT.MAIN_16_400}
-            color={Colors.SECONDARY}
-            style={{...setMargin(16, 0, 0, 0), lineHeight: 24}}
-          />
+          <View style={[styles.bets_block, {...setMargin(16, 0, 0, 0)}]}>
+            {position == 'outbid' && <AlertIcon/>}
+            <AppText
+              text={'No bets'}
+              variant={TEXT_VARIANT.MAIN_16_400}
+              color={
+                    (position == 'leading') ? Colors.SYSTEM_BASE :
+                    (position == 'outbid') ? Colors.ERROR_BASE : Colors.WARNING}
+              style={{lineHeight: 24}}
+            />
+          </View>
           <View style={styles.lot_block}>
             <AppText
               text={`$${(quantity * price_per_unit).toFixed(2)}`}
