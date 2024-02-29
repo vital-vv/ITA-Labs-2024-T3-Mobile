@@ -31,7 +31,7 @@ export type Lot = {
 };
 
 export type Location = {
-  id: number;
+  id?: number;
   country: string;
   region: string;
 };
@@ -66,6 +66,7 @@ export type LotCreate = {
   category_id: number;
   price_per_unit: number;
   title: string;
+  length_unit: string;
   quantity: number;
   weight: string;
   location: Location;

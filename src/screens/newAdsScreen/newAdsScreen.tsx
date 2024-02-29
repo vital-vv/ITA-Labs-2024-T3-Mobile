@@ -85,6 +85,13 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [skip, setSkip] = useState(true)
   const [createLot, {isError, error, isSuccess }] = useCreateLotMutation()
 
+  if (isError) {
+    console.log(error)
+  }
+  if (isSuccess) {
+    console.log("post success!")
+  };
+  
   const getUri = (id: number, val: string) => {
     setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
     ])
@@ -137,25 +144,24 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   }
 
   const transformValuesToRequest: (values: any) => void = values => {
-    console.log(weightArray)
       const requestValues: LotCreate = {
         category_id: Number(values.category),
         price_per_unit: Number((Number(values.price) / Number(values.quantity)).toFixed(2)),
+        length_unit: 'cm',
         title: values.title,
         quantity: Number(values.quantity),
-        weight: (weightArray[Number(values.unitOfWeight)-1]['label']).toUpperCase(),
+        weight: (weightArray[Number(values.unitOfWeight)-1]['label']),
         location: {
-          id: 0,
           country: data.countries[Number(values.country) - 1].countryName,
           region: data.countries[Number(values.country) - 1].regions[
             Number(values.region) - 1
           ].regionName
         },
-        description: values.description,
-        status: 'MODERATED',
+        description: values.description || '',
+        status: 'active',
         variety: values.variety || '',
         size: Number(values.size),
-        packaging: (packagingArray[Number(values.packaging)-1]['label']).toUpperCase(),
+        packaging: (packagingArray[Number(values.packaging)-1]['label']),
       };
 
       return requestValues;
@@ -195,15 +201,8 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         }}
         validationSchema={ReviewSchema}
         onSubmit={(values, {resetForm}) => {
-          console.log(values);
           let newValues = transformValuesToRequest(values);
           createLot(newValues);        
-          if (isError) {
-            console.log(error)
-          }
-          if (isSuccess) {
-            console.log("post success!")
-          };
           resetForm();
           setisSuccessModalVisible(true);
         }}
