@@ -8,4 +8,5 @@ export const API_URL = {
   users: '/users',
   userLeadingBets: (id: number) => `/users/${id}/bids?status=leading`,
   userOutbidBets: (id: number) => `/users/${id}/bids?status=overdbid`,
+  bets: '/bids',
 };

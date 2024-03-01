@@ -15,6 +15,7 @@ import { ModalWindow } from '../../components/modal/modal';
 import { AppText } from '../../components/appText/appText';
 import { TEXT_VARIANT } from '../../types/textVariant';
 import { setMargin } from '../../utils/styling/margin';
+import { BetsModal } from '../../components/modal/betsModal/BetsModal';
 
 
 type Props = NativeStackScreenProps<BetStackParams, ROUTES.BetView>;
@@ -48,7 +49,8 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
             icon={<ShoppingIcon fill={Colors.WHITE} />}
           />
         </View>
-        <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
+        <BetsModal isOpen={isModalVisible} onClose={setIsModalVisible} minBet={10000} maxBet={12000} />
+        {/* <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
           <TextInput
             keyboardType="number-pad"
             style={{borderColor: 'black', borderWidth: 1, padding: 10}}
@@ -62,7 +64,7 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
             style={setMargin(4, 0, 16, 0)}
           />
           <ButtonWithIcon type="dark" title={`Bet $${bet}`} onPress={() => {setIsModalVisible(false)}}/>
-        </ModalWindow>
+        </ModalWindow> */}
         </ScrollView>
   ));
 }

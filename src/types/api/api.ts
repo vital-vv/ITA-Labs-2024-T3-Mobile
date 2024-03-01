@@ -55,3 +55,11 @@ export type Selection = {
   status: [string];
   currency: [string];
 };
+
+
+export type Bet = {
+  user_id: number;
+  lot_id: number;
+  amount: number;
+  currency: string;
+};
