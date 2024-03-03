@@ -5,7 +5,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {ProductCategory} from '../../components/productCategory/productCategory.tsx';
 import {HorizontalDivider} from '../../components/horizontalDivider/horizontalDivider.tsx';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {HomeStackParams, RootStackParams} from '../../types/navigation.ts';
+import {HomeStackParams} from '../../types/navigation.ts';
 import {ROUTES} from '../../constants/routes.ts';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper.tsx';
 import {FlashList} from '@shopify/flash-list';

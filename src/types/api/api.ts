@@ -42,16 +42,22 @@ export type PaginationMetaData = {
   totalElements: number;
 };
 
-export type LotsInSubCategoryResponse = {
+export type LotsInSubCategoryInitialResponse = {
   content: Lot[];
   metadata: PaginationMetaData;
 };
 
+export type LotsInSubCategoryFinalResponse = {
+  lots: Lot[];
+  currentPage: number;
+  isNextPageExist: boolean;
+};
+
 export type Selection = {
-  packaging: [string];
-  weight: [string];
-  size: [string];
-  role: [string];
-  status: [string];
-  currency: [string];
+  packaging: string[];
+  weight: string[];
+  size: string[];
+  role: string[];
+  status: string[];
+  currency: string[];
 };

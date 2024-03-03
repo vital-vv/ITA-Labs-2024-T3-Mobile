@@ -4,7 +4,7 @@ import {agroexAPI} from '../../index';
 
 export const getAllDataSelection = agroexAPI.injectEndpoints({
   endpoints: builder => ({
-    getAllSelection: builder.query<Selection[], void>({
+    getAllSelection: builder.query<Selection, void>({
       query: () => ({
         url: API_URL.dataSelection,
         method: 'GET',

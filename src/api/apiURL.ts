@@ -1,8 +1,15 @@
+const API_BASE_URL = process.env.API_BASE_URL;
+
 export const API_URL = {
-  baseURL: 'http://ita-labs-2024-t3-730676977.us-east-1.elb.amazonaws.com/api/',
+  baseURL: `${API_BASE_URL}`,
   categories: '/categories',
   category: (id: number) => `/categories/${id}`,
-  lotsInSubCategory: (id: number) => `/categories/${id}/lots?page=1&limit=100`,
+  lotsInSubCategory: (
+    id: number,
+    page: number = 1,
+    limit: number = 10,
+    filterArgs: string = '',
+  ) => `categories/${id}/lots?page=${page}&limit=${limit}${filterArgs}`,
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
 };
