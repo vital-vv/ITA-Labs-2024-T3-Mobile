@@ -23,6 +23,7 @@ const AppDropDown: FC<AppDropDownProps> = ({...props}) => {
   const [openProvider, setOpenProvider] = useState(false);
   const {setFieldValue} = useFormikContext();
   const {setFieldTouched} = useFormikContext();
+  // @ts-ignore
   const [field] = useField(props);
 
   return (

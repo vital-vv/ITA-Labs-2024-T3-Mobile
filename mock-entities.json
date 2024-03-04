@@ -1,0 +1,722 @@
+{
+  "page1": {
+    "metadata": {"page": 1, "size": 10, "totalElements": 35},
+    "content": [
+      {
+        "lot_id": 1,
+        "title": "1",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 1000,
+        "price_per_unit": 1.5,
+        "location": {
+          "country": "United States",
+          "region": "California"
+        },
+        "description": "Fresh and high-quality golden apples",
+        "status": "active",
+        "image_url": "https://example.com/apple_image.jpg",
+        "expiration_date": "2024-10-15",
+        "variety": "Golden",
+        "size": "Medium",
+        "packaging": "Carton",
+        "created_at": "2024-03-05T15:20:00Z"
+      },
+      {
+        "lot_id": 2,
+        "title": "2",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 800,
+        "price_per_unit": 1.2,
+        "location": {
+          "country": "Ecuador",
+          "region": "Guayas"
+        },
+        "description": "Delicious and ripe Cavendish bananas",
+        "status": "completed",
+        "image_url": "https://example.com/banana_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Cavendish",
+        "size": "Medium",
+        "packaging": "Box",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 3,
+        "title": "3",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 500,
+        "price_per_unit": 0.8,
+        "location": {
+          "country": "Italy",
+          "region": "Campania"
+        },
+        "description": "Fresh Roma tomatoes from Italy",
+        "status": "active",
+        "image_url": "https://example.com/tomato_image.jpg",
+        "expiration_date": "2024-08-05",
+        "variety": "Roma",
+        "size": "Medium",
+        "packaging": "Basket",
+        "created_at": "2024-05-20T11:15:00Z"
+      },
+      {
+        "lot_id": 4,
+        "title": "4",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 600,
+        "price_per_unit": 0.9,
+        "location": {
+          "country": "Canada",
+          "region": "Ontario"
+        },
+        "description": "Sweet and orange carrots",
+        "status": "active",
+        "image_url": "https://example.com/carrot_image.jpg",
+        "expiration_date": "2024-07-10",
+        "variety": "Orange",
+        "size": "Small",
+        "packaging": "Bag",
+        "created_at": "2024-06-01T13:45:00Z"
+      },
+      {
+        "lot_id": 5,
+        "title": "5",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 1000,
+        "price_per_unit": 2.5,
+        "location": {
+          "country": "Thailand",
+          "region": "Bangkok"
+        },
+        "description": "High-quality Jasmine rice",
+        "status": "active",
+        "image_url": "https://example.com/rice_image.jpg",
+        "expiration_date": "2024-12-01",
+        "variety": "Jasmine",
+        "size": "Large",
+        "packaging": "Sack",
+        "created_at": "2024-07-25T09:00:00Z"
+      },
+      {
+        "lot_id": 6,
+        "title": "6",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 800,
+        "price_per_unit": 2.2,
+        "location": {
+          "country": "United States",
+          "region": "Montana"
+        },
+        "description": "Hard Red Spring Wheat from Montana",
+        "status": "active",
+        "image_url": "https://example.com/wheat_image.jpg",
+        "expiration_date": "2024-11-15",
+        "variety": "Hard Red Spring",
+        "size": "Small",
+        "packaging": "Box",
+        "created_at": "2024-08-15T10:30:00Z"
+      },
+      {
+        "lot_id": 7,
+        "title": "7",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 300,
+        "price_per_unit": 1.8,
+        "location": {
+          "country": "France",
+          "region": "Provence-Alpes-Côte d'Azur"
+        },
+        "description": "Fresh and aromatic sweet basil",
+        "status": "completed",
+        "image_url": "https://example.com/basil_image.jpg",
+        "expiration_date": "2024-10-15",
+        "variety": "Sweet",
+        "size": "Small",
+        "packaging": "Bunch",
+        "created_at": "2024-03-05T15:20:00Z"
+      },
+      {
+        "lot_id": 8,
+        "title": "8",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 250,
+        "price_per_unit": 2.0,
+        "location": {
+          "country": "Spain",
+          "region": "Andalusia"
+        },
+        "description": "Common rosemary for culinary use",
+        "status": "active",
+        "image_url": "https://example.com/rosemary_image.jpg",
+        "expiration_date": "2024-08-20",
+        "variety": "Common",
+        "size": "Medium",
+        "packaging": "Bottle",
+        "created_at": "2024-11-05T11:45:00Z"
+      },
+      {
+        "lot_id": 9,
+        "title": "9",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 700,
+        "price_per_unit": 1.6,
+        "location": {
+          "country": "Spain",
+          "region": "Valencia"
+        },
+        "description": "Sweet and juicy Valencia oranges",
+        "status": "active",
+        "image_url": "https://example.com/orange_image.jpg",
+        "expiration_date": "2024-09-10",
+        "variety": "Valencia",
+        "size": "Large",
+        "packaging": "Crate",
+        "created_at": "2024-10-01T12:00:00Z"
+      },
+      {
+        "lot_id": 10,
+        "title": "10",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      }
+    ]
+  },
+  "page2": {
+    "metadata": {"page": 2, "size": 10, "totalElements": 35},
+    "content": [
+      {
+        "lot_id": 11,
+        "title": "11",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 1000,
+        "price_per_unit": 1.5,
+        "location": {
+          "country": "United States",
+          "region": "California"
+        },
+        "description": "Fresh and high-quality golden apples",
+        "status": "active",
+        "image_url": "https://example.com/apple_image.jpg",
+        "expiration_date": "2024-10-15",
+        "variety": "Golden",
+        "size": "Medium",
+        "packaging": "Carton",
+        "created_at": "2024-03-05T15:20:00Z"
+      },
+      {
+        "lot_id": 12,
+        "title": "12",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 800,
+        "price_per_unit": 1.2,
+        "location": {
+          "country": "Ecuador",
+          "region": "Guayas"
+        },
+        "description": "Delicious and ripe Cavendish bananas",
+        "status": "completed",
+        "image_url": "https://example.com/banana_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Cavendish",
+        "size": "Medium",
+        "packaging": "Box",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 13,
+        "title": "13",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 500,
+        "price_per_unit": 0.8,
+        "location": {
+          "country": "Italy",
+          "region": "Campania"
+        },
+        "description": "Fresh Roma tomatoes from Italy",
+        "status": "active",
+        "image_url": "https://example.com/tomato_image.jpg",
+        "expiration_date": "2024-08-05",
+        "variety": "Roma",
+        "size": "Medium",
+        "packaging": "Basket",
+        "created_at": "2024-05-20T11:15:00Z"
+      },
+      {
+        "lot_id": 14,
+        "title": "14",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 600,
+        "price_per_unit": 0.9,
+        "location": {
+          "country": "Canada",
+          "region": "Ontario"
+        },
+        "description": "Sweet and orange carrots",
+        "status": "active",
+        "image_url": "https://example.com/carrot_image.jpg",
+        "expiration_date": "2024-07-10",
+        "variety": "Orange",
+        "size": "Small",
+        "packaging": "Bag",
+        "created_at": "2024-06-01T13:45:00Z"
+      },
+      {
+        "lot_id": 15,
+        "title": "15",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 1000,
+        "price_per_unit": 2.5,
+        "location": {
+          "country": "Thailand",
+          "region": "Bangkok"
+        },
+        "description": "High-quality Jasmine rice",
+        "status": "active",
+        "image_url": "https://example.com/rice_image.jpg",
+        "expiration_date": "2024-12-01",
+        "variety": "Jasmine",
+        "size": "Large",
+        "packaging": "Sack",
+        "created_at": "2024-07-25T09:00:00Z"
+      },
+      {
+        "lot_id": 16,
+        "title": "16",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 800,
+        "price_per_unit": 2.2,
+        "location": {
+          "country": "United States",
+          "region": "Montana"
+        },
+        "description": "Hard Red Spring Wheat from Montana",
+        "status": "active",
+        "image_url": "https://example.com/wheat_image.jpg",
+        "expiration_date": "2024-11-15",
+        "variety": "Hard Red Spring",
+        "size": "Small",
+        "packaging": "Box",
+        "created_at": "2024-08-15T10:30:00Z"
+      },
+      {
+        "lot_id": 17,
+        "title": "17",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 300,
+        "price_per_unit": 1.8,
+        "location": {
+          "country": "France",
+          "region": "Provence-Alpes-Côte d'Azur"
+        },
+        "description": "Fresh and aromatic sweet basil",
+        "status": "completed",
+        "image_url": "https://example.com/basil_image.jpg",
+        "expiration_date": "2024-10-15",
+        "variety": "Sweet",
+        "size": "Small",
+        "packaging": "Bunch",
+        "created_at": "2024-03-05T15:20:00Z"
+      },
+      {
+        "lot_id": 18,
+        "title": "18",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 250,
+        "price_per_unit": 2.0,
+        "location": {
+          "country": "Spain",
+          "region": "Andalusia"
+        },
+        "description": "Common rosemary for culinary use",
+        "status": "active",
+        "image_url": "https://example.com/rosemary_image.jpg",
+        "expiration_date": "2024-08-20",
+        "variety": "Common",
+        "size": "Medium",
+        "packaging": "Bottle",
+        "created_at": "2024-11-05T11:45:00Z"
+      },
+      {
+        "lot_id": 19,
+        "title": "19",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 700,
+        "price_per_unit": 1.6,
+        "location": {
+          "country": "Spain",
+          "region": "Valencia"
+        },
+        "description": "Sweet and juicy Valencia oranges",
+        "status": "active",
+        "image_url": "https://example.com/orange_image.jpg",
+        "expiration_date": "2024-09-10",
+        "variety": "Valencia",
+        "size": "Large",
+        "packaging": "Crate",
+        "created_at": "2024-10-01T12:00:00Z"
+      },
+      {
+        "lot_id": 20,
+        "title": "20",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      }
+    ]
+  },
+  "page3": {
+    "metadata": {"page": 3, "size": 10, "totalElements": 35},
+    "content": [
+      {
+        "lot_id": 21,
+        "title": "21",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 22,
+        "title": "22",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 23,
+        "title": "23",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 24,
+        "title": "24",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 25,
+        "title": "25",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 26,
+        "title": "26",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 27,
+        "title": "27",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 28,
+        "title": "28",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 29,
+        "title": "29",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 30,
+        "title": "30",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      }
+    ]
+  },
+  "page4": {
+    "metadata": {"page": 4, "size": 10, "totalElements": 35},
+    "content": [
+      {
+        "lot_id": 31,
+        "title": "31",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 32,
+        "title": "32",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 33,
+        "title": "33",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 34,
+        "title": "34",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      },
+      {
+        "lot_id": 35,
+        "title": "35",
+        "category_name": "fruits",
+        "category_id": 1,
+        "quantity": 400,
+        "price_per_unit": 1.0,
+        "location": {
+          "country": "United States",
+          "region": "Idaho"
+        },
+        "description": "Russet potatoes with a golden skin",
+        "status": "completed",
+        "image_url": "https://example.com/potato_image.jpg",
+        "expiration_date": "2024-09-20",
+        "variety": "Russet",
+        "size": "Large",
+        "packaging": "Bag",
+        "created_at": "2024-04-10T08:30:00Z"
+      }
+    ]
+  }
+}

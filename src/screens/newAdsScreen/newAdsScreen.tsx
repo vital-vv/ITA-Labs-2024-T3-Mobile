@@ -194,6 +194,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               variant={TEXT_VARIANT.MAIN_12_400}
               style={{...setMargin(8, 0, 16, 0)}}
             />
+            {/* @ts-ignore */}
             <AppDropDown
               schema={{
                 label: 'name',
@@ -214,6 +215,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               />
             )}
             {values.category && (
+              // @ts-ignore
               <AppDropDown
                 schema={{
                   label: 'name',
@@ -268,6 +270,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 keyboardType="numeric"
               />
               <View style={styles.measure_select}>
+                {/* @ts-ignore */}
                 <AppDropDown
                   value={values.unitOfWeight}
                   name="unitOfWeight"
@@ -306,6 +309,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 keyboardType="numeric"
               />
               <View style={styles.measure_select}>
+                {/* @ts-ignore */}
                 <AppDropDown
                   value={values.currency}
                   name="currency"
@@ -331,6 +335,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               style={{...setMargin(24, 0, 8, 0)}}
             />
             <View>
+              {/* @ts-ignore */}
               <AppDropDown
                 schema={{
                   label: 'countryName',
@@ -351,6 +356,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               />
             )}
             {values.country && (
+              //  @ts-ignore
               <AppDropDown
                 schema={{
                   label: 'regionName',
@@ -389,6 +395,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               variant={TEXT_VARIANT.MAIN_18_500}
               style={{...setMargin(24, 0, 8, 0)}}
             />
+            {/* @ts-ignore */}
             <AppDropDown
               name="size"
               placeholder="Select size"
@@ -409,6 +416,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               variant={TEXT_VARIANT.MAIN_18_500}
               style={{...setMargin(24, 0, 8, 0)}}
             />
+            {/* @ts-ignore */}
             <AppDropDown
               name="packaging"
               placeholder="Select packaging"

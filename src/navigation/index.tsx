@@ -16,15 +16,22 @@ import {HomeScreenStack} from './stacks/homeScreenStack';
 import {OnBoardingScreen} from '../screens/onBoardingScreen/onBoardingScreen';
 import {useAppSelector} from '../store/hooks';
 import {selector} from '../store/selector';
+import {useAuthenticator} from '@aws-amplify/ui-react-native';
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
 export const Navigation = () => {
+  const {route} = useAuthenticator(context => [context.route]);
+  const isAuthenticated = route === 'authenticated';
   const {isOnboarded} = useAppSelector(selector.currentUserSliceData);
+
+  // add auth checking when API is ready
+  const initialRouteName = isOnboarded ? ROUTES.HomeStack : ROUTES.OnBoarding;
+
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName={isOnboarded ? ROUTES.HomeStack : ROUTES.OnBoarding}
+        initialRouteName={initialRouteName}
         screenOptions={{
           tabBarActiveTintColor: Colors.SELECTED_TAB_NAV,
           tabBarInactiveTintColor: Colors.BLACK,

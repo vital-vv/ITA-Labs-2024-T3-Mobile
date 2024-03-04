@@ -15,13 +15,14 @@ import {DateTime} from 'luxon';
 import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {setMargin} from '../../utils/styling/margin';
 import {ModalWindow} from '../../components/modal/modal';
+import inputStyles from '../../components/formElements/Input/inputStyles';
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Lot>;
 
 export const LotScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  
   if (isLoading) return <SpinnerWrapper />;
 
   return (
@@ -157,15 +158,22 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
         <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
           <TextInput
             keyboardType="number-pad"
-            style={{borderColor: 'black', borderWidth: 1, padding: 10}}
-            value="1000"></TextInput>
+            placeholder="$"
+            style={inputStyles.input}
+            maxLength={20}
+          />
           <AppText
-            text={'Price from 11.100 to 11.900'}
+            text={`Price from ${lot.price_per_unit * lot.quantity} to ${
+              lot.price_per_unit * lot.quantity
+            }`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={setMargin(4, 0, 16, 0)}
           />
-          <ButtonWithIcon type="dark" title={`Bet $${`10,000`}`} />
+          <ButtonWithIcon
+            type="dark"
+            title={`Bet $${lot.price_per_unit * lot.quantity}`}
+          />
         </ModalWindow>
       </ScrollView>
     )
