@@ -38,36 +38,10 @@ import {
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 import React from 'react';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
-import {LotCreate} from '../../types/api/api';
+import {transformValuesToRequest} from '../../components/formElements/transformValuesToRequestFunc.ts';
+import { ReviewSchema } from './reviewSchema.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
-
-const ReviewSchema = yup.object({
-  title: yup.string().required().min(3).max(40),
-  description: yup.string().min(3).max(300),
-  category: yup.string().required(),
-  subcategory: yup.string().required(),
-  quantity: yup
-    .number()
-    .typeError('Quantity must be a number')
-    .required()
-    .moreThan(0, 'Quantity must be more than 0'),
-  unitOfWeight: yup.number().required(),
-  price: yup
-    .number()
-    .typeError('Price must be a number')
-    .required()
-    .moreThan(0, 'Price must be more than 0'),
-  currency: yup
-    .number()
-    .typeError('Currency must be a number')
-    .required()
-    .moreThan(0, 'Currency must be more than 0'),
-  country: yup.string().required(),
-  region: yup.string().required(),
-  size: yup.string().required(),
-  packaging: yup.string().required(),
-});
 
 export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -84,13 +58,6 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [subCatValue, setSubCatValue] = useState(1);
   const [skip, setSkip] = useState(true)
   const [createLot, {isError, error, isSuccess }] = useCreateLotMutation()
-
-  if (isError) {
-    console.log(error)
-  }
-  if (isSuccess) {
-    console.log("post success!")
-  };
   
   const getUri = (id: number, val: string) => {
     setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
@@ -143,30 +110,6 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     mapAllSelectionData(allSelectionData);
   }
 
-  const transformValuesToRequest: (values: any) => void = values => {
-      const requestValues: LotCreate = {
-        category_id: Number(values.category),
-        price_per_unit: Number((Number(values.price) / Number(values.quantity)).toFixed(2)),
-        length_unit: 'cm',
-        title: values.title,
-        quantity: Number(values.quantity),
-        weight: (weightArray[Number(values.unitOfWeight)-1]['label']),
-        location: {
-          country: data.countries[Number(values.country) - 1].countryName,
-          region: data.countries[Number(values.country) - 1].regions[
-            Number(values.region) - 1
-          ].regionName
-        },
-        description: values.description || '',
-        status: 'active',
-        variety: values.variety || '',
-        size: Number(values.size),
-        packaging: (packagingArray[Number(values.packaging)-1]['label']),
-      };
-
-      return requestValues;
-    }
-
   return (
     allSelectionData && allCategoriesData && (
     <MainWrapper>
@@ -201,10 +144,10 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         }}
         validationSchema={ReviewSchema}
         onSubmit={(values, {resetForm}) => {
-          let newValues = transformValuesToRequest(values);
-          createLot(newValues);        
+          let newValues = transformValuesToRequest(values, weightArray, data, packagingArray);
+          createLot(newValues); 
+          setisSuccessModalVisible(true);     
           resetForm();
-          setisSuccessModalVisible(true);
         }}
         innerRef={formikRef}>
         {({
