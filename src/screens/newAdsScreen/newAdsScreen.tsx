@@ -2,7 +2,6 @@ import {
   View,
   TextInput,
   ScrollView,
-  Button,
   Pressable,
   Modal,
   Image,
@@ -31,53 +30,55 @@ import StickyArrowLeftIcon from '../../assets/icons/sticky-arrow-left.svg';
 import ArrowLeftIcon from '../../assets/icons/arrow-left.svg';
 import {ModalWindow} from '../../components/modal/modal.tsx';
 import {
+  useCreateLotMutation,
   useGetAllCategoriesQuery,
   useGetAllSelectionQuery,
+  useGetCategoryQuery,
 } from '../../api/endpoints/index.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
-import {Selection} from '../../types/api/api';
 import React from 'react';
-import {Text} from 'react-native-svg';
+import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
+import {transformValuesToRequest} from '../../components/formElements/transformValuesToRequestFunc.ts';
+import { ReviewSchema } from './reviewSchema.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
-
-const ReviewSchema = yup.object({
-  title: yup.string().required().min(3),
-  category: yup.string().required(),
-  subcategory: yup.string().required(),
-  quantity: yup
-    .number()
-    .typeError('Quantity must be a number')
-    .required()
-    .moreThan(0, 'Quantity must be more than 0'),
-  unitOfWeight: yup.number().required(),
-  price: yup
-    .number()
-    .typeError('Price must be a number')
-    .required()
-    .moreThan(0, 'Price must be more than 0'),
-  currency: yup
-    .number()
-    .typeError('Currency must be a number')
-    .required()
-    .moreThan(0, 'Currency must be more than 0'),
-  country: yup.string().required(),
-  region: yup.string().required(),
-  size: yup.string().required(),
-  packaging: yup.string().required(),
-});
 
 export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isModalVisible, setisModalVisible] = useState(false);
   const [isSuccessModalVisible, setisSuccessModalVisible] = useState(false);
   const [isDiscardModalVisible, setIsDiscardModalVisible] = useState(false);
   const formikRef = useRef<FormikProps<Record<string, string>>>(null);
+  const [imageUrl, setImageUrl] = useState([
+    {id: 1, imageURL: ''}, 
+    {id: 2, imageURL: ''},
+    {id: 3, imageURL: ''}, 
+    {id: 4, imageURL: ''},
+    {id: 5, imageURL: ''},
+  ])
+  const [subCatValue, setSubCatValue] = useState(1);
+  const [skip, setSkip] = useState(true)
+  const [createLot, {isError, error, isSuccess }] = useCreateLotMutation()
+  
+  const getUri = (id: number, val: string) => {
+    setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
+    ])
+  }
 
   const {
     data: allSelectionData,
-    isLoading,
+    isLoading: isLoadingSelection,
     refetch: refetchallSelectionData,
   } = useGetAllSelectionQuery();
+
+  const {
+    data: allCategoriesData,
+    isLoading: isLoadingCategories,
+    refetch: refetchallCategoriesData,
+  } = useGetAllCategoriesQuery();
+
+  const {
+    data: allSubCategoriesData,
+  } = useGetCategoryQuery(subCatValue, {skip});
 
   let weightArray: Array<any>;
   let currencyArray: Array<any>;
@@ -91,7 +92,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       let newArr = arr.map(function (elem: string, index: number) {
         return {
           label: elem,
-          value: index,
+          value: index+1,
         };
       });
       return newArr;
@@ -103,14 +104,14 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     sizeArray = mapData(allSelectionData.size);
   };
 
-  if (isLoading) {
-    return <SpinnerWrapper />;
-  }
-  if (!isLoading) {
+  if (isLoadingSelection && isLoadingCategories) {return <SpinnerWrapper />;}
+
+  if (allSelectionData) {
     mapAllSelectionData(allSelectionData);
   }
 
   return (
+    allSelectionData && allCategoriesData && (
     <MainWrapper>
       <Pressable
         style={[styles.preview_nav, {...setMargin(16, 0, 16, 16)}]}
@@ -128,13 +129,14 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       <Formik
         initialValues={{
           title: '',
+          description: '',
           category: '',
           subcategory: '',
           // variety: '',
           quantity: '',
-          unitOfWeight: '0',
+          unitOfWeight: '1',
           price: '',
-          currency: '0',
+          currency: '1',
           country: '',
           region: '',
           size: '',
@@ -142,8 +144,10 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         }}
         validationSchema={ReviewSchema}
         onSubmit={(values, {resetForm}) => {
+          let newValues = transformValuesToRequest(values, weightArray, data, packagingArray);
+          createLot(newValues); 
+          setisSuccessModalVisible(true);     
           resetForm();
-          setisSuccessModalVisible(true);
         }}
         innerRef={formikRef}>
         {({
@@ -181,6 +185,28 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               />
             )}
             <AppText
+              text={'Description'}
+              color={Colors.PRIMARY}
+              variant={TEXT_VARIANT.MAIN_18_500}
+              style={{...setMargin(24, 0, 8, 0)}}
+            />
+            <TextInput
+              style={[textTypographyStyles.MAIN_16_400, inputStyles.input]}
+              onChangeText={handleChange('description')}
+              onBlur={handleBlur('description')}
+              value={values.description}
+              placeholder="For example: Apples from my farm..."
+              keyboardType="default"
+            />
+            {touched.description && errors.description && (
+              <AppText
+                text={errors.description}
+                color={Colors.ERROR}
+                variant={TEXT_VARIANT.MAIN_12_400}
+                style={{...setMargin(4, 0, 0, 0)}}
+              />
+            )}
+            <AppText
               text={'Category'}
               color={Colors.PRIMARY}
               variant={TEXT_VARIANT.MAIN_18_500}
@@ -202,9 +228,10 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               }}
               name="category"
               placeholder="Select a category"
-              items={data.categories}
+              items={allCategoriesData}
               zIndex={2}
               multiple={false}
+              onSelectItem={(val:any) => {setSubCatValue(val.category_id); setSkip(false)}}
             />
             {touched.category && errors.category && (
               <AppText
@@ -214,18 +241,16 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 style={{...setMargin(4, 0, 0, 0)}}
               />
             )}
-            {values.category && (
+            {values.category && allSubCategoriesData && (
               // @ts-ignore
               <AppDropDown
                 schema={{
                   label: 'name',
-                  value: 'subcategory_id',
-                }}
+                  value: 'category_id',
+                }} 
                 name="subcategory"
                 placeholder="Select a product type"
-                items={
-                  data.categories[Number(values.category) - 1].subcategories
-                }
+                items={allSubCategoriesData?.subcategories}
                 zIndex={2}
                 style={{...setMargin(16, 0, 0, 0)}}
               />
@@ -445,6 +470,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               variant={TEXT_VARIANT.MAIN_12_400}
               style={{...setMargin(0, 0, 16, 0)}}
             />
+            <ImagePickerCarousel imageUrl={imageUrl} getUri={getUri}/>
             <View style={styles.send_block}>
               <ButtonWithoutIcon
                 style={styles.preview_button}
@@ -473,11 +499,6 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 <ButtonWithoutIcon
                   style={styles.preview_button}
                   onPress={handleSubmit}
-                  // TODO: add setFieldTouched with submit
-                  // onPress={() => {
-                  // formikRef.current?.setFieldTouched('currency', true);
-                  // formikRef.current?.setFieldTouched('unitOfWeight', true);
-                  // handleSubmit}}
                   title="Place an advertisment"
                   type="dark"
                 />
@@ -619,5 +640,5 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         )}
       </Formik>
     </MainWrapper>
-  );
+  ))
 };
