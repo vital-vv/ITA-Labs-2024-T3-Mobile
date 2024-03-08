@@ -9,4 +9,5 @@ export enum TEXT_VARIANT {
   MAIN_20_500 = 'MAIN_20_500',
   MAIN_24_400 = 'MAIN_24_400',
   MAIN_24_500 = 'MAIN_24_500',
+  MAIN_32_400 = 'MAIN_32_400',
 }
