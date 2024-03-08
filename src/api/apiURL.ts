@@ -13,4 +13,5 @@ export const API_URL = {
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
   lots: `/lots`,
+  users: `/users`,
 };

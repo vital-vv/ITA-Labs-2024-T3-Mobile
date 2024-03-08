@@ -11,7 +11,8 @@ import ArrowLeft from '../../../assets/icons/arrow-left.svg';
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
 import {FlashList} from '@shopify/flash-list';
 import { Colors } from '../../../constants/colors';
-import styles from './imagePickerCarouselStyles'
+import styles from './imagePickerCarouselStyles';
+import Plus from '../../../assets/icons/plus_circle.svg';
 
 type Props = {
     imageUrl: {id: number; imageURL: string}[];
@@ -66,7 +67,12 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
           {useNativeDriver: false},
         )}
         renderItem={({item}) => (
-          <AppImagePicker id={item.id} getUri={getUri}/>
+          <AppImagePicker 
+            id={item.id} 
+            getUri={getUri} 
+            children={<Plus />} 
+            noimage_style={styles.image_block} 
+            image_style={styles.imageStyle}/>
         )}
       />
       <View style={styles.buttonsContainer}>

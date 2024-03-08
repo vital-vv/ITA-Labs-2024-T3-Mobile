@@ -12,6 +12,10 @@ export const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.9,
     gap: Dimensions.get('window').height * 0.1,
   },
+  form: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.9,
+  },
   image: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.4,

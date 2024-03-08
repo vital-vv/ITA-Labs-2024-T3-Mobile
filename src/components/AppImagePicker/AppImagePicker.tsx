@@ -1,15 +1,16 @@
-import {FC, useState} from 'react';
-import { Pressable, Image, Alert} from 'react-native';
-import styles from './appImagePickerStyles';
+import {FC, ReactNode, useState} from 'react';
+import { Pressable, Image, Alert, View, StyleProp, ViewStyle, ImageStyle} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import Plus from '../../assets/icons/plus_circle.svg';
 
 type Props = {
-  id: number;
-  getUri: Function
+  id?: number;
+  getUri: Function;
+  children?: ReactNode;
+  image_style: StyleProp<ImageStyle>;
+  noimage_style: StyleProp<ViewStyle>;
 };
 
-export const AppImagePicker: FC<Props> = ({id, getUri}) => {
+export const AppImagePicker: FC<Props> = ({id, getUri, children, image_style, noimage_style}) => {
 
   const [filePath, setFilePath] = useState<ImagePicker.ImagePickerResponse>({});
 
@@ -38,15 +39,15 @@ export const AppImagePicker: FC<Props> = ({id, getUri}) => {
 
   return (
       <Pressable 
-        style={styles.image_block}
+        style={noimage_style}
         onPress={() => chooseFile('photo')}
       >
         {(filePath.assets)?
         <Image
           source={{uri: filePath.assets[0]?.uri}}
-          style={styles.imageStyle}
+          style={image_style}
             />:
-        <Plus />
+        <View>{children}</View>
         }
       </Pressable>
   );

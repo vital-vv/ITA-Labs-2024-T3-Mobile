@@ -38,7 +38,7 @@ import {
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 import React from 'react';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
-import {transformValuesToRequest} from '../../components/formElements/transformValuesToRequestFunc.ts';
+import {transformValuesCreateLot} from '../../components/formElements/transformValuesToRequestFunc.ts';
 import { ReviewSchema } from './reviewSchema.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
@@ -144,7 +144,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
         }}
         validationSchema={ReviewSchema}
         onSubmit={(values, {resetForm}) => {
-          let newValues = transformValuesToRequest(values, weightArray, data, packagingArray);
+          let newValues = transformValuesCreateLot(values, weightArray, data, packagingArray);
           createLot(newValues); 
           setisSuccessModalVisible(true);     
           resetForm();

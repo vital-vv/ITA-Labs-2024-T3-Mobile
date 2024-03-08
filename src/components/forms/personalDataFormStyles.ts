@@ -16,13 +16,39 @@ const PersonalDataFormStyles = StyleSheet.create({
     },
     button: {
     },
-    photo: {
+    image_container: {
+        position: 'relative',
+        width: 80,
+        height: 80,
+        marginVertical: 24,
+        alignSelf: 'center',
+    },
+    nophoto: {
         width: 80,
         height: 80,
         borderRadius: 40,
         backgroundColor: Colors.WARNING,
-        marginVertical: 24,
         alignSelf: 'center',
+    },
+    photo: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        alignSelf: 'center',
+    },
+    photo_edit: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        backgroundColor: Colors.WHITE,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: Colors.TERTIARY,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
     },
     initials: {
         height: 80,

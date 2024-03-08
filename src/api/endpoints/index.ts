@@ -4,6 +4,7 @@ import {getLotsInSubCategory} from './categories/getLotsInSubCategory';
 import {getLot} from './lots/getLot';
 import {getAllDataSelection} from './selection/getAllDataSelection';
 import { createLot } from './lots/createLot';
+import { createUser } from './users/createUser';
 
 export const {useGetCategoryQuery, useLazyGetCategoryQuery} = getCategory;
 
@@ -18,3 +19,5 @@ export const {useGetAllSelectionQuery, useLazyGetAllSelectionQuery} =
   getAllDataSelection;
 
 export const {useCreateLotMutation} = createLot;
+
+export const {useCreateUserMutation} = createUser

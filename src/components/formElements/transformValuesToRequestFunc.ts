@@ -1,6 +1,7 @@
-import { LotCreate } from "../../types/api/api";
+import { UserAttributeKey } from "aws-amplify/auth";
+import { LotCreate, UserCreate } from "../../types/api/api";
 
-export const transformValuesToRequest: (values: any, weightArray: any, data: any, packagingArray: any) => void = 
+export const transformValuesCreateLot: (values: any, weightArray: any, data: any, packagingArray: any) => void = 
 (values, weightArray, data, packagingArray) => {
     const requestValues: LotCreate = {
       category_id: Number(values.category),
@@ -20,6 +21,20 @@ export const transformValuesToRequest: (values: any, weightArray: any, data: any
       variety: values.variety || '',
       size: Number(values.size),
       packaging: (packagingArray[Number(values.packaging)-1]['label']),
+    };
+
+    return requestValues;
+  }
+
+  export const transformValuesCreateUser: (values: any, imageUrl?: any) => void = 
+(values, imageUrl) => {
+    const requestValues: UserCreate = {
+      first_name: values.name,
+      last_name: values.surname,
+      preferred_currency: 'USD',
+      email: 'test@test.com',
+      role: 'user',
+      phoneNumber: values.phone,
     };
 
     return requestValues;
