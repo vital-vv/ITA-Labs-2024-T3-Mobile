@@ -1,12 +1,4 @@
-import {Children, Dispatch, ReactNode, SetStateAction, useState} from 'react';
-import {View, Modal, ScrollView, Pressable, Text, TextInput} from 'react-native';
-import {styles} from '../modalStyles';
-import CloseIcon from '../../../assets/icons/close.svg';
-import { AppText } from '../../appText/appText';
-import ButtonWithoutIcon from '../../buttons/ButtonWithoutIcon/ButtonWithoutIcon';
-import { setMargin } from '../../../utils/styling/margin';
-import { Colors } from '../../../constants/colors';
-import { TEXT_VARIANT } from '../../../types/textVariant';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import { useCreateBetMutation } from '../../../api/endpoints';
 import { BetsModal } from './BetsModal';
 
@@ -33,10 +25,13 @@ export const BetsModalContainer = (props: Props) => {
         return RequestBody
     }
 
-    if (isBetComplieted) {
+    useEffect(() => {
+      if (isBetComplieted) {
         const values = transformValuesCreateBet(bet, props.lot_id);
         createBet(values)
-    }
+        setIsBetComplieted(false)
+      }
+    }, [isBetComplieted])
 
   return (
     <BetsModal {...props} bet={bet} setBet={setBet} setIsBetComplieted={setIsBetComplieted}/>

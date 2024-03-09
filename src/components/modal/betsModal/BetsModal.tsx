@@ -1,5 +1,5 @@
-import {Children, Dispatch, ReactNode, SetStateAction, useState} from 'react';
-import {View, Modal, ScrollView, Pressable, Text, TextInput} from 'react-native';
+import {Dispatch, SetStateAction, useState} from 'react';
+import {View, Modal, Pressable, TextInput} from 'react-native';
 import {styles} from '../modalStyles';
 import CloseIcon from '../../../assets/icons/close.svg';
 import { AppText } from '../../appText/appText';
@@ -7,7 +7,6 @@ import ButtonWithoutIcon from '../../buttons/ButtonWithoutIcon/ButtonWithoutIcon
 import { setMargin } from '../../../utils/styling/margin';
 import { Colors } from '../../../constants/colors';
 import { TEXT_VARIANT } from '../../../types/textVariant';
-import { useCreateBetMutation } from '../../../api/endpoints';
 
 type Props = {
   isOpen: boolean;

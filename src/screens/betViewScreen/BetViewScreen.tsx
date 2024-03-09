@@ -16,6 +16,7 @@ import { AppText } from '../../components/appText/appText';
 import { TEXT_VARIANT } from '../../types/textVariant';
 import { setMargin } from '../../utils/styling/margin';
 import { BetsModal } from '../../components/modal/betsModal/BetsModal';
+import { BetsModalContainer } from '../../components/modal/betsModal/BetsModalContainer';
 
 
 type Props = NativeStackScreenProps<BetStackParams, ROUTES.BetView>;
@@ -25,7 +26,6 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [bet, setBet] = useState('1000')
 
   if (isLoading) return <SpinnerWrapper />;
 
@@ -49,7 +49,7 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
             icon={<ShoppingIcon fill={Colors.WHITE} />}
           />
         </View>
-        <BetsModal isOpen={isModalVisible} onClose={setIsModalVisible} minBet={10000} maxBet={12000} />
+        <BetsModalContainer isOpen={isModalVisible} onClose={setIsModalVisible} minBet={10000} maxBet={12000} lot_id={id}/>
         </ScrollView>
   ));
 }
