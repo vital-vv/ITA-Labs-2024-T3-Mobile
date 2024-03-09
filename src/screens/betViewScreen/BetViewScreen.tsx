@@ -50,21 +50,6 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
           />
         </View>
         <BetsModal isOpen={isModalVisible} onClose={setIsModalVisible} minBet={10000} maxBet={12000} />
-        {/* <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
-          <TextInput
-            keyboardType="number-pad"
-            style={{borderColor: 'black', borderWidth: 1, padding: 10}}
-            value={bet}
-            onChangeText={(val) => {setBet(val)}} 
-          ></TextInput>
-          <AppText
-            text={'Price from 11.100 to 11.900'}
-            variant={TEXT_VARIANT.MAIN_12_400}
-            color={Colors.SECONDARY}
-            style={setMargin(4, 0, 16, 0)}
-          />
-          <ButtonWithIcon type="dark" title={`Bet $${bet}`} onPress={() => {setIsModalVisible(false)}}/>
-        </ModalWindow> */}
         </ScrollView>
   ));
 }

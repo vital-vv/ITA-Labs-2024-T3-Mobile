@@ -14,14 +14,19 @@ type Props = {
   onClose: Dispatch<SetStateAction<boolean>>;
   minBet: number;
   maxBet: number;
+  bet: number;
+  setBet: Function;
+  setIsBetComplieted: Function;
 };
 
-export const BetsModal = ({isOpen, onClose, minBet, maxBet}: Props) => {
-    const [bet, setBet] = useState(maxBet)
+export const BetsModal = ({isOpen, onClose, minBet, maxBet, bet, setBet, setIsBetComplieted}: Props) => {
+    const [isValidBet, setIsValidBet] = useState(true)
 
-    const isValidBet: (bet:number, minBet: number, maxBet: number) => void = (bet, minBet, maxBet) => {
+    const checkIsValidBet: (bet:number, minBet: number, maxBet: number) => void = (bet, minBet, maxBet) => {
       if (bet >= minBet && bet <= maxBet) {
+        return setIsValidBet(true)
       }
+      else return setIsValidBet(false)
     }
 
   return (
@@ -43,20 +48,34 @@ export const BetsModal = ({isOpen, onClose, minBet, maxBet}: Props) => {
             keyboardType="number-pad"
             style={{borderColor: 'black', borderWidth: 1, padding: 10}}
             value={bet.toString()}
-            onChangeText={(val) => {setBet(Number(val))}} 
+            onChangeText={(val) => {
+              checkIsValidBet(Number(val), minBet, maxBet);
+              setBet(Number(val))
+            }} 
           ></TextInput>
+          { isValidBet ? 
           <AppText
             text={`Price from ${minBet} to ${maxBet}`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={setMargin(4, 0, 16, 0)}
-          />
+          /> :  
+          <AppText
+            text={`The bet is not correct. Please enter a bet from ${minBet} to ${maxBet}`}
+            variant={TEXT_VARIANT.MAIN_12_400}
+            color={Colors.WARNING}
+            style={setMargin(4, 0, 16, 0)}
+          />}
           <ButtonWithoutIcon 
             style={[{minHeight: 44},setMargin(0, 0, 24, 0)]}
             type="dark" 
             title={`Bet $${bet.toString()}`} 
             variant={TEXT_VARIANT.MAIN_16_500} 
-            onPress={() => {onClose(false)}}/>
+            onPress={() => {if (isValidBet) {
+              setIsBetComplieted(true);
+              onClose(false)}}}
+            disabled={isValidBet ? false : true}
+            />
         </View>
       </View>
     </Modal>
