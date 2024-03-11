@@ -32,7 +32,7 @@ export const transformValuesCreateLot: (values: any, weightArray: any, data: any
       first_name: values.name,
       last_name: values.surname,
       preferred_currency: 'USD',
-      email: 'test@test.com',
+      email: `${values.surname}@test.com`,
       role: 'user',
       phoneNumber: values.phone,
     };
