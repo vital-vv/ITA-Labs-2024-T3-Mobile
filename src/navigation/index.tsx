@@ -17,6 +17,7 @@ import {OnBoardingScreen} from '../screens/onBoardingScreen/onBoardingScreen';
 import {useAppSelector} from '../store/hooks';
 import {selector} from '../store/selector';
 import {useAuthenticator} from '@aws-amplify/ui-react-native';
+import { AccountScreenStack } from './stacks/accountScreenStack';
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
@@ -67,8 +68,8 @@ export const Navigation = () => {
           }}
         />
         <RootStack.Screen
-          name={ROUTES.Account}
-          component={AccountScreen}
+          name={ROUTES.AccountStack}
+          component={AccountScreenStack}
           options={{
             tabBarIcon: ({color}) => <AccountIcon fill={`${color}`} />,
           }}

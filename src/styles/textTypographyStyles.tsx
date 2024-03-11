@@ -17,6 +17,16 @@ export const textTypographyStyles = StyleSheet.create<{
     fontSize: 12,
     lineHeight: 16,
   },
+  [TEXT_VARIANT.MAIN_14_400]: {
+    fontFamily: 'IBMPlexSans-Regular',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  [TEXT_VARIANT.MAIN_14_500]: {
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 14,
+    lineHeight: 20,
+  },
   [TEXT_VARIANT.MAIN_16_400]: {
     fontFamily: 'IBMPlexSans-Regular',
     fontSize: 16,

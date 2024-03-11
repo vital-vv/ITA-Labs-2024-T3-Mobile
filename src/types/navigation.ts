@@ -6,7 +6,7 @@ export type RootStackParams = {
   [ROUTES.Bets]: {headerTitle: string};
   [ROUTES.Delivery]: {headerTitle: string};
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
-  [ROUTES.Account]: {headerTitle: string};
+  [ROUTES.AccountStack]: {headerTitle: string};
   [ROUTES.OnBoarding]: undefined;
 };
 
@@ -16,4 +16,12 @@ export type HomeStackParams = {
   [ROUTES.LotList]: {subCategory: number; headerTitle: string};
   [ROUTES.Lot]: {id: number; headerTitle: string};
   [ROUTES.OnBoarding]: undefined;
+};
+
+export type AccountStackParams = {
+  [ROUTES.Account]: undefined;
+  [ROUTES.PersonalData]: {headerTitle: string};
+  [ROUTES.MyAds]: {headerTitle: string};
+  [ROUTES.Notifications]: {headerTitle: string};
+  [ROUTES.Currency]: {headerTitle: string};
 };
