@@ -1,7 +1,7 @@
-import {FC, useState} from 'react';
+import { FC, useState } from 'react';
 import { MainWrapper } from '../mainWrapper/mainWrapper';
-import {Formik, FormikProps} from 'formik';
-import {ReviewSchema} from './ReviewSchema'
+import { Formik, FormikProps, FormikValues } from 'formik';
+import { ReviewSchema } from './ReviewSchema'
 import { Pressable, ScrollView, StyleProp, TextInput, View, ViewStyle } from 'react-native';
 import { AppText } from '../appText/appText';
 import { Colors } from '../../constants/colors';
@@ -21,36 +21,52 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 }
 
-export const PersonalDataForm: FC<Props> = ({style}) => {
+export type UserValues = {
+  name: string,
+  surname: string,
+  phone: string,
+}
 
-  const [usersInitials, setUsersInitials] = useState({name: '', surname: ''})
+export const PersonalDataForm: FC<Props> = ({ style }) => {
+
+  const [usersInitials, setUsersInitials] = useState({ name: '', surname: '' })
   const [imageUrl, setImageUrl] = useState('')
-  const [createUser, {isError, error, isSuccess }] = useCreateUserMutation()
-  
+  const [createUser, { isError, error, isSuccess }] = useCreateUserMutation()
+
   const getUri = (id: number, val: string) => {
     setImageUrl(val)
   }
 
-    return (
+  const checkValues = (param: string, values: FormikValues) => {
+    switch (param) {
+      case 'name':
+        if (values.name) { setUsersInitials({ ...usersInitials, name: `${values.name[0].toUpperCase()}` }) }
+      case 'surname':
+        if (values.surname) { setUsersInitials({ ...usersInitials, surname: `${values.surname[0].toUpperCase()}` }) }
+    }
+  }
+
+  return (
     <MainWrapper style={style}>
-        <AppText
-              text={'Personal Data'}
-              color={Colors.PRIMARY}
-              variant={TEXT_VARIANT.MAIN_20_500}
-              style={[{...setPadding(16, 16, 16, 16)}, styles.form_title]}
-        />
-        <Formik
+      <AppText
+        text={'Personal Data'}
+        color={Colors.PRIMARY}
+        variant={TEXT_VARIANT.MAIN_20_500}
+        style={[{ ...setPadding(16, 16, 16, 16) }, styles.form_title]}
+      />
+      <Formik
         initialValues={{
           name: '',
           surname: '',
           phone: '',
         }}
         validationSchema={ReviewSchema}
-        onSubmit={(values, {resetForm}) => {
+        onSubmit={(values, { resetForm }) => {
           let newValues = transformValuesCreateUser(values);
+          console.log(values)
           createUser(newValues);
         }}
-        >
+      >
         {({
           handleChange,
           handleBlur,
@@ -64,27 +80,27 @@ export const PersonalDataForm: FC<Props> = ({style}) => {
             keyboardShouldPersistTaps="handled"
             style={styles.container}>
             <View style={styles.image_container}>
-              <AppImagePicker 
-                getUri={getUri} 
-                noimage_style={styles.nophoto} 
+              <AppImagePicker
+                getUri={getUri}
+                noimage_style={styles.nophoto}
                 image_style={styles.photo}>
                 <View style={styles.initials}>
-                { usersInitials.name != '' &&
-                <AppText
-                    text={usersInitials.name}
-                    color={Colors.WHITE}
-                    variant={TEXT_VARIANT.MAIN_32_400}
-                    style={{...setMargin(4, 0, 0, 0)}}
-                  />
-                }
-                { usersInitials.surname != '' &&
-                  <AppText
-                    text={usersInitials.surname}
-                    color={Colors.WHITE}
-                    variant={TEXT_VARIANT.MAIN_32_400}
-                    style={{...setMargin(4, 0, 0, 0)}}
-                  />
-                }
+                  {usersInitials.name != '' &&
+                    <AppText
+                      text={usersInitials.name}
+                      color={Colors.WHITE}
+                      variant={TEXT_VARIANT.MAIN_32_400}
+                      style={{ ...setMargin(4, 0, 0, 0) }}
+                    />
+                  }
+                  {usersInitials.surname != '' &&
+                    <AppText
+                      text={usersInitials.surname}
+                      color={Colors.WHITE}
+                      variant={TEXT_VARIANT.MAIN_32_400}
+                      style={{ ...setMargin(4, 0, 0, 0) }}
+                    />
+                  }
                 </View>
               </AppImagePicker>
               <View style={styles.photo_edit}>
@@ -92,11 +108,11 @@ export const PersonalDataForm: FC<Props> = ({style}) => {
               </View>
             </View>
             <TextInput
-              style={[textTypographyStyles.MAIN_16_400, inputStyles.input, {...setMargin(16, 0, 0, 0)}]}
+              style={[textTypographyStyles.MAIN_16_400, inputStyles.input, { ...setMargin(16, 0, 0, 0) }]}
               onChangeText={handleChange('name')}
               onBlur={handleBlur('name')}
               value={values.name}
-              onEndEditing={() => { if (values.name) {setUsersInitials({...usersInitials, name: `${values.name[0].toUpperCase()}`})}}}
+              onEndEditing={() => { checkValues('name', values) }}
               placeholder="Name"
               keyboardType="default"
             />
@@ -105,15 +121,15 @@ export const PersonalDataForm: FC<Props> = ({style}) => {
                 text={errors.name}
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
-                style={{...setMargin(4, 0, 0, 0)}}
+                style={{ ...setMargin(4, 0, 0, 0) }}
               />
             )}
-             <TextInput
-              style={[textTypographyStyles.MAIN_16_400, inputStyles.input, {...setMargin(16, 0, 0, 0)}]}
+            <TextInput
+              style={[textTypographyStyles.MAIN_16_400, inputStyles.input, { ...setMargin(16, 0, 0, 0) }]}
               onChangeText={handleChange('surname')}
               onBlur={handleBlur('surname')}
               value={values.surname}
-              onEndEditing={() => { if (values.surname) {setUsersInitials({...usersInitials, surname: `${values.surname[0].toUpperCase()}`})}}}
+              onEndEditing={() => { checkValues('surname', values) }}
               placeholder="Surname"
               keyboardType="default"
             />
@@ -122,11 +138,11 @@ export const PersonalDataForm: FC<Props> = ({style}) => {
                 text={errors.surname}
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
-                style={{...setMargin(4, 0, 0, 0)}}
+                style={{ ...setMargin(4, 0, 0, 0) }}
               />
             )}
-             <TextInput
-              style={[textTypographyStyles.MAIN_16_400, inputStyles.input, {...setMargin(16, 0, 0, 0)}]}
+            <TextInput
+              style={[textTypographyStyles.MAIN_16_400, inputStyles.input, { ...setMargin(16, 0, 0, 0) }]}
               onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
               value={values.phone}
@@ -138,27 +154,27 @@ export const PersonalDataForm: FC<Props> = ({style}) => {
                 text={errors.phone}
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
-                style={{...setMargin(4, 0, 0, 0)}}
+                style={{ ...setMargin(4, 0, 0, 0) }}
               />
             )}
             {(isValid) ? (
-             <ButtonWithoutIcon
-                  style={{...setMargin(16, 0, 0, 0)}}
-                  onPress={handleSubmit}
-                  title="Save changes"
-                  type="dark"
-                />) : 
-                <ButtonWithoutIcon
-                style={{...setMargin(16, 0, 0, 0)}}
+              <ButtonWithoutIcon
+                style={{ ...setMargin(16, 0, 0, 0) }}
+                onPress={handleSubmit}
+                title="Save changes"
+                type="dark"
+              />) :
+              <ButtonWithoutIcon
+                style={{ ...setMargin(16, 0, 0, 0) }}
                 disabled={true}
                 title="Save changes"
                 type="dark"
               />
             }
-        </ScrollView>
+          </ScrollView>
         )}
-        </Formik>
+      </Formik>
     </MainWrapper>
-    )
+  )
 
 }

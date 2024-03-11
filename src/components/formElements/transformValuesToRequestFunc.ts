@@ -1,8 +1,8 @@
-import { UserAttributeKey } from "aws-amplify/auth";
 import { LotCreate, UserCreate } from "../../types/api/api";
+import { UserValues } from "../forms/PersonalDataForm";
 
-export const transformValuesCreateLot: (values: any, weightArray: any, data: any, packagingArray: any) => void = 
-(values, weightArray, data, packagingArray) => {
+export const transformValuesCreateLot: (values: any, weightArray: any, data: any, packagingArray: any) => void =
+  (values, weightArray, data, packagingArray) => {
     const requestValues: LotCreate = {
       category_id: Number(values.category),
       price_per_unit: Number((Number(values.price) / Number(values.quantity)).toFixed(2)),
@@ -26,8 +26,8 @@ export const transformValuesCreateLot: (values: any, weightArray: any, data: any
     return requestValues;
   }
 
-  export const transformValuesCreateUser: (values: any, imageUrl?: any) => void = 
-(values, imageUrl) => {
+export const transformValuesCreateUser: (values: UserValues, imageUrl?: string) => void =
+  (values, imageUrl) => {
     const requestValues: UserCreate = {
       first_name: values.name,
       last_name: values.surname,
