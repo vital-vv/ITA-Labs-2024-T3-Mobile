@@ -72,7 +72,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             }}
           style={[styles.tab_container, styles.tab]}>
         <View style={styles.add_container}>
-          <MyAds style={setMargin(0, 12, 0, 0)}/>
+          <MyAds style={setMargin(0, 12, 0, 0)}  fill={Colors.SECONDARY} />
           <AppText
             text={'My advertisements'}
             variant = {TEXT_VARIANT.MAIN_18_400}
@@ -116,7 +116,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             }}
           style={[styles.tab_container, styles.tab]}>
         <View style={styles.add_container}>
-          <Currency style={setMargin(0, 12, 0, 0)}/>
+          <Currency style={setMargin(0, 12, 0, 0)} fill={Colors.SECONDARY} />
           <AppText
             text={'Currency'}
             variant = {TEXT_VARIANT.MAIN_18_400}

@@ -17,7 +17,7 @@ export const ModerationSuccessful: FC<Props> = ({lot_id}) => {
   return (
     <View style={[setPadding(20, 20, 20, 20), styles.container]}>
         <View style={styles.title}>
-            <Moderator />
+            <Moderator fill={Colors.SYSTEM_BASE}/>
             <AppText
                 text={'Moderation is successful'}
                 style={setMargin(0, 0, 0, 8)}

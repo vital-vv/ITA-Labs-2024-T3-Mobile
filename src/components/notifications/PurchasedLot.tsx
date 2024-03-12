@@ -17,7 +17,7 @@ export const PurchasedLot: FC<Props> = ({lot_id}) => {
   return (
     <View style={[setPadding(20, 20, 20, 20), styles.container]}>
         <View style={styles.title}>
-            <Currency />
+            <Currency  fill={Colors.SYSTEM_BASE} />
             <AppText
                 text={'Purchased lot'}
                 style={setMargin(0, 0, 0, 8)}
@@ -35,7 +35,7 @@ export const PurchasedLot: FC<Props> = ({lot_id}) => {
             title='Jump to lot'
             type = 'dark'
             variant = {TEXT_VARIANT.MAIN_14_500}
-            style={[styles.button,  setPadding(6, 0, 6, 0), setMargin(0, 0, 20, 0)]}
+            style={[styles.button,  setPadding(6, 0, 6, 0)]}
         />
     </View>
   );

@@ -17,7 +17,7 @@ export const ModerationUnsuccessful: FC<Props> = ({lot_id}) => {
   return (
     <View style={[setPadding(20, 20, 20, 20), styles.container]}>
         <View style={styles.title}>
-            <Moderator />
+            <Moderator fill={Colors.WARNING}/>
             <AppText
                 text={'Moderation is unsuccessful'}
                 style={setMargin(0, 0, 0, 8)}

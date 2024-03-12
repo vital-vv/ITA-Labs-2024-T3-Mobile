@@ -17,7 +17,7 @@ export const ConfirmedBet: FC<Props> = ({lot_id}) => {
   return (
     <View style={[setPadding(20, 20, 20, 20), styles.container]}>
         <View style={styles.title}>
-            <Currency />
+            <Currency fill={Colors.SYSTEM_BASE}/>
             <AppText
                 text={'Confirmed bet request'}
                 style={setMargin(0, 0, 0, 8)}

@@ -35,7 +35,7 @@ export const OutbiddedLot: FC<Props> = ({lot_id}) => {
             title='Go to Betting'
             type = 'dark'
             variant = {TEXT_VARIANT.MAIN_14_500}
-            style={[styles.button,  setPadding(6, 0, 6, 0), setMargin(0, 0, 20, 0)]}
+            style={[styles.button,  setPadding(6, 0, 6, 0)]}
         />
     </View>
   );

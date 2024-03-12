@@ -17,7 +17,7 @@ export const NewBet: FC<Props> = ({lot_id}) => {
   return (
     <View style={[setPadding(20, 20, 20, 20), styles.container]}>
         <View style={styles.title}>
-            <Bet />
+            <Bet fill={Colors.SYSTEM_BASE}/>
             <AppText
                 text={'New bet'}
                 style={setMargin(0, 0, 0, 8)}
