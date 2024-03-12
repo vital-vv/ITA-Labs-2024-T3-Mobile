@@ -11,7 +11,7 @@ export type CurrentUserStateType = {
 
 const initialState: CurrentUserStateType = {
   isLogged: false,
-  isOnboarded: false,
+  isOnboarded: true,
   email: '',
   role: '',
   phone: '',

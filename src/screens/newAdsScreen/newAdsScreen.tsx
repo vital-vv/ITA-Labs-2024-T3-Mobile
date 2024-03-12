@@ -83,7 +83,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   let weightArray: Array<any>;
   let currencyArray: Array<any>;
   let packagingArray: Array<any>;
-  let sizeArray: Array<any>;
+  let lengthArray: Array<any>;
 
   const mapAllSelectionData: (
     allSelectionData: any,
@@ -101,7 +101,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     weightArray = mapData(allSelectionData.weight);
     currencyArray = mapData(allSelectionData.currency);
     packagingArray = mapData(allSelectionData.packaging);
-    sizeArray = mapData(allSelectionData.size);
+    lengthArray = mapData(allSelectionData.lengthUnits);
   };
 
   if (isLoadingSelection && isLoadingCategories) {return <SpinnerWrapper />;}
@@ -424,7 +424,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             <AppDropDown
               name="size"
               placeholder="Select size"
-              items={sizeArray}
+              items={lengthArray}
               zIndex={2}
             />
             {touched.size && errors.size && (
@@ -530,7 +530,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                     weightArray={weightArray}
                     currencyArray={currencyArray}
                     packagingArray={packagingArray}
-                    sizeArray={sizeArray}
+                    sizeArray={lengthArray}
                     data={data}
                     values={values}
                   />
