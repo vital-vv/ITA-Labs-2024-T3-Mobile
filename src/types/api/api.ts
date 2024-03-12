@@ -76,3 +76,12 @@ export type LotCreate = {
   size: number;
   packaging: string;
 };
+
+export type UserCreate = {
+  first_name: string,
+  last_name: string,
+  preferred_currency: string,
+  email: string,
+  role: string,
+  phoneNumber: string,
+}

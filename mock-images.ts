@@ -60,5 +60,11 @@ export const onBoardingData = [
       'https://images.pexels.com/photos/7524058/pexels-photo-7524058.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load',
     title: 'Payment and shipment',
     text: 'Support and consult at the final stages of the transaction',
-  },
+  },  
+  {
+    id: 6,
+    imageURL: '',
+    title: '',
+    text: '',
+  }
 ];

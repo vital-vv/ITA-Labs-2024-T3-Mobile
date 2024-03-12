@@ -26,7 +26,24 @@ const imagePickerCarouselStyles = StyleSheet.create({
         width: 8, 
         height: 100,
         backgroundColor: Colors.WHITE
-      }
+      },
+      image_block:{
+        width: 120,
+        height: 100,
+        borderRadius: 4,
+        borderColor: Colors.SELECTED_TAB_NAV,
+        borderWidth: 2,
+        borderStyle: 'solid',
+        backgroundColor: Colors.SORT_BTN_BACKGROUND,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      imageStyle: {
+        width: 120,
+        height: 100,
+        borderRadius: 4,
+      },
 });
 
 export default imagePickerCarouselStyles;
