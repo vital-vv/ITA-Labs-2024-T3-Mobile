@@ -1,4 +1,4 @@
-import {AppImagePicker} from '../../AppImagePicker/AppImagePicker'
+import {AppImagePicker} from '../../AppImagePicker/AppImagePicker';
 import {
   Animated,
   Pressable,
@@ -10,17 +10,16 @@ import {FC, useRef, useState} from 'react';
 import ArrowLeft from '../../../assets/icons/arrow-left.svg';
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
 import {FlashList} from '@shopify/flash-list';
-import { Colors } from '../../../constants/colors';
+import {Colors} from '../../../constants/colors';
 import styles from './imagePickerCarouselStyles';
 import Plus from '../../../assets/icons/plus_circle.svg';
 
 type Props = {
-    imageUrl: {id: number; imageURL: string}[];
-    getUri: Function;
-  };
+  imageUrl: {id: number; imageURL: string}[];
+  getUri: Function;
+};
 
 export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
-
   const scrollX = useRef(new Animated.Value(0)).current;
   const [slide, setSlide] = useState(0);
   const slidesRef = useRef<FlashList<{id: number; imageURL: string}>>(null);
@@ -56,7 +55,9 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
         pagingEnabled={true}
         keyExtractor={item => item.id.toString()}
         scrollEventThrottle={32}
-        ItemSeparatorComponent={() => {return <View style={styles.gap} />}}
+        ItemSeparatorComponent={() => {
+          return <View style={styles.gap} />;
+        }}
         onViewableItemsChanged={items => {
           if (items.viewableItems[0] && items.viewableItems[0].index !== null) {
             setSlide(items.viewableItems[0].index);
@@ -67,12 +68,13 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
           {useNativeDriver: false},
         )}
         renderItem={({item}) => (
-          <AppImagePicker 
-            id={item.id} 
-            getUri={getUri} 
-            children={<Plus />} 
-            noimage_style={styles.image_block} 
-            image_style={styles.imageStyle}/>
+          <AppImagePicker
+            id={item.id}
+            getUri={getUri}
+            children={<Plus />}
+            noimage_style={styles.image_block}
+            image_style={styles.imageStyle}
+          />
         )}
       />
       <View style={styles.buttonsContainer}>
@@ -84,6 +86,5 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
         </Pressable>
       </View>
     </View>
-  ); 
+  );
 };
-

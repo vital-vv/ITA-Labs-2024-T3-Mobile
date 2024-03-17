@@ -1,5 +1,6 @@
 import {ROUTES} from '../constants/routes';
 import {NavigatorScreenParams, Route} from '@react-navigation/native';
+import {CurrentUserStateType} from '../store/slices/currentUserSlice';
 
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
@@ -20,8 +21,11 @@ export type HomeStackParams = {
 
 export type AccountStackParams = {
   [ROUTES.Account]: undefined;
-  [ROUTES.PersonalData]: {headerTitle: string};
+  [ROUTES.PersonalData]: {user: CurrentUserStateType; headerTitle: string};
   [ROUTES.MyAds]: {headerTitle: string};
   [ROUTES.Notifications]: {headerTitle: string};
-  [ROUTES.Currency]: {headerTitle: string};
+  [ROUTES.Currency]: {user: CurrentUserStateType; headerTitle: string};
+  [ROUTES.Language]: {user: CurrentUserStateType; headerTitle: string};
+  [ROUTES.Settings]: {headerTitle: string};
+  [ROUTES.Password]: {headerTitle: string};
 };

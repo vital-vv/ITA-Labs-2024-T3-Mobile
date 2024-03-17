@@ -14,4 +14,7 @@ export enum ROUTES {
   MyAds = 'MyAds',
   Notifications = 'Notifications',
   Currency = 'Currency',
+  Language = 'Language',
+  Settings = 'Settings',
+  Password = 'Password',
 }

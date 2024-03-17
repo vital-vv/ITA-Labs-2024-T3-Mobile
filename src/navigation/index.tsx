@@ -3,7 +3,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DeliveryScreen} from '../screens/deliveryScreen/deliveryScreen';
 import {BetsScreen} from '../screens/betsScreen/betsScreen';
 import {NewAdsScreen} from '../screens/newAdsScreen/newAdsScreen';
-import {AccountScreen} from '../screens/accountScreen/accountScreen';
 import {Colors} from '../constants/colors';
 import {ROUTES} from '../constants/routes';
 import {RootStackParams} from '../types/navigation';
@@ -17,7 +16,7 @@ import {OnBoardingScreen} from '../screens/onBoardingScreen/onBoardingScreen';
 import {useAppSelector} from '../store/hooks';
 import {selector} from '../store/selector';
 import {useAuthenticator} from '@aws-amplify/ui-react-native';
-import { AccountScreenStack } from './stacks/accountScreenStack';
+import {AccountScreenStack} from './stacks/accountScreenStack';
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
