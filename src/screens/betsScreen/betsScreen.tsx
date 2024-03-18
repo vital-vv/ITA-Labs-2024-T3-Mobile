@@ -5,34 +5,43 @@ import { BetStackParams } from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes.ts';
 import {FC, useState} from 'react';
-import {useGetLotsInSubCategoryQuery} from '../../api/endpoints';
+import {useGetUserBetsQuery, useGetLotQuery} from '../../api/endpoints';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
-import { Pressable, RefreshControl, View } from 'react-native';
-import { TEXT_VARIANT } from '../../types/textVariant.ts';
-import { Colors } from '../../constants/colors.tsx';
+import {Pressable, RefreshControl, View} from 'react-native';
+import {TEXT_VARIANT} from '../../types/textVariant.ts';
+import {Colors} from '../../constants/colors.tsx';
 import styles from './betsScreenStyles.ts';
 import {FlashList} from '@shopify/flash-list';
-import { ListItem } from '../../components/listItem/ListItem.tsx';
+import {ListItem} from '../../components/listItem/ListItem.tsx';
+import { number } from 'yup';
 
 type Props = NativeStackScreenProps<BetStackParams, ROUTES.Bets>;
 
 export const BetsScreen: FC<Props> = ({navigation, route}) => {
   
   const [isActiveFirst, setIsActiveFirst] = useState(true);
+  let id:number = 0
   
   const {
-    data: lotsInSubCategoryData,
-    isLoading,
-    refetch: refetchlotsInSubCategory,
-  } = useGetLotsInSubCategoryQuery(1);
+    data: userLeadingBetsData,
+    isLoading: isLoadingLeadingBets,
+    refetch: refetchGetUserLeadingBets,
+  } = useGetUserBetsQuery('LEADING');
 
   const {
-    data: lot2sInSubCategoryData,
-    isLoading: isLot2Loading,
-    refetch: refetchlot2sInSubCategory,
-  } = useGetLotsInSubCategoryQuery(2);
+    data: userOverbidBetsData,
+    isLoading: isLoadingOverbidBets,
+    refetch: refetchGetUserOverbidBets,
+  } = useGetUserBetsQuery('OVERBID');
 
-  if (isLoading) return <SpinnerWrapper />;
+  const {
+    data: LotData,
+    isLoading: isLoadingLotData,
+    refetch: refetchLotData,
+  } = useGetLotQuery(id);
+  
+
+  if (isLoadingLeadingBets && isLoadingOverbidBets) return <SpinnerWrapper />;
 
   return (
     <MainWrapper>
@@ -67,23 +76,24 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           estimatedItemSize={300}
           refreshControl={
             <RefreshControl
-              refreshing={isLoading}
-              onRefresh={refetchlotsInSubCategory}
+              refreshing={isLoadingLeadingBets}
+              onRefresh={refetchGetUserLeadingBets}
             />
           }
-          data={lotsInSubCategoryData?.content}
-          renderItem={({item}) => (
+          data={userLeadingBetsData?.content}
+          renderItem={({item}) => (useGetLotQuery(item.lot_id) &&
             <Pressable
               style={{...setPadding(0, 16, 0, 16)}}
               onPress={() => {
                 navigation.navigate(ROUTES.BetView, {
-                  id: item.lot_id,
-                  headerTitle: item.category_name,
+                  id: LotData?.lot_id || 0,
+                  // headerTitle: item.category_name,
+                  headerTitle: LotData?.title || '',
                   position:'leading',
                 });
               }}
               >
-              <ListItem lot={item} position='leading'/>
+              <ListItem lot={LotData} position='leading'/>
             </Pressable>
           )}
         />) : 
@@ -91,23 +101,24 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           estimatedItemSize={300}
           refreshControl={
             <RefreshControl
-              refreshing={isLot2Loading}
-              onRefresh={refetchlot2sInSubCategory}
+              refreshing={isLoadingOverbidBets}
+              onRefresh={refetchGetUserOverbidBets}
             />
           }
-          data={lot2sInSubCategoryData?.content}
-          renderItem={({item}) => (
+          data={userOverbidBetsData?.content}
+          renderItem={({item}) => (useGetLotQuery(item.lot_id) &&
             <Pressable
               style={{...setPadding(0, 16, 0, 16)}}
               onPress={() => {
                 navigation.navigate(ROUTES.BetView, {
-                  id: item.lot_id,
-                  headerTitle: item.category_name,
+                  id: LotData?.lot_id || 0,
+                  // headerTitle: item.category_name,
+                  headerTitle: LotData?.title || '',
                   position:'outbid',
                 });
               }}
               >
-              <ListItem lot={item} position='outbid'/>
+              <ListItem lot={LotData} position='outbid'/>
             </Pressable>
           )}
         />

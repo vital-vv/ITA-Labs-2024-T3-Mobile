@@ -58,8 +58,28 @@ export type Selection = {
 
 
 export type Bet = {
-  user_id: number;
-  lot_id: number;
   amount: number;
   currency: string;
+  lot_id: number;
+};
+
+export type BetRequest = {
+  bid_id: number;
+  user_id: string;
+  lot_id: number;
+  status: 'LEADING' | 'OVERBID' | 'WON'
+  amount: number;
+  currency: string;
+};
+
+export type BetRequestMetaData = {
+  totalElements: number;
+  has_next: string
+  page: number;
+  size: number;
+};
+
+export type MyBetsInResponse = {
+  content: BetRequest[];
+  metadata: BetRequestMetaData;
 };

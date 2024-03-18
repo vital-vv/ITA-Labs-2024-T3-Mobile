@@ -6,7 +6,6 @@ export const API_URL = {
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
   users: '/users',
-  userLeadingBets: (id: number) => `/users/${id}/bids?status=leading`,
-  userOutbidBets: (id: number) => `/users/${id}/bids?status=overdbid`,
+  userBets: (status: string) => `/users/bids?status=${status}`,
   bets: '/bids',
 };
