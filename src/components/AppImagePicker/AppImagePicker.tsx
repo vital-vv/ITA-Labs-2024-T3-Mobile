@@ -60,6 +60,13 @@ export const AppImagePicker: FC<Props> = ({
       });
     };
 
+    const onChoosePhoto = () => {
+      chooseFile('photo'), setIsOpen(false);
+    }
+
+    const onDeletePhoto = () => {
+      getUri(0, ''), setIsOpen(false);
+    }
 
   return (
     <Pressable style={noimage_style} onPress={() => setIsOpen(true)}>
@@ -71,9 +78,7 @@ export const AppImagePicker: FC<Props> = ({
       <ModalWindow isOpen={isOpen} onClose={setIsOpen}>
         <Pressable
           style={styles.modal_container}
-          onPress={() => {
-            chooseFile('photo'), setIsOpen(false);
-          }}>
+          onPress={onChoosePhoto}>
           <MyAds style={setMargin(0, 12, 0, 0)} />
           <AppText
             text={'Choose a new image'}
@@ -84,9 +89,7 @@ export const AppImagePicker: FC<Props> = ({
         {imageUrl ? (
           <Pressable
             style={styles.modal_container}
-            onPress={() => {
-              getUri(0, ''), setIsOpen(false), console.log(imageUrl);
-            }}>
+            onPress={onDeletePhoto}>
             <Bin style={setMargin(0, 12, 0, 0)} fill={Colors.ERROR_DARK} />
             <AppText
               text={'Delete profile image'}

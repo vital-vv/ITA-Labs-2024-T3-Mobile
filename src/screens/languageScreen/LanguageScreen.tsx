@@ -10,6 +10,7 @@ import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import English from '../../assets/icons/english.svg';
 import {setMargin} from '../../utils/styling/margin';
+import styles from './languageScreenStyles'
 
 type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Language>;
 
@@ -17,13 +18,7 @@ export const LanguageScreen: FC<Props> = ({navigation, route}) => {
   return (
     <MainWrapper>
       <Pressable
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginTop: 24,
-        }}
+        style={styles.container}
         onPress={() => {
           navigation.navigate(ROUTES.Account);
         }}>

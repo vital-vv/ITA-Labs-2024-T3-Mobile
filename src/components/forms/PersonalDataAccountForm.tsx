@@ -21,7 +21,7 @@ import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
-import Pensill from '../../assets/icons/pensill.svg';
+import Pensil from '../../assets/icons/pensill.svg';
 import {useEditUserMutation} from '../../api/endpoints/index.ts';
 import {transformValuesEditUser} from '../formElements/transformValuesToRequestFunc.ts';
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice.ts';
@@ -100,7 +100,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style, user}) => {
                 </AppImagePicker>
               )}
               <View style={styles.photo_edit}>
-                <Pensill />
+                <Pensil />
               </View>
             </View>
             <TextInput
@@ -174,21 +174,13 @@ export const PersonalDataAccountForm: FC<Props> = ({style, user}) => {
                 style={{...setMargin(4, 0, 0, 0)}}
               />
             )}
-            {isValid ? (
-              <ButtonWithoutIcon
-                style={{...setMargin(16, 0, 0, 0)}}
-                onPress={handleSubmit}
-                title="Save changes"
-                type="dark"
-              />
-            ) : (
-              <ButtonWithoutIcon
-                style={{...setMargin(16, 0, 0, 0)}}
-                disabled={true}
-                title="Save changes"
-                type="dark"
-              />
-            )}
+            <ButtonWithoutIcon
+              style={{...setMargin(16, 0, 0, 0)}}
+              onPress= {handleSubmit}
+              disabled={!isValid && true}
+              title="Save changes"
+              type="dark"
+            />
           </ScrollView>
         )}
       </Formik>

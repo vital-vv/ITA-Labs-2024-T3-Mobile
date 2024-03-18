@@ -56,7 +56,7 @@ export type LotsInSubCategoryFinalResponse = {
 export type Selection = {
   packaging: string[];
   weight: string[];
-  size: string[];
+  lengthUnits: string[];
   role: string[];
   status: string[];
   currency: string[];

@@ -1,6 +1,7 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
 import {LotCreate, UserCreate} from '../../types/api/api';
 import {UserEdit} from '../../types/api/api';
+import {FormikValues} from 'formik';
 
 export type UserValues = {
   name: string;
@@ -9,12 +10,17 @@ export type UserValues = {
   currency?: string;
 };
 
+export type DropdownArray = {
+  label: string,
+  value: number,
+}
+
 export const transformValuesCreateLot: (
-  values: any,
-  weightArray: any,
+  values: FormikValues,
+  weightArray: Array<DropdownArray>,
   data: any,
-  packagingArray: any,
-) => void = (values, weightArray, data, packagingArray) => {
+  packagingArray: Array<DropdownArray>,
+) => LotCreate = (values, weightArray, data, packagingArray) => {
   const requestValues: LotCreate = {
     category_id: Number(values.category),
     price_per_unit: Number(
