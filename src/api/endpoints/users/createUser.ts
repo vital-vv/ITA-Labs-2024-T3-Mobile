@@ -4,12 +4,13 @@ import {agroexAPI} from '../../index';
 
 export const createUser = agroexAPI.injectEndpoints({
   endpoints: builder => ({
-    createUser: builder.mutation<UserCreate, void>({
-      query: (body) => ({
+    createUser: builder.mutation<UserCreate, UserCreate>({
+      query: body => ({
         url: API_URL.users,
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['User'],
     }),
   }),
 });

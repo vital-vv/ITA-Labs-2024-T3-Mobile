@@ -38,8 +38,9 @@ import {
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 import React from 'react';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
-import {transformValuesCreateLot} from '../../components/formElements/transformValuesToRequestFunc.ts';
+import {DropdownArray, transformValuesCreateLot} from '../../components/formElements/transformValuesToRequestFunc.ts';
 import { ReviewSchema } from './reviewSchema.ts';
+import { Selection } from '../../types/api/api.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
@@ -80,15 +81,15 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     data: allSubCategoriesData,
   } = useGetCategoryQuery(subCatValue, {skip});
 
-  let weightArray: Array<any>;
-  let currencyArray: Array<any>;
-  let packagingArray: Array<any>;
-  let lengthArray: Array<any>;
+  let weightArray: Array<DropdownArray>;
+  let currencyArray: Array<DropdownArray>;
+  let packagingArray: Array<DropdownArray>;
+  let lengthArray: Array<DropdownArray>;
 
-  const mapAllSelectionData: (
-    allSelectionData: any,
-  ) => void = allSelectionData => {
-    const mapData = (arr: []): Array<any> => {
+  const mapAllSelectionData = (
+    allSelectionData: Selection,
+  ) : void => {
+    const mapData = (arr: any) : Array<DropdownArray> => {
       let newArr = arr.map(function (elem: string, index: number) {
         return {
           label: elem,

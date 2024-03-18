@@ -4,7 +4,7 @@ import {agroexAPI} from '../../index';
 
 export const createLot = agroexAPI.injectEndpoints({
   endpoints: builder => ({
-    createLot: builder.mutation<LotCreate, void>({
+    createLot: builder.mutation<LotCreate, LotCreate>({
       query: (body) => ({
         url: API_URL.lots,
         method: 'POST',

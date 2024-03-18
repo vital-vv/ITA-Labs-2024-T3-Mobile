@@ -15,7 +15,7 @@ import {Colors} from '../../../constants/colors';
 import {ROUTES} from '../../../constants/routes';
 import {useAppNavigation} from '../../../utils/useAppNavigation';
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
-import { PersonalDataForm } from '../../forms/PersonalDataForm';
+import {PersonalDataOnboardingForm} from '../../forms/PersonalDataOnboardingForm';
 
 type Props = {
   data: {id: number; imageURL: string; title: string; text: string}[];
@@ -67,23 +67,27 @@ export const OnBoardingCarousel: FC<Props> = ({data}) => {
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}
-        renderItem={({item}) => (
-          (item.id === data.length) ? (<PersonalDataForm style={styles.form}/>) :
-          (<View style={styles.item}>
+        renderItem={({item}) =>
+          item.id === data.length ? (
+            <PersonalDataOnboardingForm style={styles.form} />
+          ) : (
+            <View style={styles.item}>
               <Image source={{uri: item.imageURL}} style={styles.image} />
               <View>
                 <AppText
                   variant={TEXT_VARIANT.MAIN_20_500}
                   text={`${item.title}`}
                   style={styles.title}
-                />    
+                />
                 <AppText
                   variant={TEXT_VARIANT.MAIN_16_400}
                   text={`${item.text}`}
                   style={styles.text}
                 />
               </View>
-          </View>))}
+            </View>
+          )
+        }
       />
       <View style={styles.navBar}>
         <Paginator slides={data} scrollX={scrollX} />

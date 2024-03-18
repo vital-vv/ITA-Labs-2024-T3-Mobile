@@ -56,7 +56,7 @@ export type LotsInSubCategoryFinalResponse = {
 export type Selection = {
   packaging: string[];
   weight: string[];
-  size: string[];
+  lengthUnits: string[];
   role: string[];
   status: string[];
   currency: string[];
@@ -78,10 +78,37 @@ export type LotCreate = {
 };
 
 export type UserCreate = {
-  first_name: string,
-  last_name: string,
-  preferred_currency: string,
-  email: string,
-  role: string,
-  phoneNumber: string,
-}
+  first_name: string;
+  last_name: string;
+  preferred_currency: string;
+  email: string;
+  role: string;
+  phoneNumber: string;
+};
+
+export type UserEdit = {
+  first_name: string;
+  last_name: string;
+  preferred_currency: string;
+  phoneNumber: string;
+};
+
+export type User = {
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  preferred_currency: string;
+  email: string;
+  role: string;
+  phoneNumber: string;
+  bids: Bet[];
+};
+
+export type Bet = {
+  bid_id: number;
+  user_id: string;
+  lot_id: number;
+  status: string;
+  amount: number;
+  currency: string;
+};
