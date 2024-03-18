@@ -18,11 +18,7 @@ export const SettingsScreen: FC<Props> = ({navigation, route}) => {
   return (
     <MainWrapper>
       <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          marginTop: 24,
-        }}>
+        style={styles.container}>
         <Checkbox_fill style={setMargin(0, 0, 0, 16)} />
         <AppText
           text={'Notify me of new messages'}
