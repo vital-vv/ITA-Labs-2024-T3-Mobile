@@ -1,14 +1,9 @@
-import {API_URL} from './apiURL';
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-
-export const baseQueryFn = () =>
-  fetchBaseQuery({
-    baseUrl: API_URL.baseURL,
-  });
+import {createApi} from '@reduxjs/toolkit/query/react';
+import {baseQueryWithReAuth} from './baseQuery/baseQueryWithReauth';
 
 export const agroexAPI = createApi({
   reducerPath: 'agroexAPI',
-  baseQuery: baseQueryFn(),
+  baseQuery: baseQueryWithReAuth,
   endpoints: builder => ({}),
   tagTypes: ['subCategoryLots', 'User'],
 });

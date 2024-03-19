@@ -1,15 +1,8 @@
 import {FC, useState} from 'react';
 import {MainWrapper} from '../mainWrapper/mainWrapper.tsx';
-import {Formik, FormikProps, FormikValues} from 'formik';
+import {Formik, FormikProps, FormikState, FormikValues} from 'formik';
 import {ReviewSchema} from './ReviewSchema.ts';
-import {
-  Pressable,
-  ScrollView,
-  StyleProp,
-  TextInput,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {ScrollView, StyleProp, TextInput, View, ViewStyle} from 'react-native';
 import {AppText} from '../appText/appText.tsx';
 import {Colors} from '../../constants/colors.tsx';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
@@ -21,17 +14,42 @@ import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
 import Pensil from '../../assets/icons/pensill.svg';
-import {useCreateUserMutation} from '../../api/endpoints/index.ts';
+import {
+  useCreateUserMutation,
+  useLazyGetCurrentUserQuery,
+} from '../../api/endpoints/index.ts';
 import {transformValuesCreateUser} from '../formElements/transformValuesToRequestFunc.ts';
+import {useAppNavigation} from '../../utils/hooks/useAppNavigation.tsx';
+import {ROUTES} from '../../constants/routes.ts';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
+export type UserValues = {
+  name: string;
+  surname: string;
+  phone: string;
+};
+
+type ResetForm = {
+  resetForm: (nextState?: Partial<FormikState<UserValues>> | undefined) => void;
+};
 
 export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
-  const [usersInitials, setUsersInitials] = useState({name: '', surname: ''});
+  const [usersInitials, setUsersInitials] = useState<UserValues>({
+    name: '',
+    surname: '',
+    phone: '',
+  });
   const [imageUrl, setImageUrl] = useState('');
-  const [createUser, {isError, error, isSuccess}] = useCreateUserMutation();
+  const navigation = useAppNavigation();
+  const [createUserTrigger, {isLoading}] = useCreateUserMutation();
+  const [getCurrentUserTrigger] = useLazyGetCurrentUserQuery();
+  const initialValues = {
+    name: '',
+    surname: '',
+    phone: '',
+  };
 
   const getUri = (id: number, val: string) => {
     setImageUrl(val);
@@ -56,6 +74,17 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
     }
   };
 
+  const onSubmit = async (values: UserValues, {resetForm}: ResetForm) => {
+    const newValues = transformValuesCreateUser(values);
+    try {
+      await createUserTrigger(newValues).unwrap();
+      await getCurrentUserTrigger();
+      navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
+    } finally {
+      resetForm();
+    }
+  };
+
   return (
     <MainWrapper style={style}>
       <AppText
@@ -65,17 +94,9 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
         style={[{...setPadding(16, 16, 16, 16)}, styles.form_title]}
       />
       <Formik
-        initialValues={{
-          name: '',
-          surname: '',
-          phone: '',
-        }}
+        initialValues={initialValues}
         validationSchema={ReviewSchema}
-        onSubmit={(values, {resetForm}) => {
-          let newValues = transformValuesCreateUser(values);
-          console.log(values);
-          createUser(newValues);
-        }}>
+        onSubmit={onSubmit}>
         {({
           handleChange,
           handleBlur,
@@ -182,9 +203,9 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
                 style={{...setMargin(4, 0, 0, 0)}}
               />
             )}
-             <ButtonWithoutIcon
+            <ButtonWithoutIcon
               style={{...setMargin(16, 0, 0, 0)}}
-              onPress= {handleSubmit}
+              onPress={handleSubmit}
               disabled={!isValid && true}
               title="Save changes"
               type="dark"

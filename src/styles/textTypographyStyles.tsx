@@ -65,6 +65,11 @@ export const textTypographyStyles = StyleSheet.create<{
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 24,
   },
+  [TEXT_VARIANT.MAIN_30_800]: {
+    fontFamily: 'IBMPlexSans-Regular',
+    fontSize: 32,
+    fontWeight: '900',
+  },
   [TEXT_VARIANT.MAIN_32_400]: {
     fontFamily: 'IBMPlexSans-Regular',
     fontSize: 32,

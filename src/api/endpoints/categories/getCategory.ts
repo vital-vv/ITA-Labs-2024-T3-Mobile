@@ -1,4 +1,4 @@
-import { Category } from '../../../types/api/api';
+import { Category } from '../../../types/api/lots';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
 

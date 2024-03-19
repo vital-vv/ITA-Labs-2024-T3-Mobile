@@ -14,5 +14,4 @@ export const API_URL = {
   dataSelection: '/data-selection',
   lots: '/lots',
   users: '/users',
-  user_me: '/users/me',
-};
+  currentUser: '/users/me',};
