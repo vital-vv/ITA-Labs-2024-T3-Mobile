@@ -24,7 +24,7 @@ export const toastConfig = {
     <BaseToast
       {...props}
       contentContainerStyle={{paddingHorizontal: '10%'}}
-      style={styles.errorStyle}
+      style={styles.warningStyle}
       text1Style={styles.text1Style}
       text2Style={styles.text2Style}
     />

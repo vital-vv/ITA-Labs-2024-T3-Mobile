@@ -16,6 +16,5 @@ export const baseQuery = fetchBaseQuery({
     } catch (e) {
       return headers;
     }
-    return headers;
   },
 });

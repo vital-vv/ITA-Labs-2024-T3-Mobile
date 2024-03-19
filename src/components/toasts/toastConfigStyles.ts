@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     borderLeftColor: Colors.ERROR_DARK,
     borderLeftWidth: 10,
   },
-  warningsStyle: {
+  warningStyle: {
     borderLeftColor: Colors.WARNING,
     borderLeftWidth: 10,
   },
