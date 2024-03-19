@@ -89,7 +89,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const mapAllSelectionData = (
     allSelectionData: Selection,
   ) : void => {
-    const mapData = (arr: any) : Array<DropdownArray> => {
+    const mapData = (arr: Array<string>) : Array<DropdownArray> => {
       let newArr = arr.map(function (elem: string, index: number) {
         return {
           label: elem,

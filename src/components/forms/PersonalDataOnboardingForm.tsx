@@ -20,7 +20,7 @@ import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
-import Pensil from '../../assets/icons/pensill.svg';
+import Pensil from '../../assets/icons/pensil.svg';
 import {useCreateUserMutation} from '../../api/endpoints/index.ts';
 import {transformValuesCreateUser} from '../formElements/transformValuesToRequestFunc.ts';
 
@@ -185,7 +185,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
              <ButtonWithoutIcon
               style={{...setMargin(16, 0, 0, 0)}}
               onPress= {handleSubmit}
-              disabled={!isValid && true}
+              disabled={!isValid}
               title="Save changes"
               type="dark"
             />

@@ -26,56 +26,55 @@ type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
 
-  const onPressPersonalData = () => {
-    navigation.navigate(ROUTES.PersonalData, {
-      headerTitle: 'Personal data',
-      user: user,
-    });
-  }
-
-  const onPressMyAds = () => {
-    navigation.navigate(ROUTES.MyAds, {
-      headerTitle: 'My advertisements',
-    });
-  }
-
-  const onPressNotification = () => {
-    navigation.navigate(ROUTES.Notifications, {
-      headerTitle: 'Notifications',
-    });
-  }
-
-  const onPressCurrency = () => {
-    navigation.navigate(ROUTES.Currency, {
-      headerTitle: 'Currency',
-      user: user,
-    });
-  }
-
-  const onPressLanguage = () => {
-    navigation.navigate(ROUTES.Language, {
-      headerTitle: 'Language',
-      user: user,
-    });
-  }
-
-  const onPressPassword = () => {
-    navigation.navigate(ROUTES.Password, {
-      headerTitle: 'Change Password',
-    });
-  }
-
-  const onPressSettings = () => {
-    navigation.navigate(ROUTES.Settings, {
-      headerTitle: 'Settings',
-    });
+  const onPressNavigation = (route: string) => {
+    switch(route) {
+      case 'PersonalData': 
+        navigation.navigate(ROUTES.PersonalData, {
+          headerTitle: 'Personal data',
+          user: user,
+        });
+        break;
+      case 'MyAds': 
+        navigation.navigate(ROUTES.MyAds, {
+          headerTitle: 'My advertisements',
+        });
+        break;
+      case 'Notifications': 
+        navigation.navigate(ROUTES.Notifications, {
+          headerTitle: 'Notifications',
+        });
+        break;
+      case 'Currency': 
+        navigation.navigate(ROUTES.Currency, {
+          headerTitle: 'Currency',
+          user: user,
+        });
+        break;
+      case 'Language': 
+        navigation.navigate(ROUTES.Language, {
+          headerTitle: 'Language',
+          user: user,
+        });
+        break;
+      case 'Password':
+        navigation.navigate(ROUTES.Password, {
+          headerTitle: 'Change Password',
+        });
+        break;
+      case 'Settings':
+        navigation.navigate(ROUTES.Settings, {
+          headerTitle: 'Settings',
+        });
+        break;
+      default: return
+    }
   }
 
   return (
     <MainWrapper>
       <ScrollView>
         <Pressable
-          onPress={onPressPersonalData}
+          onPress={() => onPressNavigation('PersonalData')}
           style={[
             styles.group_container,
             styles.tab_container,
@@ -120,7 +119,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         </Pressable>
         <View style={styles.group_container}>
           <Pressable
-            onPress={onPressMyAds}
+            onPress={() => onPressNavigation('MyAds')}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <MyAds style={setMargin(0, 12, 0, 0)} fill={Colors.SECONDARY} />
@@ -137,7 +136,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressNotification}
+            onPress={() => onPressNavigation('Notifications')}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <Notification style={setMargin(0, 12, 0, 0)} />
@@ -156,7 +155,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         </View>
         <View style={styles.group_container}>
           <Pressable
-            onPress={onPressCurrency}
+            onPress={() => onPressNavigation('Currency')}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <Currency
@@ -176,7 +175,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressLanguage}
+            onPress={() => onPressNavigation('Language')}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <Language style={setMargin(0, 12, 0, 0)} />
@@ -193,7 +192,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressPassword}
+            onPress={() => onPressNavigation('Password')}
             style={[styles.add_container, styles.tab]}>
             <Lock style={setMargin(0, 12, 0, 0)} />
             <AppText
@@ -203,7 +202,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressSettings}
+            onPress={() => onPressNavigation('Settings')}
             style={[styles.add_container, styles.tab]}>
             <Settings style={setMargin(0, 12, 0, 0)} />
             <AppText

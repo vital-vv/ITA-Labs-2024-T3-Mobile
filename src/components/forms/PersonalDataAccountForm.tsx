@@ -21,7 +21,7 @@ import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
-import Pensil from '../../assets/icons/pensill.svg';
+import Pensil from '../../assets/icons/pensil.svg';
 import {useEditUserMutation} from '../../api/endpoints/index.ts';
 import {transformValuesEditUser} from '../formElements/transformValuesToRequestFunc.ts';
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice.ts';
@@ -177,7 +177,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style, user}) => {
             <ButtonWithoutIcon
               style={{...setMargin(16, 0, 0, 0)}}
               onPress= {handleSubmit}
-              disabled={!isValid && true}
+              disabled={!isValid}
               title="Save changes"
               type="dark"
             />
