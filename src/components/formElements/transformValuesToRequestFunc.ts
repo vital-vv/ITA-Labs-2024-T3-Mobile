@@ -1,19 +1,20 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
-import {LotCreate, UserCreate} from '../../types/api/api';
-import {UserEdit} from '../../types/api/api';
 import {FormikValues} from 'formik';
+import {LotCreate} from '../../types/api/lots';
+import {UserCreateParams, UserUpdateParams} from '../../types/api/users';
+import {Currency} from '../../types/api/info';
 
 export type UserValues = {
   name: string;
   surname: string;
   phone?: string;
-  currency?: string;
+  currency: Currency;
 };
 
 export type DropdownArray = {
-  label: string,
-  value: number,
-}
+  label: string;
+  value: number;
+};
 
 export const transformValuesCreateLot: (
   values: FormikValues,
@@ -47,16 +48,14 @@ export const transformValuesCreateLot: (
   return requestValues;
 };
 
-export const transformValuesCreateUser: (
-  values: UserValues,
+export const transformValuesCreateUser = (
+  values: Omit<UserValues, 'currency'>,
   imageUrl?: string,
-) => UserCreate = (values, imageUrl) => {
-  const requestValues: UserCreate = {
+): UserCreateParams => {
+  const requestValues = {
     first_name: values.name,
     last_name: values.surname,
-    preferred_currency: 'USD',
-    email: `${values.surname}@test.com`,
-    role: 'user',
+    preferred_currency: Currency.USD,
     phoneNumber: values.phone || '',
   };
 
@@ -66,11 +65,11 @@ export const transformValuesCreateUser: (
 export const transformValuesEditUser = (
   values: UserValues,
   imageUrl?: string,
-): UserEdit => {
+): UserUpdateParams => {
   const requestValues = {
     first_name: values.name,
     last_name: values.surname,
-    preferred_currency: values.currency || '',
+    preferred_currency: values.currency,
     phoneNumber: values.phone || '',
   };
 
@@ -79,8 +78,8 @@ export const transformValuesEditUser = (
 
 export const transformValuesChangeCurrency = (
   user: CurrentUserStateType,
-  currency: string,
-): UserEdit => {
+  currency: Currency,
+): UserUpdateParams => {
   const requestValues = {
     first_name: user.name,
     last_name: user.surname,

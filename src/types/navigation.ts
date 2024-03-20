@@ -7,8 +7,9 @@ export type RootStackParams = {
   [ROUTES.Bets]: {headerTitle: string};
   [ROUTES.Delivery]: {headerTitle: string};
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
-  [ROUTES.AccountStack]: {headerTitle: string};
+  [ROUTES.AccountStack]: NavigatorScreenParams<AccountStackParams>;
   [ROUTES.OnBoarding]: undefined;
+  [ROUTES.Auth]: undefined;
 };
 
 export type HomeStackParams = {
@@ -16,16 +17,17 @@ export type HomeStackParams = {
   [ROUTES.SubCategory]: {subCategory: number; headerTitle: string};
   [ROUTES.LotList]: {subCategory: number; headerTitle: string};
   [ROUTES.Lot]: {id: number; headerTitle: string};
-  [ROUTES.OnBoarding]: undefined;
 };
 
 export type AccountStackParams = {
+  [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.Account]: undefined;
-  [ROUTES.PersonalData]: {user: CurrentUserStateType; headerTitle: string};
+  [ROUTES.PersonalData]: {headerTitle: string};
   [ROUTES.MyAds]: {headerTitle: string};
   [ROUTES.Notifications]: {headerTitle: string};
-  [ROUTES.Currency]: {user: CurrentUserStateType; headerTitle: string};
-  [ROUTES.Language]: {user: CurrentUserStateType; headerTitle: string};
+  [ROUTES.Currency]: {headerTitle: string};
+  [ROUTES.Language]: {headerTitle: string};
   [ROUTES.Settings]: {headerTitle: string};
   [ROUTES.Password]: {headerTitle: string};
+  [ROUTES.GuestAccount]: undefined;
 };

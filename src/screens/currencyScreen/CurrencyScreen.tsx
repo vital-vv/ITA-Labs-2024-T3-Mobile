@@ -16,6 +16,9 @@ import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {transformValuesChangeCurrency} from '../../components/formElements/transformValuesToRequestFunc';
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
+import {Currency} from '../../types/api/info';
+import {useAppSelector} from '../../store/hooks';
+import {selector} from '../../store/selector';
 
 type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Currency>;
 
@@ -27,9 +30,9 @@ export const CurrencyScreen: FC<Props> = ({navigation, route}) => {
     refetch: refetchallSelectionData,
   } = useGetAllSelectionQuery();
 
-  const {user} = route.params;
+  const user = useAppSelector(selector.currentUserSliceData);
 
-  const onSubmit = (user: CurrentUserStateType, currency: string) => {
+  const onSubmit = (user: CurrentUserStateType, currency: Currency) => {
     const newValues = transformValuesChangeCurrency(user, currency);
     editUser(newValues);
     navigation.navigate(ROUTES.Account);
@@ -38,6 +41,7 @@ export const CurrencyScreen: FC<Props> = ({navigation, route}) => {
   if (isLoading) {
     return <SpinnerWrapper />;
   }
+  
   return (
     <MainWrapper>
       <FlashList
@@ -59,9 +63,7 @@ export const CurrencyScreen: FC<Props> = ({navigation, route}) => {
               style={setPadding(10, 16, 10, 16)}
               variant={TEXT_VARIANT.MAIN_18_400}
               color={
-                user.preferred_currency == item
-                  ? Colors.SELECTED_TAB_NAV
-                  : Colors.PRIMARY
+                user.currency == item ? Colors.SELECTED_TAB_NAV : Colors.PRIMARY
               }
             />
           </Pressable>

@@ -1,9 +1,14 @@
-import {Animated, View, useWindowDimensions} from 'react-native';
+import {
+  Animated,
+  ImageSourcePropType,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import {styles} from './paginatorStyles';
 import {Colors} from '../../../constants/colors';
 
 type Props = {
-  slides: {id?: number; imageURL: string}[];
+  slides: {id?: number; imageURL: ImageSourcePropType}[];
   scrollX: Animated.Value;
 };
 

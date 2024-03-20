@@ -1,4 +1,4 @@
-import {Selection} from '../../../types/api/api';
+import { Selection } from '../../../types/api/info';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
 

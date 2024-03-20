@@ -1,10 +1,9 @@
 import {FC, useState} from 'react';
 import {MainWrapper} from '../mainWrapper/mainWrapper.tsx';
-import {Formik, FormikProps, FormikValues} from 'formik';
+import {Formik} from 'formik';
 import {ReviewSchema} from './ReviewSchema.ts';
 import {
   Image,
-  Pressable,
   ScrollView,
   StyleProp,
   TextInput,
@@ -15,7 +14,6 @@ import {AppText} from '../appText/appText.tsx';
 import {Colors} from '../../constants/colors.tsx';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
 import {setMargin} from '../../utils/styling/margin.ts';
-import {setPadding} from '../../utils/styling/padding.ts';
 import styles from './personalDataFormStyles.ts';
 import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
@@ -24,33 +22,35 @@ import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
 import Pensil from '../../assets/icons/pensill.svg';
 import {useEditUserMutation} from '../../api/endpoints/index.ts';
 import {transformValuesEditUser} from '../formElements/transformValuesToRequestFunc.ts';
-import {CurrentUserStateType} from '../../store/slices/currentUserSlice.ts';
+import {useAppSelector} from '../../store/hooks/index.ts';
+import {selector} from '../../store/selector.ts';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
-  user: CurrentUserStateType;
 };
 
-export const PersonalDataAccountForm: FC<Props> = ({style, user}) => {
+export const PersonalDataAccountForm: FC<Props> = ({style}) => {
+  const user = useAppSelector(selector.currentUserSliceData);
   const [imageUrl, setImageUrl] = useState(user.photo);
   const [editUser, {isError, error, isSuccess}] = useEditUserMutation();
   const getUri = (id: number, val: string) => {
     setImageUrl(val);
   };
+  const initialValues = {
+    name: user.name,
+    surname: user.surname,
+    email: user.email,
+    phone: user.phone,
+    currency: user.currency,
+  };
 
   return (
     <MainWrapper style={style}>
       <Formik
-        initialValues={{
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-          phone: user.phone,
-        }}
+        initialValues={initialValues}
         validationSchema={ReviewSchema}
         onSubmit={(values, {resetForm}) => {
           let newValues = transformValuesEditUser(values);
-          console.log(values);
           editUser(newValues);
         }}>
         {({
@@ -176,7 +176,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style, user}) => {
             )}
             <ButtonWithoutIcon
               style={{...setMargin(16, 0, 0, 0)}}
-              onPress= {handleSubmit}
+              onPress={handleSubmit}
               disabled={!isValid && true}
               title="Save changes"
               type="dark"
