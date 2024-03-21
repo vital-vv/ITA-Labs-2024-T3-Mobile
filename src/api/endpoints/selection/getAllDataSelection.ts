@@ -1,4 +1,4 @@
-import {Selection} from '../../../types/api/api';
+import {Cities, Selection} from '../../../types/api/api';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
 
@@ -10,5 +10,12 @@ export const getAllDataSelection = agroexAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getCities: builder.query<Cities, string>({
+      query: (city) => ({
+        url: API_URL.cities(city),
+        method: 'GET',
+      }),
+    }),
   }),
+  overrideExisting: true,
 });

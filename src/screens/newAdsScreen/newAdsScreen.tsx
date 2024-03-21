@@ -10,11 +10,11 @@ import {AppText} from '../../components/appText/appText';
 import {Colors} from '../../constants/colors';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
 import {setPadding} from '../../utils/styling/padding';
-import {FC, useRef, useState} from 'react';
+import {FC, useEffect, useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../types/navigation.ts';
 import {ROUTES} from '../../constants/routes.ts';
-import {Formik, FormikProps} from 'formik';
+import {Formik, FormikFormProps, FormikProps, FormikState, FormikValues} from 'formik';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
 import {setMargin} from '../../utils/styling/margin.ts';
 import styles from './newAdsScreenStyles.ts';
@@ -22,7 +22,6 @@ import data from './createLotData.json';
 import inputStyles from '../../components/formElements/Input/inputStyles.ts';
 import AppDropDown from '../../components/formElements/DropDownInput/AppDropDown.tsx';
 import {textTypographyStyles} from '../../styles/textTypographyStyles';
-import * as yup from 'yup';
 import {LotPreview} from '../../components/lotPreview/LotPreview.tsx';
 import ButtonWithoutIcon from '../../components/buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import ButtonWithIcon from '../../components/buttons/ButtonWithIcon/ButtonWithIcon.tsx';
@@ -34,19 +33,21 @@ import {
   useGetAllCategoriesQuery,
   useGetAllSelectionQuery,
   useGetCategoryQuery,
+  useGetCitiesQuery,
 } from '../../api/endpoints/index.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
 import React from 'react';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
 import {DropdownArray, transformValuesCreateLot} from '../../components/formElements/transformValuesToRequestFunc.ts';
 import { ReviewSchema } from './reviewSchema.ts';
-import { Selection } from '../../types/api/api.ts';
+import { Selection, SubCategory } from '../../types/api/api.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
 export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isModalVisible, setisModalVisible] = useState(false);
   const [isSuccessModalVisible, setisSuccessModalVisible] = useState(false);
+  const [isErrorModalVisible, setisErrorModalVisible] = useState(false);
   const [isDiscardModalVisible, setIsDiscardModalVisible] = useState(false);
   const formikRef = useRef<FormikProps<Record<string, string>>>(null);
   const [imageUrl, setImageUrl] = useState([
@@ -56,14 +57,12 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     {id: 4, imageURL: ''},
     {id: 5, imageURL: ''},
   ])
-  const [subCatValue, setSubCatValue] = useState(1);
+  const [subCatValue, setSubCatValue] = useState('');
+  const [varietyValue, setVarietyValue] = useState('')
+  const [countryValue, setCountryValue] = useState('')
   const [skip, setSkip] = useState(true)
-  const [createLot, {isError, error, isSuccess }] = useCreateLotMutation()
-  
-  const getUri = (id: number, val: string) => {
-    setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
-    ])
-  }
+  const [skipCity, setSkipCity] = useState(true)
+  const [createLot, {isError, error, isSuccess}] = useCreateLotMutation()
 
   const {
     data: allSelectionData,
@@ -79,36 +78,65 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
 
   const {
     data: allSubCategoriesData,
-  } = useGetCategoryQuery(subCatValue, {skip});
+  } = useGetCategoryQuery(Number(subCatValue), {skip});
+
+  const {
+    data: CitiesData,
+  } = useGetCitiesQuery(countryValue, {skip: skipCity});
 
   let weightArray: Array<DropdownArray>;
   let currencyArray: Array<DropdownArray>;
   let packagingArray: Array<DropdownArray>;
   let lengthArray: Array<DropdownArray>;
+  let countriesArray:  Array<DropdownArray>;
+  let citiesArray:  Array<DropdownArray>;
+  let varietyArray:  SubCategory[];
 
-  const mapAllSelectionData = (
-    allSelectionData: Selection,
-  ) : void => {
-    const mapData = (arr: any) : Array<DropdownArray> => {
-      let newArr = arr.map(function (elem: string, index: number) {
-        return {
-          label: elem,
-          value: index+1,
-        };
-      });
-      return newArr;
-    };
+  const mapData = (arr: any) : Array<DropdownArray> => {
+    let newArr = arr.map(function (elem: string, index: number) {
+      return {
+        label: elem,
+        value: index+1,
+      };
+    });
+    return newArr;
+  };
 
-    weightArray = mapData(allSelectionData.weight);
-    currencyArray = mapData(allSelectionData.currency);
-    packagingArray = mapData(allSelectionData.packaging);
-    lengthArray = mapData(allSelectionData.lengthUnits);
+  const getUri = (id: number, val: string) => {
+    setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
+    ])
+  }
+
+  const onSubmit = async (values: FormikValues, {resetForm}: any) => {
+    const newValues = transformValuesCreateLot(values, weightArray, currencyArray, lengthArray, countriesArray, citiesArray, packagingArray);
+    console.log(newValues)
+    try {
+      const payload = await createLot(newValues).unwrap(); 
+      console.log('fulfilled', payload)
+      setisSuccessModalVisible(true);
+      resetForm();     
+    } catch (error) {
+      console.error('rejected', error);
+      setisErrorModalVisible(true);   
+    }     
   };
 
   if (isLoadingSelection && isLoadingCategories) {return <SpinnerWrapper />;}
 
   if (allSelectionData) {
-    mapAllSelectionData(allSelectionData);
+      weightArray = mapData(allSelectionData.weight);
+      currencyArray = mapData(allSelectionData.currency);
+      packagingArray = mapData(allSelectionData.packaging);
+      lengthArray = mapData(allSelectionData.lengthUnits);
+      countriesArray = mapData(allSelectionData.countries)
+  }
+
+  if (allSubCategoriesData && subCatValue) {
+      varietyArray = allSubCategoriesData?.subcategories.filter((subcategory) => subcategory.category_id === Number(varietyValue));
+  }
+
+  if (CitiesData) {
+      citiesArray = mapData(CitiesData);
   }
 
   return (
@@ -133,23 +161,21 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
           description: '',
           category: '',
           subcategory: '',
-          // variety: '',
+          variety: '',
           quantity: '',
           unitOfWeight: '1',
           price: '',
           currency: '1',
+          start_price: '',
           country: '',
           region: '',
           size: '',
+          length_unit: '1',
           packaging: '',
+          expiration_days: '30'
         }}
         validationSchema={ReviewSchema}
-        onSubmit={(values, {resetForm}) => {
-          let newValues = transformValuesCreateLot(values, weightArray, data, packagingArray);
-          createLot(newValues); 
-          setisSuccessModalVisible(true);     
-          resetForm();
-        }}
+        onSubmit={(values, {resetForm}) => {onSubmit(values, {resetForm})}}
         innerRef={formikRef}>
         {({
           handleChange,
@@ -159,6 +185,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
           errors,
           touched,
           setFieldTouched,
+          isValid,
         }) => (
           <ScrollView
             keyboardShouldPersistTaps="handled"
@@ -232,7 +259,14 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               items={allCategoriesData}
               zIndex={2}
               multiple={false}
-              onSelectItem={(val:any) => {setSubCatValue(val.category_id); setSkip(false)}}
+              onSelectItem={(val:any) => {setSubCatValue(val.category_id); 
+                setSkip(false); 
+                setVarietyValue(''); 
+                values.subcategory = '';
+                values.variety = '';
+                setFieldTouched('subcategory', false);
+                setFieldTouched('variety', false)
+              }}
             />
             {touched.category && errors.category && (
               <AppText
@@ -252,6 +286,8 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 name="subcategory"
                 placeholder="Select a product type"
                 items={allSubCategoriesData?.subcategories}
+                onSelectItem={(val:any) => {setVarietyValue(val.category_id); 
+                values.variety = ''}}
                 zIndex={2}
                 style={{...setMargin(16, 0, 0, 0)}}
               />
@@ -271,6 +307,28 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.subcategory && errors.subcategory && (
               <AppText
                 text={errors.subcategory}
+                color={Colors.ERROR}
+                variant={TEXT_VARIANT.MAIN_12_400}
+                style={{...setMargin(4, 0, 0, 0)}}
+              />
+            )}
+            {values.subcategory && varietyArray && allSubCategoriesData && (
+              // @ts-ignore
+              <AppDropDown
+                schema={{
+                  label: 'name',
+                  value: 'category_id',
+                }} 
+                name="variety"
+                placeholder="Select a variety"
+                items={varietyArray[0].subcategories}
+                zIndex={2}
+                style={{...setMargin(16, 0, 0, 0)}}
+              />
+            )}
+             {touched.variety && errors.variety && (
+              <AppText
+                text={errors.variety}
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
@@ -354,6 +412,40 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 style={{...setMargin(4, 0, 0, 0)}}
               />
             )}
+            <View style={[styles.select_measure, {...setMargin(16, 0, 0, 0)}]}>
+              <TextInput
+                style={[
+                  textTypographyStyles.MAIN_16_400,
+                  inputStyles.input,
+                  styles.measure_input,
+                ]}
+                onChangeText={handleChange('start_price')}
+                onBlur={handleBlur('start_price')}
+                value={values.start_price}
+                placeholder="Enter start price"
+                placeholderTextColor={Colors.SECONDARY}
+                keyboardType="numeric"
+              />
+              <View style={styles.measure_select}>
+                {/* @ts-ignore */}
+                <AppDropDown
+                  value={values.currency}
+                  name="currency"
+                  items={currencyArray}
+                  zIndex={3}
+                  placeholder={currencyArray[0].label}
+                  defaultValue="USD"
+                />
+              </View>
+            </View>
+            {touched.start_price && errors.start_price && (
+              <AppText
+                text={errors.start_price}
+                color={Colors.ERROR}
+                variant={TEXT_VARIANT.MAIN_12_400}
+                style={{...setMargin(4, 0, 0, 0)}}
+              />
+            )}
             <AppText
               text={'Location'}
               color={Colors.PRIMARY}
@@ -363,13 +455,15 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             <View>
               {/* @ts-ignore */}
               <AppDropDown
-                schema={{
-                  label: 'countryName',
-                  value: 'id',
-                }}
+                value={values.country}
                 name="country"
                 placeholder="Select a country"
-                items={data.countries}
+                items={countriesArray}
+                onSelectItem={(val:any) => {setCountryValue(val.label); 
+                   setSkipCity(false);
+                   values.region = '';
+                   setFieldTouched('region', false);
+                  }}
                 zIndex={1}
               />
             </View>
@@ -381,16 +475,12 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 style={{...setMargin(4, 0, 0, 0)}}
               />
             )}
-            {values.country && (
+            {values.country && CitiesData && (
               //  @ts-ignore
               <AppDropDown
-                schema={{
-                  label: 'regionName',
-                  value: 'region_id',
-                }}
                 name="region"
                 placeholder="Select a region"
-                items={data.countries[Number(values.country) - 1].regions}
+                items={citiesArray}
                 zIndex={2}
                 style={{...setMargin(16, 0, 0, 0)}}
               />
@@ -416,19 +506,38 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               />
             )}
             <AppText
-              text={'Size'}
-              color={Colors.PRIMARY}
-              variant={TEXT_VARIANT.MAIN_18_500}
-              style={{...setMargin(24, 0, 8, 0)}}
-            />
-            {/* @ts-ignore */}
-            <AppDropDown
-              name="size"
-              placeholder="Select size"
-              items={lengthArray}
-              zIndex={2}
-            />
-            {touched.size && errors.size && (
+                text={'Size'}
+                color={Colors.PRIMARY}
+                variant={TEXT_VARIANT.MAIN_18_500}
+                style={{...setMargin(24, 0, 8, 0)}}
+              />
+            <View style={styles.select_measure}>
+              <TextInput
+                   style={[
+                    textTypographyStyles.MAIN_16_400,
+                    inputStyles.input,
+                    styles.measure_input,
+                  ]}
+                  onChangeText={handleChange('size')}
+                  onBlur={handleBlur('size')}
+                  value={values.size}
+                  placeholder="Enter a size from 1 to 1000"
+                  placeholderTextColor={Colors.SECONDARY}
+                  keyboardType="numeric"
+                />
+               <View style={styles.measure_select}>
+                 {/* @ts-ignore */}
+                <AppDropDown
+                value={values.length_unit}
+                  name="length_unit"
+                  items={lengthArray}
+                  zIndex={2}
+                  placeholder={lengthArray[0].label}
+                  defaultValue={lengthArray[0].label}
+                />
+                </View>
+              </View>
+             {touched.size && errors.size && (
               <AppText
                 text={errors.size}
                 color={Colors.ERROR}
@@ -452,6 +561,29 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.packaging && errors.packaging && (
               <AppText
                 text={errors.packaging}
+                color={Colors.ERROR}
+                variant={TEXT_VARIANT.MAIN_12_400}
+                style={{...setMargin(4, 0, 0, 0)}}
+              />
+            )}
+             <AppText
+              text={'Trading period'}
+              color={Colors.PRIMARY}
+              variant={TEXT_VARIANT.MAIN_18_500}
+              style={{...setMargin(24, 0, 8, 0)}}
+            />
+             <TextInput
+                style={[textTypographyStyles.MAIN_16_400, inputStyles.input]}
+                onChangeText={handleChange('expiration_days')}
+                onBlur={handleBlur('expiration_days')}
+                value={values.expiration_days}
+                placeholder="Enter trading period from 1 to 30"
+                placeholderTextColor={Colors.SECONDARY}
+                keyboardType="numeric"
+              />
+              {touched.expiration_days && errors.expiration_days && (
+              <AppText
+                text={errors.expiration_days}
                 color={Colors.ERROR}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
@@ -481,35 +613,19 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               />
               <AppText
                 text={
-                  'This ad will be placed on the site after review by a moderator and will be valid for the next 30 days.'
+                  `This ad will be placed on the site after review by a moderator and will be valid for the next ${values.expiration_days} days.`
                 }
                 color={Colors.SECONDARY}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(0, 0, 16, 0)}}
               />
-              {values.title &&
-              values.category &&
-              values.subcategory &&
-              //  values.variety &&
-              values.quantity &&
-              values.price &&
-              values.country &&
-              values.region &&
-              values.size &&
-              values.packaging ? (
                 <ButtonWithoutIcon
                   style={styles.preview_button}
                   onPress={handleSubmit}
                   title="Place an advertisment"
                   type="dark"
+                  disabled={!isValid}
                 />
-              ) : (
-                <ButtonWithoutIcon
-                  style={styles.submit_button_disabled}
-                  title="Place an advertisment"
-                  type="dark"
-                />
-              )}
               <Modal visible={isModalVisible} transparent={false}>
                 <MainWrapper>
                   <Pressable
@@ -530,9 +646,11 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   <LotPreview
                     weightArray={weightArray}
                     currencyArray={currencyArray}
+                    countriesArray={countriesArray}
+                    citiesArray={citiesArray}
+                    varietyArray={varietyArray}
                     packagingArray={packagingArray}
-                    sizeArray={lengthArray}
-                    data={data}
+                    lengthArray={lengthArray}
                     values={values}
                   />
                   <ButtonWithIcon
@@ -578,6 +696,37 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                       navigation.navigate(ROUTES.HomeStack, {
                         screen: ROUTES.Home,
                       });
+                    }}
+                    title="Okay"
+                    type="dark"
+                  />
+                </MainWrapper>
+              </Modal>
+              <Modal visible={isErrorModalVisible} transparent={false}>
+                <MainWrapper style={styles.modal_mainwrapper}>
+                  <Image
+                    style={styles.error_image}
+                    source={require('../../assets/images/error.png')}
+                  />
+                  <AppText
+                    text={'Error!'}
+                    color={Colors.PRIMARY}
+                    variant={TEXT_VARIANT.MAIN_20_500}
+                    style={[
+                      {...setMargin(24, 0, 8, 0)},
+                      styles.preview_button_text,
+                    ]}
+                  />
+                  <AppText
+                    text={'Oops, something went wrong. Try submitting the form again.'}
+                    color={Colors.PRIMARY}
+                    variant={TEXT_VARIANT.MAIN_16_400}
+                    style={[styles.preview_button_text, {...setMargin(16, 16, 0, 16)}]}
+                  />
+                  <ButtonWithoutIcon
+                    style={[styles.preview_button, styles.success_button]}
+                    onPress={() => {
+                      setisErrorModalVisible(false);
                     }}
                     title="Okay"
                     type="dark"

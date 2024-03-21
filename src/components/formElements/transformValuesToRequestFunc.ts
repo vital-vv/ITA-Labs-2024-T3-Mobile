@@ -1,5 +1,5 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
-import {LotCreate, UserCreate} from '../../types/api/api';
+import {Cities, LotCreate, UserCreate} from '../../types/api/api';
 import {UserEdit} from '../../types/api/api';
 import {FormikValues} from 'formik';
 
@@ -18,30 +18,36 @@ export type DropdownArray = {
 export const transformValuesCreateLot: (
   values: FormikValues,
   weightArray: Array<DropdownArray>,
-  data: any,
+  currencyArray: Array<DropdownArray>,
+  lengthArray: Array<DropdownArray>,
+  countriesArray: Array<DropdownArray>,
+  citiesArray: Array<DropdownArray>,
   packagingArray: Array<DropdownArray>,
-) => LotCreate = (values, weightArray, data, packagingArray) => {
+) => LotCreate = (values, weightArray, currencyArray, lengthArray, countriesArray, citiesArray, packagingArray) => {
   const requestValues: LotCreate = {
-    category_id: Number(values.category),
-    price_per_unit: Number(
-      (Number(values.price) / Number(values.quantity)).toFixed(2),
-    ),
-    length_unit: 'cm',
-    title: values.title,
-    quantity: Number(values.quantity),
-    weight: weightArray[Number(values.unitOfWeight) - 1].label,
-    location: {
-      country: data.countries[Number(values.country) - 1].countryName,
-      region:
-        data.countries[Number(values.country) - 1].regions[
-          Number(values.region) - 1
-        ].regionName,
+    lot: {
+      category_id: Number(values.variety),
+      price_per_unit: Number(
+        (Number(values.price) / Number(values.quantity)).toFixed(2),
+      ),
+      start_price: Number(values.start_price),
+      expiration_days: Number(values.expiration_days),
+      length_unit: lengthArray[Number(values.length_unit) - 1].label,
+      title: values.title,
+      quantity: Number(values.quantity),
+      weight: weightArray[Number(values.unitOfWeight) - 1].label,
+      location: {
+        country: countriesArray[Number(values.country) - 1].label,
+        region:
+        citiesArray[Number(values.region) - 1].label,
+      },
+      description: values.description || '',
+      status: 'active',
+      size: Number(values.size),
+      packaging: packagingArray[Number(values.packaging) - 1].label,
+      currency:  currencyArray[Number(values.currency) - 1].label,
     },
-    description: values.description || '',
-    status: 'active',
-    variety: values.variety || '',
-    size: Number(values.size),
-    packaging: packagingArray[Number(values.packaging) - 1].label,
+    images: []
   };
 
   return requestValues;

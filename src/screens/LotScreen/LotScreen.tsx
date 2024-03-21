@@ -1,7 +1,7 @@
 import {Image, RefreshControl, ScrollView, TextInput, View} from 'react-native';
 import {styles} from './lotScreenStyles';
 import ButtonWithIcon from '../../components/buttons/ButtonWithIcon/ButtonWithIcon';
-import {FC, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {HomeStackParams} from '../../types/navigation';
 import {ROUTES} from '../../constants/routes';
@@ -16,6 +16,8 @@ import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {setMargin} from '../../utils/styling/margin';
 import {ModalWindow} from '../../components/modal/modal';
 import inputStyles from '../../components/formElements/Input/inputStyles';
+import InfoIcon from '../../assets/icons/info.svg';
+
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Lot>;
 
 export const LotScreen: FC<Props> = ({navigation, route}) => {
@@ -47,27 +49,38 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             />
           </View>
         </View>
+        {lot.description && 
+          <View style={styles.discriptionWrapper}>
+            <InfoIcon />
+            <AppText
+              color={Colors.PRIMARY}
+              text={`${lot.description}`}
+              variant={TEXT_VARIANT.MAIN_14_400}
+              style={styles.discriptionText}
+            />  
+          </View>
+        }
         <View style={styles.mainInfoWrapper}>
           <View style={styles.pricesWrapper}>
             <AppText
-              text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
+              text={lot.leading ? (`${lot.currency} ${(lot.leading.amount).toFixed(2)}`) : 'No bets'}
               variant={TEXT_VARIANT.MAIN_24_500}
               color={Colors.WARNING}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
+              text={`${lot.currency} ${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_24_500}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`$${lot.price_per_unit}/kg`}
+              text={lot.leading ? `${lot.currency} ${(lot.leading.amount/lot.quantity).toFixed(2)}/${lot.weight}` : ''}
               variant={TEXT_VARIANT.MAIN_12_400}
               color={Colors.SECONDARY}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`$${lot.price_per_unit}/kg`}
+              text={`${lot.currency} ${lot.price_per_unit}/${lot.weight}`}
               variant={TEXT_VARIANT.MAIN_12_400}
               color={Colors.SECONDARY}
               style={[styles.text, styles.price]}
@@ -80,7 +93,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lot.variety}`}
+            text={`${lot.category_name}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -91,7 +104,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lot.quantity}`}
+            text={`${lot.quantity} ${lot.weight}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -102,7 +115,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             style={styles.text}
           />
           <AppText
-            text={`${lot.size}`}
+            text={`${lot.size} ${lot.length_unit}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />

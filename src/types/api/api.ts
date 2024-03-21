@@ -1,8 +1,16 @@
+export type Variety = {
+  category_id: number;
+  parent_id: number | null;
+  name: string;
+  subcategories: [];
+};
+
 export type SubCategory = {
   subcategory_id: string;
   category_id: number;
   parent_id: number | null;
   name: string;
+  subcategories: Variety[];
 };
 
 export type Category = {
@@ -13,25 +21,39 @@ export type Category = {
 };
 
 export type Lot = {
+  title: string;
+  quantity: number;
+  weight: string;
+  location: Location;
+  description: string;
+  status: string;
+  size: number;
+  packaging: string;
+  leading: Bet;
+  users: Bet;
+  currency: string;
   lot_id: number;
   category_id: number;
   category_name: string;
   price_per_unit: number;
-  image_url: string;
+  image_url: Image[];
   expiration_date: string;
   created_at: string;
-  title: string;
-  quantity: number;
-  location: Location;
-  description: string;
-  status: string;
-  variety: string;
-  size: string;
-  packaging: string;
+  created_by: string;
+  total_price: number;
+  start_price: number;
+  length_unit: string;
+  bid_quantity: number; 
 };
 
+export type Image = {
+  id: number;
+  name: string;
+  url: string;
+  MainImage: boolean;
+}
+
 export type Location = {
-  id?: number;
   country: string;
   region: string;
 };
@@ -60,21 +82,32 @@ export type Selection = {
   role: string[];
   status: string[];
   currency: string[];
+  countries: string[];
 };
 
+export type ImageRequest = {
+  file: string;
+  isMainImage: boolean;
+}
+
 export type LotCreate = {
-  category_id: number;
-  price_per_unit: number;
-  title: string;
-  length_unit: string;
-  quantity: number;
-  weight: string;
-  location: Location;
-  description: string;
-  status: string;
-  variety: string;
-  size: number;
-  packaging: string;
+  lot: {
+    category_id: number;
+    price_per_unit: number;
+    start_price: number;
+    expiration_days: number;
+    length_unit: string;
+    title: string;
+    quantity: number;
+    weight: string;
+    location: Location;
+    description: string;
+    status: string;
+    size: number;
+    packaging: string;
+    currency: string;
+  };
+  images: ImageRequest[]
 };
 
 export type UserCreate = {
@@ -112,3 +145,5 @@ export type Bet = {
   amount: number;
   currency: string;
 };
+
+export type Cities = string[];
