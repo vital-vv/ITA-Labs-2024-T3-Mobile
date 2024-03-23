@@ -38,7 +38,7 @@ export const AppImagePicker: FC<Props> = ({
   const [filePath, setFilePath] = useState<ImagePicker.ImagePickerResponse>({});
   const [isOpen, setIsOpen] = useState(false);
 
-  const chooseFile = (type: any) => {
+  const chooseFile = (type: 'photo') => {
     let options = {
       mediaType: type,
       selectionLimit: 1,
@@ -56,8 +56,9 @@ export const AppImagePicker: FC<Props> = ({
       }
       setFilePath(response);
       if (response.assets){
-        getUri(id, response.assets[0].uri);}
+         getUri(id, response.assets[0].uri, response.assets[0].type, response.assets[0].fileName)}
       });
+
     };
 
     const onChoosePhoto = () => {

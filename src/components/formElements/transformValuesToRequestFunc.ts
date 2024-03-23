@@ -1,5 +1,5 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
-import {Cities, LotCreate, UserCreate} from '../../types/api/api';
+import {Cities, ImageRequest, LotCreate, UserCreate} from '../../types/api/api';
 import {UserEdit} from '../../types/api/api';
 import {FormikValues} from 'formik';
 
@@ -15,6 +15,28 @@ export type DropdownArray = {
   value: number,
 }
 
+export type imageUrl = {
+  id: number, 
+  imageURL: string, 
+  file: 
+    {uri: string,
+     type: string,
+      name: string}
+}
+
+export const getImagesData = (imageUrl: {id: number; imageURL: string; file: {};}[]) => {
+  const imagesDataTemp = imageUrl.filter(element => element.imageURL != "")
+
+  const imagesData = imagesDataTemp.map(function (image) {
+    if (image.id == 0) {
+      return {file: image.file, isMainImage: true}
+    } 
+    else return {file: image.file, isMainImage: false}
+  });
+
+  return imagesData
+}
+
 export const transformValuesCreateLot: (
   values: FormikValues,
   weightArray: Array<DropdownArray>,
@@ -23,9 +45,22 @@ export const transformValuesCreateLot: (
   countriesArray: Array<DropdownArray>,
   citiesArray: Array<DropdownArray>,
   packagingArray: Array<DropdownArray>,
-) => LotCreate = (values, weightArray, currencyArray, lengthArray, countriesArray, citiesArray, packagingArray) => {
-  const requestValues: LotCreate = {
-    lot: {
+  imageUrl: {id: number;
+              imageURL: string;
+              file: {};}[]
+) => FormData = (
+  values, 
+  weightArray, 
+  currencyArray, 
+  lengthArray, 
+  countriesArray, 
+  citiesArray, 
+  packagingArray, 
+  imageUrl) => {
+
+  let formData = new FormData();
+
+  const lot: LotCreate = {
       category_id: Number(values.variety),
       price_per_unit: Number(
         (Number(values.price) / Number(values.quantity)).toFixed(2),
@@ -46,11 +81,20 @@ export const transformValuesCreateLot: (
       size: Number(values.size),
       packaging: packagingArray[Number(values.packaging) - 1].label,
       currency:  currencyArray[Number(values.currency) - 1].label,
-    },
-    images: []
   };
 
-  return requestValues;
+  const lotdata = JSON.stringify(lot)
+  formData.append('lot', lotdata);
+
+  const imagesData = getImagesData(imageUrl);
+  
+  imagesData.forEach((val, index) => {
+    formData.append(`images[${index}]`, val);
+  });
+
+  console.log(formData)
+
+  return formData
 };
 
 export const transformValuesCreateUser: (

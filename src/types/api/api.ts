@@ -91,7 +91,6 @@ export type ImageRequest = {
 }
 
 export type LotCreate = {
-  lot: {
     category_id: number;
     price_per_unit: number;
     start_price: number;
@@ -106,8 +105,6 @@ export type LotCreate = {
     size: number;
     packaging: string;
     currency: string;
-  };
-  images: ImageRequest[]
 };
 
 export type UserCreate = {

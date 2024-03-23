@@ -51,11 +51,11 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isDiscardModalVisible, setIsDiscardModalVisible] = useState(false);
   const formikRef = useRef<FormikProps<Record<string, string>>>(null);
   const [imageUrl, setImageUrl] = useState([
-    {id: 1, imageURL: ''}, 
-    {id: 2, imageURL: ''},
-    {id: 3, imageURL: ''}, 
-    {id: 4, imageURL: ''},
-    {id: 5, imageURL: ''},
+    {id: 1, imageURL: '', file: {}}, 
+    {id: 2, imageURL: '', file: {}},
+    {id: 3, imageURL: '', file: {}}, 
+    {id: 4, imageURL: '', file: {}},
+    {id: 5, imageURL: '', file: {}},
   ])
   const [subCatValue, setSubCatValue] = useState('');
   const [varietyValue, setVarietyValue] = useState('')
@@ -102,17 +102,19 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     return newArr;
   };
 
-  const getUri = (id: number, val: string) => {
-    setImageUrl( [ {id: id, imageURL: val}, ...imageUrl.filter(element => element.id !== id),
+  const getUri = (id: number, val: string, type: string, name: string) => {
+    setImageUrl( [ {id: id, imageURL: val, file: {uri: val,
+      type: type,
+      name: name}}, ...imageUrl.filter(element => element.id !== id), 
     ])
   }
 
   const onSubmit = async (values: FormikValues, {resetForm}: any) => {
-    const newValues = transformValuesCreateLot(values, weightArray, currencyArray, lengthArray, countriesArray, citiesArray, packagingArray);
-    console.log(newValues)
+    console.log(values)
+    const newValues = transformValuesCreateLot(values, weightArray, currencyArray, lengthArray, countriesArray, citiesArray, packagingArray, imageUrl);
     try {
-      const payload = await createLot(newValues).unwrap(); 
-      console.log('fulfilled', payload)
+      await createLot(newValues).unwrap(); 
+      console.log('fulfilled')
       setisSuccessModalVisible(true);
       resetForm();     
     } catch (error) {
@@ -120,6 +122,46 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       setisErrorModalVisible(true);   
     }     
   };
+
+  const onSelectCategory = (val: FormikValues, values: FormikValues, setFieldTouched: Function) => {
+    setSubCatValue(val.category_id); 
+    setSkip(false); 
+    setVarietyValue(''); 
+    values.subcategory = '';
+    values.variety = '';
+    setFieldTouched('subcategory', false);
+    setFieldTouched('variety', false)
+  } 
+  
+  const onSelectSubcategory = (val: FormikValues, values: FormikValues) => {
+    setVarietyValue(val.category_id); 
+    values.variety = '';
+  }
+
+  const onSelectCountry = (val: FormikValues,values: FormikValues, setFieldTouched: Function) => {
+    setCountryValue(val.label); 
+      setSkipCity(false);
+      values.region = '';
+      setFieldTouched('region', false);
+  }
+
+  const onPressNavigate = (type: string) => {
+    switch(type) {
+      case 'success': 
+        setisSuccessModalVisible(false);
+        navigation.navigate(ROUTES.HomeStack, {
+        screen: ROUTES.Home,
+        });
+        break
+      case 'discard':
+        formikRef.current?.resetForm();
+        setIsDiscardModalVisible(false);
+        navigation.navigate(ROUTES.HomeStack, {
+          screen: ROUTES.Home,
+        });
+        break
+      }
+  }
 
   if (isLoadingSelection && isLoadingCategories) {return <SpinnerWrapper />;}
 
@@ -259,14 +301,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
               items={allCategoriesData}
               zIndex={2}
               multiple={false}
-              onSelectItem={(val:any) => {setSubCatValue(val.category_id); 
-                setSkip(false); 
-                setVarietyValue(''); 
-                values.subcategory = '';
-                values.variety = '';
-                setFieldTouched('subcategory', false);
-                setFieldTouched('variety', false)
-              }}
+              onSelectItem={(val) => onSelectCategory(val, values, setFieldTouched)}
             />
             {touched.category && errors.category && (
               <AppText
@@ -286,8 +321,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 name="subcategory"
                 placeholder="Select a product type"
                 items={allSubCategoriesData?.subcategories}
-                onSelectItem={(val:any) => {setVarietyValue(val.category_id); 
-                values.variety = ''}}
+                onSelectItem={(val) => {onSelectSubcategory(val, values)}}
                 zIndex={2}
                 style={{...setMargin(16, 0, 0, 0)}}
               />
@@ -459,11 +493,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 name="country"
                 placeholder="Select a country"
                 items={countriesArray}
-                onSelectItem={(val:any) => {setCountryValue(val.label); 
-                   setSkipCity(false);
-                   values.region = '';
-                   setFieldTouched('region', false);
-                  }}
+                onSelectItem={(val:FormikValues) => {onSelectCountry(val, values, setFieldTouched)}}
                 zIndex={1}
               />
             </View>
@@ -691,12 +721,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   />
                   <ButtonWithoutIcon
                     style={[styles.preview_button, styles.success_button]}
-                    onPress={() => {
-                      setisSuccessModalVisible(false);
-                      navigation.navigate(ROUTES.HomeStack, {
-                        screen: ROUTES.Home,
-                      });
-                    }}
+                    onPress={() => {onPressNavigate('success')}}
                     title="Okay"
                     type="dark"
                   />
@@ -751,13 +776,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                       style={{...setMargin(0, 0, 16, 0)}}
                     />
                     <Pressable
-                      onPress={() => {
-                        formikRef.current?.resetForm();
-                        setIsDiscardModalVisible(false);
-                        navigation.navigate(ROUTES.HomeStack, {
-                          screen: ROUTES.Home,
-                        });
-                      }}>
+                      onPress={() => {onPressNavigate('discard')}}>
                       <AppText
                         text={'Discard'}
                         color={Colors.ERROR_BASE}
