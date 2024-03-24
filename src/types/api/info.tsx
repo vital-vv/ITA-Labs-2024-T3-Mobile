@@ -53,11 +53,9 @@ export type Image = {
   name: string;
   url: string;
   MainImage: boolean;
-}
+};
 
 export type ImageRequest = {
   file: string;
   isMainImage: boolean;
-}
-
-
+};

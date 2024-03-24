@@ -12,7 +12,7 @@ export const getAllDataSelection = agroexAPI.injectEndpoints({
       }),
     }),
     getCities: builder.query<Cities, string>({
-      query: (city) => ({
+      query: city => ({
         url: API_URL.cities(city),
         method: 'GET',
       }),

@@ -60,13 +60,13 @@ const lotPreviewStyles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: Colors.SECONDARY,
     backgroundColor: Colors.SORT_BTN_BACKGROUND,
-    display: 'flex', 
+    display: 'flex',
     flexDirection: 'row',
     gap: 8,
   },
   discriptionText: {
     width: screenWidth - 32 - 40 - 24 - 8,
-  }
+  },
 });
 
 export default lotPreviewStyles;

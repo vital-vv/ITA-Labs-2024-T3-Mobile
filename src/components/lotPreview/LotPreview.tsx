@@ -5,19 +5,19 @@ import {FC} from 'react';
 import {Image, ScrollView, View} from 'react-native';
 import styles from './lotPreviewStyles';
 import React from 'react';
-import { SubCategory } from '../../types/api/api';
-import { DropdownArray } from '../formElements/transformValuesToRequestFunc';
+import {SubCategory} from '../../types/api/lots';
+import {DropdownArray} from '../formElements/transformValuesToRequestFunc';
 import InfoIcon from '../../assets/icons/info.svg';
 
 export type Props = {
-  values: Record<string, string>
+  values: Record<string, string>;
   weightArray: DropdownArray[];
   currencyArray: DropdownArray[];
   packagingArray: DropdownArray[];
   lengthArray: DropdownArray[];
   countriesArray: DropdownArray[];
   varietyArray: SubCategory[];
-  citiesArray:  DropdownArray[];
+  citiesArray: DropdownArray[];
 };
 
 export const LotPreview: FC<Props> = ({
@@ -28,18 +28,20 @@ export const LotPreview: FC<Props> = ({
   lengthArray,
   countriesArray,
   varietyArray,
-  citiesArray
+  citiesArray,
 }) => {
-  const currentCurrency = currencyArray[Number(values.currency)-1].label;
-  const currentUnitOfWeight = weightArray[Number(values.unitOfWeight)-1].label;
+  const currentCurrency = currencyArray[Number(values.currency) - 1].label;
+  const currentUnitOfWeight =
+    weightArray[Number(values.unitOfWeight) - 1].label;
   let currentVariety;
   if (values.variety) {
-    const currentVarietyArray = varietyArray[0].subcategories.filter((subcategory) => 
-    subcategory.category_id === Number(values.variety))
+    const currentVarietyArray = varietyArray[0].subcategories.filter(
+      subcategory => subcategory.category_id === Number(values.variety),
+    );
     currentVariety = currentVarietyArray[0].name;
   }
-  const currentLength = lengthArray[Number(values.length_unit)-1].label;
-  
+  const currentLength = lengthArray[Number(values.length_unit) - 1].label;
+
   return (
     <ScrollView style={styles.lotScreenWrapper}>
       <Image
@@ -63,9 +65,9 @@ export const LotPreview: FC<Props> = ({
             text={`${values.description}`}
             variant={TEXT_VARIANT.MAIN_14_400}
             style={styles.discriptionText}
-          />  
+          />
         </View>
-       )}
+      )}
       <View style={styles.mainInfoWrapper}>
         <AppText
           text={'No bets'}
@@ -151,7 +153,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.packaging && (
           <AppText
-            text={`${packagingArray[Number(values.packaging)-1].label}`}
+            text={`${packagingArray[Number(values.packaging) - 1].label}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -166,7 +168,8 @@ export const LotPreview: FC<Props> = ({
         {values.country && values.region && (
           <AppText
             text={`${countriesArray[Number(values.country) - 1].label}, ${
-              citiesArray[Number(values.region) - 1].label}`}
+              citiesArray[Number(values.region) - 1].label
+            }`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />

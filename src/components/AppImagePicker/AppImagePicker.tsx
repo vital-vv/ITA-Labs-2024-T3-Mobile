@@ -46,8 +46,7 @@ export const AppImagePicker: FC<Props> = ({
     ImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {
         return;
-      }
-      else if (response.errorCode == 'camera_unavailable') {
+      } else if (response.errorCode == 'camera_unavailable') {
         Alert.alert('Camera not available on device');
         return;
       } else if (response.errorCode == 'permission') {
@@ -55,19 +54,24 @@ export const AppImagePicker: FC<Props> = ({
         return;
       }
       setFilePath(response);
-      if (response.assets){
-         getUri(id, response.assets[0].uri, response.assets[0].type, response.assets[0].fileName)}
-      });
+      if (response.assets) {
+        getUri(
+          id,
+          response.assets[0].uri,
+          response.assets[0].type,
+          response.assets[0].fileName,
+        );
+      }
+    });
+  };
 
-    };
+  const onChoosePhoto = () => {
+    chooseFile('photo'), setIsOpen(false);
+  };
 
-    const onChoosePhoto = () => {
-      chooseFile('photo'), setIsOpen(false);
-    }
-
-    const onDeletePhoto = () => {
-      getUri(0, ''), setIsOpen(false);
-    }
+  const onDeletePhoto = () => {
+    getUri(0, ''), setIsOpen(false);
+  };
 
   return (
     <Pressable style={noimage_style} onPress={() => setIsOpen(true)}>
@@ -77,9 +81,7 @@ export const AppImagePicker: FC<Props> = ({
         <View>{children}</View>
       )}
       <ModalWindow isOpen={isOpen} onClose={setIsOpen}>
-        <Pressable
-          style={styles.modal_container}
-          onPress={onChoosePhoto}>
+        <Pressable style={styles.modal_container} onPress={onChoosePhoto}>
           <MyAds style={setMargin(0, 12, 0, 0)} />
           <AppText
             text={'Choose a new image'}
@@ -88,9 +90,7 @@ export const AppImagePicker: FC<Props> = ({
           />
         </Pressable>
         {imageUrl ? (
-          <Pressable
-            style={styles.modal_container}
-            onPress={onDeletePhoto}>
+          <Pressable style={styles.modal_container} onPress={onDeletePhoto}>
             <Bin style={setMargin(0, 12, 0, 0)} fill={Colors.ERROR_DARK} />
             <AppText
               text={'Delete profile image'}

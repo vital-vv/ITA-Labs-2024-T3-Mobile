@@ -1,5 +1,5 @@
-import { Bid } from './bids';
-import { Image, Packaging } from './info';
+import {Bid} from './bids';
+import {Image, Packaging} from './info';
 import {PaginationMetaData} from './pagination';
 
 export type Variety = {
@@ -71,26 +71,23 @@ export type LotsInSubCategoryFinalResponse = {
 
 export type LotCreate = {
   category_id: number;
-    price_per_unit: number;
-    start_price: number;
-    expiration_days: number;
-    length_unit: string;
-    title: string;
-    quantity: number;
-    weight: string;
-    location: Location;
-    description: string;
-    status: string;
-    size: number;
-    packaging: string;
-    currency: string;
+  price_per_unit: number;
+  start_price: number;
+  expiration_days: number;
+  length_unit: string;
+  title: string;
+  quantity: number;
+  weight: string;
+  location: Location;
+  description: string;
+  status: string;
+  size: number;
+  packaging: string;
+  currency: string;
 };
 
 export type imageUrl = {
-  id: number; 
-  imageURL: string; 
-  file: 
-    {uri: string;
-    type: string;
-    name: string}
-}
+  id: number;
+  imageURL: string;
+  file: {uri: string; type: string; name: string};
+};

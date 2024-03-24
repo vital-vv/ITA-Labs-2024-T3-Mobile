@@ -7,14 +7,23 @@ import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
 import {DateCounter} from '../DateCounter/dateCounter';
-import { Lot } from '../../types/api/lots';
+import {Lot} from '../../types/api/lots';
 
 type Props = {
   lot: Lot;
 };
 
 export const ListItem: FC<Props> = ({lot}) => {
-  const {title, expiration_date, lot_id, quantity, price_per_unit, leading, currency, weight} = lot;
+  const {
+    title,
+    expiration_date,
+    lot_id,
+    quantity,
+    price_per_unit,
+    leading,
+    currency,
+    weight,
+  } = lot;
 
   return (
     <>
@@ -34,24 +43,28 @@ export const ListItem: FC<Props> = ({lot}) => {
               color={Colors.SECONDARY}
             />
           </View>
-          {leading? <View style={styles.lot_block}>
+          {leading ? (<View style={styles.lot_block}>
+              <AppText
+                text={`${currency} ${leading.amount.toFixed(2)}`}
+                variant={TEXT_VARIANT.MAIN_16_400}
+                color={Colors.WARNING}
+              />
+              <AppText
+                text={`${currency} ${(leading.amount / quantity).toFixed(
+                  2,
+                )}/${weight}`}
+                variant={TEXT_VARIANT.MAIN_10_400}
+                color={Colors.SECONDARY}
+              />
+            </View>
+          ) : (
             <AppText
-              text={`${currency} ${(leading.amount).toFixed(2)}`}
+              text={'No bets'}
               variant={TEXT_VARIANT.MAIN_16_400}
-              color={Colors.WARNING}
-            />
-            <AppText
-              text={`${currency} ${(leading.amount/quantity).toFixed(2)}/${weight}`}
-              variant={TEXT_VARIANT.MAIN_10_400}
               color={Colors.SECONDARY}
+              style={{...setMargin(16, 0, 0, 0), lineHeight: 24}}
             />
-          </View> : 
-            <AppText
-            text={'No bets'}
-            variant={TEXT_VARIANT.MAIN_16_400}
-            color={Colors.SECONDARY}
-            style={{...setMargin(16, 0, 0, 0), lineHeight: 24}}
-          />}
+          )}
           <View style={styles.lot_block}>
             <AppText
               text={`${currency} ${(quantity * price_per_unit).toFixed(2)}`}

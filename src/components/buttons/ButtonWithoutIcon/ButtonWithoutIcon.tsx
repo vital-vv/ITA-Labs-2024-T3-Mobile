@@ -22,8 +22,18 @@ const ButtonWithoutIcon: FC<Props> = ({
   onPress,
   disabled = false,
 }) => {
-  const wrapperStyle = disabled === true ? styles.disabled : type === 'light' ? styles.ligth : styles.dark;
-  const textColor = disabled === true ? Colors.TERTIARY : type === 'light' ? Colors.BUTTON_PRIMARY : Colors.WHITE;
+  const wrapperStyle =
+    disabled === true
+      ? styles.disabled
+      : type === 'light'
+      ? styles.ligth
+      : styles.dark;
+  const textColor =
+    disabled === true
+      ? Colors.TERTIARY
+      : type === 'light'
+      ? Colors.BUTTON_PRIMARY
+      : Colors.WHITE;
   return (
     <Pressable
       style={[styles.buttonWrapper, wrapperStyle, style]}

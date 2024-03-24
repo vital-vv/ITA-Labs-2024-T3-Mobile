@@ -17,7 +17,12 @@ export const {useGetLotsInSubCategoryQuery, useLazyGetLotsInSubCategoryQuery} =
   getLotsInSubCategory;
 export const {useGetLotQuery, useLazyGetLotQuery} = getLot;
 
-export const {useGetAllSelectionQuery, useLazyGetAllSelectionQuery, useGetCitiesQuery, useLazyGetCitiesQuery} = getAllDataSelection;
+export const {
+  useGetAllSelectionQuery,
+  useLazyGetAllSelectionQuery,
+  useGetCitiesQuery,
+  useLazyGetCitiesQuery,
+} = getAllDataSelection;
 
 export const {useCreateLotMutation} = createLot;
 

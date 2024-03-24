@@ -24,8 +24,8 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  
-  if (isLoading) return <SpinnerWrapper />;
+
+  if (isLoading) {return <SpinnerWrapper />;}
 
   return (
     lot && (
@@ -49,7 +49,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
             />
           </View>
         </View>
-        {lot.description && 
+        {lot.description &&
           <View style={styles.discriptionWrapper}>
             <InfoIcon />
             <AppText
@@ -57,24 +57,36 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
               text={`${lot.description}`}
               variant={TEXT_VARIANT.MAIN_14_400}
               style={styles.discriptionText}
-            />  
+            />
           </View>
         }
         <View style={styles.mainInfoWrapper}>
           <View style={styles.pricesWrapper}>
             <AppText
-              text={lot.leading ? (`${lot.currency} ${(lot.leading.amount).toFixed(2)}`) : 'No bets'}
+              text={
+                lot.leading
+                  ? `${lot.currency} ${lot.leading.amount.toFixed(2)}`
+                  : 'No bets'
+              }
               variant={TEXT_VARIANT.MAIN_24_500}
               color={Colors.WARNING}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={`${lot.currency} ${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
+              text={`${lot.currency} ${(
+                lot.price_per_unit * lot.quantity
+              ).toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_24_500}
               style={[styles.text, styles.price]}
             />
             <AppText
-              text={lot.leading ? `${lot.currency} ${(lot.leading.amount/lot.quantity).toFixed(2)}/${lot.weight}` : ''}
+              text={
+                lot.leading
+                  ? `${lot.currency} ${(
+                      lot.leading.amount / lot.quantity
+                    ).toFixed(2)}/${lot.weight}`
+                  : ''
+              }
               variant={TEXT_VARIANT.MAIN_12_400}
               color={Colors.SECONDARY}
               style={[styles.text, styles.price]}
