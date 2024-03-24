@@ -15,5 +15,4 @@ export const API_URL = {
   cities: (country: string) => `/data-selection/${country}/cities`,
   lots: '/lots',
   users: '/users',
-  user_me: '/users/me',
-};
+  currentUser: '/users/me',};

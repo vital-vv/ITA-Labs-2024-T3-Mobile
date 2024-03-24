@@ -1,7 +1,7 @@
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
 import {OnBoardingCarousel} from '../../components/onBoarding';
-import {onBoardingData} from '../../../mock-images.ts';
 import {FC} from 'react';
+import {onBoardingData} from './onboardingCarouselData';
 
 export const OnBoardingScreen: FC = () => {
   return (

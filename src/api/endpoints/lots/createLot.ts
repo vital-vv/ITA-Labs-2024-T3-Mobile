@@ -1,4 +1,4 @@
-import {LotCreate} from '../../../types/api/api';
+import {LotCreate} from '../../../types/api/lots';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
 

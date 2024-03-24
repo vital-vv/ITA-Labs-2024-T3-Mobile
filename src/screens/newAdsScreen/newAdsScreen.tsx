@@ -40,7 +40,7 @@ import React from 'react';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
 import {DropdownArray, transformValuesCreateLot} from '../../components/formElements/transformValuesToRequestFunc.ts';
 import { ReviewSchema } from './reviewSchema.ts';
-import { Selection, SubCategory } from '../../types/api/api.ts';
+import {SubCategory, imageUrl} from '../../types/api/lots.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
@@ -50,12 +50,12 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isErrorModalVisible, setisErrorModalVisible] = useState(false);
   const [isDiscardModalVisible, setIsDiscardModalVisible] = useState(false);
   const formikRef = useRef<FormikProps<Record<string, string>>>(null);
-  const [imageUrl, setImageUrl] = useState([
-    {id: 1, imageURL: '', file: {}}, 
-    {id: 2, imageURL: '', file: {}},
-    {id: 3, imageURL: '', file: {}}, 
-    {id: 4, imageURL: '', file: {}},
-    {id: 5, imageURL: '', file: {}},
+  const [imageUrl, setImageUrl] = useState<imageUrl[]>([
+    {id: 1, imageURL: '', file: {uri: '', type: '', name:''}}, 
+    {id: 2, imageURL: '', file: {uri: '', type: '', name:''}},
+    {id: 3, imageURL: '', file: {uri: '', type: '', name:''}}, 
+    {id: 4, imageURL: '', file: {uri: '', type: '', name:''}},
+    {id: 5, imageURL: '', file: {uri: '', type: '', name:''}},
   ])
   const [subCatValue, setSubCatValue] = useState('');
   const [varietyValue, setVarietyValue] = useState('')

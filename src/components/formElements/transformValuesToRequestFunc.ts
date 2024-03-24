@@ -1,39 +1,42 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
-import {Cities, ImageRequest, LotCreate, UserCreate} from '../../types/api/api';
-import {UserEdit} from '../../types/api/api';
 import {FormikValues} from 'formik';
+import {UserCreateParams, UserUpdateParams} from '../../types/api/users';
+import {Currency} from '../../types/api/info';
+import {LotCreate, imageUrl} from '../../types/api/lots';
 
 export type UserValues = {
   name: string;
   surname: string;
   phone?: string;
-  currency?: string;
+  currency: Currency;
 };
 
 export type DropdownArray = {
-  label: string,
-  value: number,
-}
+  label: string;
+  value: number;
+};
 
-export type imageUrl = {
-  id: number, 
-  imageURL: string, 
-  file: 
-    {uri: string,
-     type: string,
-      name: string}
-}
-
-export const getImagesData = (imageUrl: {id: number; imageURL: string; file: {};}[]) => {
+export const getImagesData = (imageUrl: imageUrl[]) => {
   const imagesDataTemp = imageUrl.filter(element => element.imageURL != "")
 
   const imagesData = imagesDataTemp.map(function (image) {
-    if (image.id == 0) {
-      return {file: image.file, isMainImage: true}
+    if (image.id == 1) {
+      const newFile = {uri: image.file.uri,
+        type: image.file.type,
+        name: image.file.name,
+        isMainImage: 'true',
+      }
+      return newFile
     } 
-    else return {file: image.file, isMainImage: false}
+    else {
+     const newFile = {uri: image.file.uri,
+      type: image.file.type,
+      name: image.file.name,
+      isMainImage: 'false',
+    }
+    return newFile }
   });
-
+ console.log(imagesData)
   return imagesData
 }
 
@@ -45,9 +48,7 @@ export const transformValuesCreateLot: (
   countriesArray: Array<DropdownArray>,
   citiesArray: Array<DropdownArray>,
   packagingArray: Array<DropdownArray>,
-  imageUrl: {id: number;
-              imageURL: string;
-              file: {};}[]
+  imageUrl: imageUrl[],
 ) => FormData = (
   values, 
   weightArray, 
@@ -87,9 +88,11 @@ export const transformValuesCreateLot: (
   formData.append('lot', lotdata);
 
   const imagesData = getImagesData(imageUrl);
+  formData.append('images', JSON.stringify([]))
   
   imagesData.forEach((val, index) => {
-    formData.append(`images[${index}]`, val);
+    formData.append(`images[][${index}]`, val);
+    console.log(val)
   });
 
   console.log(formData)
@@ -97,16 +100,14 @@ export const transformValuesCreateLot: (
   return formData
 };
 
-export const transformValuesCreateUser: (
-  values: UserValues,
+export const transformValuesCreateUser = (
+  values: Omit<UserValues, 'currency'>,
   imageUrl?: string,
-) => UserCreate = (values, imageUrl) => {
-  const requestValues: UserCreate = {
+): UserCreateParams => {
+  const requestValues = {
     first_name: values.name,
     last_name: values.surname,
-    preferred_currency: 'USD',
-    email: `${values.surname}@test.com`,
-    role: 'user',
+    preferred_currency: Currency.USD,
     phoneNumber: values.phone || '',
   };
 
@@ -116,11 +117,11 @@ export const transformValuesCreateUser: (
 export const transformValuesEditUser = (
   values: UserValues,
   imageUrl?: string,
-): UserEdit => {
+): UserUpdateParams => {
   const requestValues = {
     first_name: values.name,
     last_name: values.surname,
-    preferred_currency: values.currency || '',
+    preferred_currency: values.currency,
     phoneNumber: values.phone || '',
   };
 
@@ -129,8 +130,8 @@ export const transformValuesEditUser = (
 
 export const transformValuesChangeCurrency = (
   user: CurrentUserStateType,
-  currency: string,
-): UserEdit => {
+  currency: Currency,
+): UserUpdateParams => {
   const requestValues = {
     first_name: user.name,
     last_name: user.surname,

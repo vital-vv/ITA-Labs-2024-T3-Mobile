@@ -19,7 +19,7 @@ import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 import {setPadding} from '../../utils/styling/padding';
 import FilterIcon from '../../assets/icons/filter.svg';
 import {Colors} from '../../constants/colors';
-import {Lot} from '../../types/api/api';
+import {Lot} from '../../types/api/lots';
 import {FilterOptionsModal} from './components/filterOptionsModal/filterOptionsModal';
 
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.LotList>;

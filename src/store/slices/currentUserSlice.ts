@@ -1,48 +1,72 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {Currency, UserRoles} from '../../types/api/info';
 
 export type CurrentUserStateType = {
   isOnboarded: boolean;
-  isLogged: boolean;
+  isLoggedIn: boolean;
+  isInitializing: boolean;
   email: string;
   phone: string;
-  role: string;
+  role: UserRoles | '';
   name: string;
   surname: string;
   photo: string;
-  preferred_currency: string;
+  currency: Currency;
 };
 
 const initialState: CurrentUserStateType = {
-  isLogged: false,
-  isOnboarded: true,
+  isLoggedIn: false,
+  isOnboarded: false,
+  isInitializing: true,
   email: '',
   role: '',
   phone: '',
   name: '',
   surname: '',
-  photo:
-    '',
-  preferred_currency: 'USD',
+  photo: '',
+  currency: Currency.USD,
 };
 
 export const currentUserSlice = createSlice({
   name: 'currentUserSlice',
   initialState,
   reducers: {
-    isLoggedIn(
+    setCurrentUserAsGuest(state) {
+      state.isOnboarded = false;
+      state.isLoggedIn = false;
+      state.isInitializing = false;
+    },
+    setCurrentUserAsLogedIn(state) {
+      state.isOnboarded = true;
+      state.isLoggedIn = true;
+      state.isInitializing = false;
+    },
+    setCurrentUserAsLogedInAndNotOnboarded(state) {
+      state.isOnboarded = false;
+      state.isLoggedIn = true;
+      state.isInitializing = false;
+    },
+    setCurrentUserInfo(
       state,
-      action: PayloadAction<Omit<CurrentUserStateType, 'isLogged'>>,
+      action: PayloadAction<
+        Omit<
+          CurrentUserStateType,
+          'isLoggedIn' | 'isInitializing' | 'isOnboarded'
+        >
+      >,
     ) {
-      state.isLogged = true;
       state.email = action.payload.email;
       state.role = action.payload.role;
       state.name = action.payload.name;
-      state.surname = action.payload.surname;
       state.phone = action.payload.phone;
+      state.surname = action.payload.surname;
       state.photo = action.payload.photo;
-      state.preferred_currency = action.payload.preferred_currency;
+      state.currency = action.payload.currency;
     },
-    isLogout: () => initialState,
+
+    isLogout: state => {
+      return {...initialState, isInitializing: false};
+    },
   },
 });
 

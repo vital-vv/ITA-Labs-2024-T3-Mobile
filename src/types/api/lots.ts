@@ -1,3 +1,7 @@
+import { Bid } from './bids';
+import { Image, Packaging } from './info';
+import {PaginationMetaData} from './pagination';
+
 export type Variety = {
   category_id: number;
   parent_id: number | null;
@@ -29,8 +33,8 @@ export type Lot = {
   status: string;
   size: number;
   packaging: string;
-  leading: Bet;
-  users: Bet;
+  leading: Bid;
+  users: Bid;
   currency: string;
   lot_id: number;
   category_id: number;
@@ -43,26 +47,16 @@ export type Lot = {
   total_price: number;
   start_price: number;
   length_unit: string;
-  bid_quantity: number; 
+  bid_quantity: number;
 };
 
-export type Image = {
-  id: number;
-  name: string;
-  url: string;
-  MainImage: boolean;
-}
-
 export type Location = {
+  id?: number;
   country: string;
   region: string;
 };
 
-export type PaginationMetaData = {
-  page: number;
-  size: number;
-  totalElements: number;
-};
+export type Cities = string[];
 
 export type LotsInSubCategoryInitialResponse = {
   content: Lot[];
@@ -75,23 +69,8 @@ export type LotsInSubCategoryFinalResponse = {
   isNextPageExist: boolean;
 };
 
-export type Selection = {
-  packaging: string[];
-  weight: string[];
-  lengthUnits: string[];
-  role: string[];
-  status: string[];
-  currency: string[];
-  countries: string[];
-};
-
-export type ImageRequest = {
-  file: string;
-  isMainImage: boolean;
-}
-
 export type LotCreate = {
-    category_id: number;
+  category_id: number;
     price_per_unit: number;
     start_price: number;
     expiration_days: number;
@@ -107,40 +86,11 @@ export type LotCreate = {
     currency: string;
 };
 
-export type UserCreate = {
-  first_name: string;
-  last_name: string;
-  preferred_currency: string;
-  email: string;
-  role: string;
-  phoneNumber: string;
-};
-
-export type UserEdit = {
-  first_name: string;
-  last_name: string;
-  preferred_currency: string;
-  phoneNumber: string;
-};
-
-export type User = {
-  user_id: string;
-  first_name: string;
-  last_name: string;
-  preferred_currency: string;
-  email: string;
-  role: string;
-  phoneNumber: string;
-  bids: Bet[];
-};
-
-export type Bet = {
-  bid_id: number;
-  user_id: string;
-  lot_id: number;
-  status: string;
-  amount: number;
-  currency: string;
-};
-
-export type Cities = string[];
+export type imageUrl = {
+  id: number; 
+  imageURL: string; 
+  file: 
+    {uri: string;
+    type: string;
+    name: string}
+}

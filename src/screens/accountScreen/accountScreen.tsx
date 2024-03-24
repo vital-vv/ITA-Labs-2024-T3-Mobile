@@ -20,56 +20,62 @@ import {ROUTES} from '../../constants/routes';
 import {FC} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selector} from '../../store/selector';
+import {currentUserActions} from '../../store/slices/currentUserSlice';
+import {useAuthenticator} from '@aws-amplify/ui-react-native';
 
 type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
 
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
+  const dispatch = useAppDispatch();
+  const {signOut} = useAuthenticator();
 
   const onPressPersonalData = () => {
     navigation.navigate(ROUTES.PersonalData, {
       headerTitle: 'Personal data',
-      user: user,
     });
-  }
+  };
 
   const onPressMyAds = () => {
     navigation.navigate(ROUTES.MyAds, {
       headerTitle: 'My advertisements',
     });
-  }
+  };
 
   const onPressNotification = () => {
     navigation.navigate(ROUTES.Notifications, {
       headerTitle: 'Notifications',
     });
-  }
+  };
 
   const onPressCurrency = () => {
     navigation.navigate(ROUTES.Currency, {
       headerTitle: 'Currency',
-      user: user,
     });
-  }
+  };
 
   const onPressLanguage = () => {
     navigation.navigate(ROUTES.Language, {
       headerTitle: 'Language',
-      user: user,
     });
-  }
+  };
 
   const onPressPassword = () => {
     navigation.navigate(ROUTES.Password, {
       headerTitle: 'Change Password',
     });
-  }
+  };
 
   const onPressSettings = () => {
     navigation.navigate(ROUTES.Settings, {
       headerTitle: 'Settings',
     });
-  }
+  };
+  const onPressLogout = () => {
+    dispatch(currentUserActions.isLogout());
+    signOut();
+    navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
+  };
 
   return (
     <MainWrapper>
@@ -170,7 +176,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
               />
             </View>
             <AppText
-              text={user.preferred_currency}
+              text={user.currency}
               variant={TEXT_VARIANT.MAIN_16_400}
               color={Colors.PRIMARY}
             />
@@ -214,7 +220,9 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
           </Pressable>
         </View>
         <View style={styles.group_container}>
-          <Pressable style={[styles.add_container, styles.tab]}>
+          <Pressable
+            style={[styles.add_container, styles.tab]}
+            onPress={onPressLogout}>
             <LogOut style={setMargin(0, 12, 0, 0)} />
             <AppText
               text={'Log out'}
