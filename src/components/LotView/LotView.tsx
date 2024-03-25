@@ -6,7 +6,7 @@ import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {DateTime} from 'luxon';
 import {DateCounter} from '../../components/DateCounter/dateCounter';
-import {Lot} from '../../types/api/api';
+import {Lot} from '../../types/api/lots';
 import AlertIcon from '../../assets/icons/alert.svg';
 
 type Props = {

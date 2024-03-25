@@ -35,7 +35,7 @@ export const RootStackNavigator: FC = () => {
       {isLoggedIn && (
         <>
           {protectedScreens.NewAds}
-          {protectedScreens.Bets}
+          {protectedScreens.BetStack}
           {protectedScreens.Delivery}
         </>
       )}

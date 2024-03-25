@@ -6,6 +6,7 @@ import {NewAdsScreen} from '../../../screens/newAdsScreen/newAdsScreen';
 import BettingIcon from '../../../assets/icons/bottomTabNavIcons/auction.svg';
 import NewAds from '../../../assets/icons/bottomTabNavIcons/plus-square.svg';
 import DeliveryIcon from '../../../assets/icons/bottomTabNavIcons/truck.svg';
+import { BetScreenStack } from '../betStack/betScreenStack';
 
 export const protectedScreens = {
   [ROUTES.NewAds]: (
@@ -17,10 +18,10 @@ export const protectedScreens = {
       }}
     />
   ),
-  [ROUTES.Bets]: (
+  [ROUTES.BetStack]: (
     <RootStack.Screen
-      name={ROUTES.Bets}
-      component={BetsScreen}
+      name={ROUTES.BetStack}
+      component={BetScreenStack}
       options={{
         tabBarIcon: ({color}) => <BettingIcon fill={`${color}`} />,
       }}
