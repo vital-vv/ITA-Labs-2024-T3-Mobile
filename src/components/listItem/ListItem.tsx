@@ -2,16 +2,12 @@ import {Image, View} from 'react-native';
 import React, {FC} from 'react';
 import {styles} from './listItemStyle';
 import {HorizontalDivider} from '../horizontalDivider/horizontalDivider';
-import {ROUTES} from '../../constants/routes';
-import {RootStackParams} from '../../types/navigation';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Lot} from '../../types/api/api';
 import {AppText} from '../appText/appText';
-import {textTypographyStyles} from '../../styles/textTypographyStyles';
 import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
 import {DateCounter} from '../DateCounter/dateCounter';
+import { Lot } from '../../types/api/lots';
 import AlertIcon from '../../assets/icons/alert.svg';
 
 type Props = {

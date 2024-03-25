@@ -1,17 +1,17 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeStackParams} from '../../types/navigation';
-import {ROUTES} from '../../constants/routes';
-import {HomeScreen} from '../../screens/homeScreen/homeScreen';
-import {SubCategoryScreen} from '../../screens/subCategoryScreen/subCategoryScreen';
-import {LotListScreen} from '../../screens/LotListScreen/LotListScreen';
-import {LotScreen} from '../../screens/LotScreen/LotScreen';
-import {Header} from '../../components/header/header';
+import {HomeStackParams} from '../../../types/navigation';
+import {ROUTES} from '../../../constants/routes';
+import {HomeScreen} from '../../../screens/homeScreen/homeScreen';
+import {SubCategoryScreen} from '../../../screens/subCategoryScreen/subCategoryScreen';
+import {LotListScreen} from '../../../screens/LotListScreen/LotListScreen';
+import {LotScreen} from '../../../screens/LotScreen/LotScreen';
+import {Header} from '../../../components/header/header';
 
 const HomeStack = createNativeStackNavigator<HomeStackParams>();
 
 export const HomeScreenStack = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator initialRouteName={ROUTES.Home}>
       <HomeStack.Screen
         name={ROUTES.Home}
         component={HomeScreen}

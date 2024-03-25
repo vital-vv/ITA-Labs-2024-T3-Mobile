@@ -5,7 +5,6 @@ import {Colors} from '../../../constants/colors';
 const buttonWithIconStyle = StyleSheet.create({
   buttonWrapper: {
     ...setPadding(10, 0, 10, 0),
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

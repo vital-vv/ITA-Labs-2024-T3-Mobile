@@ -1,3 +1,6 @@
+import { Packaging } from './info';
+import {PaginationMetaData} from './pagination';
+
 export type SubCategory = {
   subcategory_id: string;
   category_id: number;
@@ -27,33 +30,39 @@ export type Lot = {
   status: string;
   variety: string;
   size: string;
-  packaging: string;
+  packaging: Packaging;
 };
 
 export type Location = {
-  id: number;
+  id?: number;
   country: string;
   region: string;
 };
 
-export type PaginationMetaData = {
-  page: number;
-  size: number;
-  totalElements: number;
-};
-
-export type LotsInSubCategoryResponse = {
+export type LotsInSubCategoryInitialResponse = {
   content: Lot[];
   metadata: PaginationMetaData;
 };
 
-export type Selection = {
-  packaging: [string];
-  weight: [string];
-  size: [string];
-  role: [string];
-  status: [string];
-  currency: [string];
+export type LotsInSubCategoryFinalResponse = {
+  lots: Lot[];
+  currentPage: number;
+  isNextPageExist: boolean;
+};
+
+export type LotCreate = {
+  category_id: number;
+  price_per_unit: number;
+  title: string;
+  length_unit: string;
+  quantity: number;
+  weight: string;
+  location: Location;
+  description: string;
+  status: string;
+  variety: string;
+  size: number;
+  packaging: string;
 };
 
 

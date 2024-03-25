@@ -11,6 +11,11 @@ const inputStyles = StyleSheet.create({
     height: 44,
     color: Colors.PRIMARY,
   },
+  disabled: {
+    borderColor: Colors.BTN_BORDER,
+    backgroundColor: Colors.SORT_BTN_BACKGROUND,
+    color: Colors.SECONDARY,
+  },
 });
 
 export default inputStyles;

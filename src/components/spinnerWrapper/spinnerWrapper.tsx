@@ -14,7 +14,7 @@ export const SpinnerWrapper = ({
   color = Colors.SELECTED_TAB_NAV,
 }: Props) => (
   <View style={[styles.wrapper]}>
-    <ActivityIndicator color={color} size={size} />
     <AppText text={`${text}`} style={styles.text} />
+    <ActivityIndicator color={color} size={size} />
   </View>
 );

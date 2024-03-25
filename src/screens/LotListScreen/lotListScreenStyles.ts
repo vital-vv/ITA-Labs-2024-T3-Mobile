@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {setPadding} from '../../utils/styling/padding';
 import {Colors} from '../../constants/colors';
 
@@ -19,12 +19,28 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: Colors.SORT_BTN_BACKGROUND,
   },
-  downloading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  downloading_text: {
-    marginTop: 15,
+
+  filter: {
+    backgroundColor: Colors.SELECTED_TAB_NAV,
+    padding: 8,
+    borderRadius: 20,
+    position: 'absolute',
+    bottom: 16,
+    right: 16,
+    shadowColor: Colors.BLACK,
+
+    ...Platform.select({
+      ios: {
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowOffset: {
+          height: 5,
+          width: 5,
+        },
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
   },
 });

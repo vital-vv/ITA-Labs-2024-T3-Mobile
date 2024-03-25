@@ -1,12 +1,12 @@
-import {Children, Dispatch, ReactNode, SetStateAction, useState} from 'react';
-import {View, Modal, ScrollView, Pressable, Text} from 'react-native';
+import {Dispatch, ReactNode, SetStateAction} from 'react';
+import {View, Modal, ScrollView, Pressable} from 'react-native';
 import {styles} from './modalStyles';
 import CloseIcon from '../../assets/icons/close.svg';
 type Props = {
   children?: ReactNode;
   isOpen: boolean;
   withInput?: boolean;
-  onClose: Dispatch<SetStateAction<boolean>>;
+  onClose: Dispatch<SetStateAction<boolean>> | (() => void);
 };
 export const ModalWindow = ({children, isOpen, onClose}: Props) => {
   return (

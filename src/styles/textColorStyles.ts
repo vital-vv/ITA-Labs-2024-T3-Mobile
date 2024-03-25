@@ -41,4 +41,7 @@ export const textColorStyles = StyleSheet.create<{
   [Colors.ERROR_DARK]: {
     color: Colors.ERROR_DARK,
   },
+  [Colors.SELECTED_TAB_NAV]: {
+    color: Colors.SELECTED_TAB_NAV,
+  },
 });

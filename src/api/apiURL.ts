@@ -1,11 +1,20 @@
+const API_BASE_URL = process.env.API_BASE_URL;
+
 export const API_URL = {
-  baseURL: 'http://agroex-elb-446797069.us-east-1.elb.amazonaws.com/team3/api/',
+  baseURL: `${API_BASE_URL}`,
   categories: '/categories',
   category: (id: number) => `/categories/${id}`,
-  lotsInSubCategory: (id: number) => `/categories/${id}/lots?page=1&limit=100`,
+  lotsInSubCategory: (
+    id: number,
+    page: number = 1,
+    limit: number = 10,
+    filterArgs: string = '',
+  ) => `categories/${id}/lots?page=${page}&limit=${limit}${filterArgs}`,
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
+  lots: '/lots',
   users: '/users',
+  currentUser: '/users/me',
   userBets: (status: string) => `/users/bids?status=${status}`,
   bets: '/bids',
 };

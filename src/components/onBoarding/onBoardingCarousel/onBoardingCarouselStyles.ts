@@ -11,11 +11,19 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     height: Dimensions.get('window').height * 0.9,
     gap: Dimensions.get('window').height * 0.1,
+    flexShrink: 1,
+  },
+  form: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.9,
   },
   image: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.4,
     resizeMode: 'cover',
+  },
+  textWrapContainer: {
+    width: Dimensions.get('window').width * 0.9,
   },
   title: {textAlign: 'center'},
   text: {textAlign: 'center', marginTop: 5},

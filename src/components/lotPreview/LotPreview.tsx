@@ -9,6 +9,7 @@ import React from 'react';
 export type Props = {
   values: {
     title?: string;
+    description?: string;
     category?: string;
     subcategory?: string;
     quantity?: string;
@@ -122,7 +123,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.size && (
           <AppText
-            text={`${sizeArray[Number(values.size)].label}`}
+            text={`${sizeArray[Number(values.size)-1].label}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -136,7 +137,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.packaging && (
           <AppText
-            text={`${packagingArray[Number(values.packaging)].label}`}
+            text={`${packagingArray[Number(values.packaging)-1].label}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
