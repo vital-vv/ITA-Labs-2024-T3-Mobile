@@ -71,7 +71,7 @@ export type LotsInSubCategoryFinalResponse = {
 
 export type LotCreate = {
   category_id: number;
-  price_per_unit: number;
+  total_price: number;
   start_price: number;
   expiration_days: number;
   length_unit: string;
@@ -80,7 +80,6 @@ export type LotCreate = {
   weight: string;
   location: Location;
   description: string;
-  status: string;
   size: number;
   packaging: string;
   currency: string;

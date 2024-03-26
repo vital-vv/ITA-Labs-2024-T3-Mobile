@@ -19,26 +19,8 @@ export type DropdownArray = {
 export const getImagesData = (imageUrl: imageUrl[]) => {
   const imagesDataTemp = imageUrl.filter(element => element.imageURL != '');
 
-  const imagesData = imagesDataTemp.map(function (image) {
-    if (image.id == 1) {
-      const newFile = {
-        uri: image.file.uri,
-        type: image.file.type,
-        name: image.file.name,
-        isMainImage: 'true',
-      };
-      return newFile;
-    } else {
-      const newFile = {
-        uri: image.file.uri,
-        type: image.file.type,
-        name: image.file.name,
-        isMainImage: 'false',
-      };
-      return newFile;
-    }
-  });
-  console.log(imagesData);
+  const imagesData = imagesDataTemp.map((image) => image.file)
+
   return imagesData;
 };
 
@@ -61,13 +43,9 @@ export const transformValuesCreateLot: (
   packagingArray,
   imageUrl,
 ) => {
-  let formData = new FormData();
-
   const lot: LotCreate = {
     category_id: Number(values.variety),
-    price_per_unit: Number(
-      (Number(values.price) / Number(values.quantity)).toFixed(2),
-    ),
+    total_price: Number(values.price),
     start_price: Number(values.start_price),
     expiration_days: Number(values.expiration_days),
     length_unit: lengthArray[Number(values.length_unit) - 1].label,
@@ -79,24 +57,24 @@ export const transformValuesCreateLot: (
       region: citiesArray[Number(values.region) - 1].label,
     },
     description: values.description || '',
-    status: 'active',
     size: Number(values.size),
     packaging: packagingArray[Number(values.packaging) - 1].label,
     currency: currencyArray[Number(values.currency) - 1].label,
   };
 
+  const formData = new FormData();
+
   const lotdata = JSON.stringify(lot);
-  formData.append('lot', lotdata);
+ 
+  formData.append(`lot`, lotdata);
 
   const imagesData = getImagesData(imageUrl);
+  
   formData.append('images', JSON.stringify([]));
 
   imagesData.forEach((val, index) => {
     formData.append(`images[][${index}]`, val);
-    console.log(val);
   });
-
-  console.log(formData);
 
   return formData;
 };

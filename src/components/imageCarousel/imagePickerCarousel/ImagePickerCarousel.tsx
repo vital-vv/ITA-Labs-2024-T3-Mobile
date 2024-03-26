@@ -17,9 +17,10 @@ import Plus from '../../../assets/icons/plus_circle.svg';
 type Props = {
   imageUrl: {id: number; imageURL: string}[];
   getUri: Function;
+  isLot?: boolean;
 };
 
-export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
+export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri, isLot}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [slide, setSlide] = useState(0);
   const slidesRef = useRef<FlashList<{id: number; imageURL: string}>>(null);
@@ -74,6 +75,7 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri}) => {
             children={<Plus />}
             noimage_style={styles.image_block}
             image_style={styles.imageStyle}
+            isLot={isLot}
           />
         )}
       />

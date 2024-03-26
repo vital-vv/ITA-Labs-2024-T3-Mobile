@@ -52,6 +52,13 @@ import {ReviewSchema} from './reviewSchema.ts';
 import {SubCategory, imageUrl} from '../../types/api/lots.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
+const initialImageUrl: imageUrl[] = [
+  {id: 1, imageURL: '', file: {uri: '', type: '', name: ''}},
+  {id: 2, imageURL: '', file: {uri: '', type: '', name: ''}},
+  {id: 3, imageURL: '', file: {uri: '', type: '', name: ''}},
+  {id: 4, imageURL: '', file: {uri: '', type: '', name: ''}},
+  {id: 5, imageURL: '', file: {uri: '', type: '', name: ''}},
+]
 
 export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -59,13 +66,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isErrorModalVisible, setisErrorModalVisible] = useState(false);
   const [isDiscardModalVisible, setIsDiscardModalVisible] = useState(false);
   const formikRef = useRef<FormikProps<Record<string, string>>>(null);
-  const [imageUrl, setImageUrl] = useState<imageUrl[]>([
-    {id: 1, imageURL: '', file: {uri: '', type: '', name: ''}},
-    {id: 2, imageURL: '', file: {uri: '', type: '', name: ''}},
-    {id: 3, imageURL: '', file: {uri: '', type: '', name: ''}},
-    {id: 4, imageURL: '', file: {uri: '', type: '', name: ''}},
-    {id: 5, imageURL: '', file: {uri: '', type: '', name: ''}},
-  ]);
+  const [imageUrl, setImageUrl] = useState<imageUrl[]>(initialImageUrl);
   const [subCatValue, setSubCatValue] = useState('');
   const [varietyValue, setVarietyValue] = useState('');
   const [countryValue, setCountryValue] = useState('');
@@ -118,7 +119,6 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   };
 
   const onSubmit = async (values: FormikValues, {resetForm}: any) => {
-    console.log(values);
     const newValues = transformValuesCreateLot(
       values,
       weightArray,
@@ -134,6 +134,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       console.log('fulfilled');
       setisSuccessModalVisible(true);
       resetForm();
+      setImageUrl(initialImageUrl)
     } catch (error) {
       console.error('rejected', error);
       setisErrorModalVisible(true);
@@ -672,7 +673,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(0, 0, 16, 0)}}
               />
-              <ImagePickerCarousel imageUrl={imageUrl} getUri={getUri} />
+              <ImagePickerCarousel imageUrl={imageUrl} getUri={getUri} isLot={true}/>
               <View style={styles.send_block}>
                 <ButtonWithoutIcon
                   style={styles.preview_button}

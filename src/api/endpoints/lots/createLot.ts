@@ -8,7 +8,7 @@ export const createLot = agroexAPI.injectEndpoints({
       query: body => ({
         url: API_URL.lots,
         method: 'POST',
-        body,
+        body: body,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
