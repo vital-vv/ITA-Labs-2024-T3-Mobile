@@ -4,7 +4,7 @@ import { Colors } from '../../../constants/colors';
 
 
 type Props = {
-  slides: {id?: number; imageURL: string}[];
+  slides: {id?: number; url: string}[];
   scrollX: Animated.Value;
 };
 

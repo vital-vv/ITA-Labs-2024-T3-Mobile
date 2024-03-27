@@ -1,4 +1,4 @@
-import { Packaging } from './info';
+import {LotImage, Packaging} from './info';
 import {PaginationMetaData} from './pagination';
 
 export type SubCategory = {
@@ -20,7 +20,7 @@ export type Lot = {
   category_id: number;
   category_name: string;
   price_per_unit: number;
-  image_url: string;
+  image_url: LotImage[];
   expiration_date: string;
   created_at: string;
   title: string;

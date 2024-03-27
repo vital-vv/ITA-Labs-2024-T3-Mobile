@@ -2,7 +2,7 @@ import {getAllCategories} from './categories/getAllCategories';
 import {getCategory} from './categories/getCategory';
 import {getLotsInSubCategory} from './categories/getLotsInSubCategory';
 import {getLot} from './lots/getLot';
-import {getAllDataSelection} from './selection/getAllDataSelection';
+import {getAllSelection} from './selection/getAllDataSelection';
 import {createLot} from './lots/createLot';
 import {createUser} from './users/createUser';
 import {editUser} from './users/editUser';
@@ -18,7 +18,7 @@ export const {useGetLotsInSubCategoryQuery, useLazyGetLotsInSubCategoryQuery} =
 export const {useGetLotQuery, useLazyGetLotQuery} = getLot;
 
 export const {useGetAllSelectionQuery, useLazyGetAllSelectionQuery} =
-  getAllDataSelection;
+  getAllSelection;
 
 export const {useCreateLotMutation} = createLot;
 

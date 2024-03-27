@@ -16,15 +16,15 @@ import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {setMargin} from '../../utils/styling/margin';
 import {ModalWindow} from '../../components/modal/modal';
 import inputStyles from '../../components/formElements/Input/inputStyles';
+import {Carousel} from '../../components/imageCarousel';
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Lot>;
 
 export const LotScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  
-  if (isLoading) return <SpinnerWrapper />;
 
+  if (isLoading) return <SpinnerWrapper />;
   return (
     lot && (
       <ScrollView
@@ -32,10 +32,7 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetchLot} />
         }>
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/apple_image.png')}
-        />
+        <Carousel data={lot.image_url} />
         <View style={styles.titleWrapper}>
           <AppText text={`${lot.title}`} variant={TEXT_VARIANT.MAIN_20_500} />
           <View style={styles.dateInfo}>

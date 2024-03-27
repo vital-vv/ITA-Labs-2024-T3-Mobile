@@ -1,12 +1,19 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import { Colors } from '../../../constants/colors';
-
+import {Colors} from '../../../constants/colors';
 
 export const styles = StyleSheet.create({
   image: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.3,
     resizeMode: 'cover',
+  },
+  imageNotFound: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.3,
+    backgroundColor: Colors.SORT_BTN_BACKGROUND,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonsContainer: {
     flexDirection: 'row',

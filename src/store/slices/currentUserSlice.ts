@@ -1,5 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {Currency, UserRoles} from '../../types/api/info';
+import {CurrentUserResponse} from '../../types/api/users';
 
 export type CurrentUserStateType = {
   isOnboarded: boolean;
@@ -10,8 +11,9 @@ export type CurrentUserStateType = {
   role: UserRoles | '';
   name: string;
   surname: string;
-  photo: string;
+  avatarId: string | number;
   currency: Currency;
+  photo:string
 };
 
 const initialState: CurrentUserStateType = {
@@ -23,7 +25,8 @@ const initialState: CurrentUserStateType = {
   phone: '',
   name: '',
   surname: '',
-  photo: '',
+  avatarId: '',
+  photo:'',
   currency: Currency.USD,
 };
 
@@ -50,18 +53,18 @@ export const currentUserSlice = createSlice({
       state,
       action: PayloadAction<
         Omit<
-          CurrentUserStateType,
+          CurrentUserResponse,
           'isLoggedIn' | 'isInitializing' | 'isOnboarded'
         >
       >,
     ) {
       state.email = action.payload.email;
       state.role = action.payload.role;
-      state.name = action.payload.name;
-      state.phone = action.payload.phone;
-      state.surname = action.payload.surname;
-      state.photo = action.payload.photo;
-      state.currency = action.payload.currency;
+      state.name = action.payload.first_name;
+      state.phone = action.payload.phoneNumber;
+      state.surname = action.payload.last_name;
+      state.avatarId = action.payload.avatarId;
+      state.currency = action.payload.preferred_currency;
     },
 
     isLogout: state => {

@@ -38,6 +38,12 @@ export enum Status {
   Moderated = 'moderated',
 }
 
+export enum BidStatus {
+  LEADING = 'LEADING',
+  OVERBID = 'OVERBID',
+  WON = 'WON',
+}
+
 export type Selection = {
   packaging: Packaging[];
   weight: Weight[];
@@ -47,3 +53,9 @@ export type Selection = {
   currency: Currency[];
 };
 
+export type LotImage = {
+  id: number;
+  name: string;
+  url: string;
+  mainImage: boolean;
+};

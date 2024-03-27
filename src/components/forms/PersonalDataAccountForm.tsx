@@ -18,7 +18,10 @@ import styles from './personalDataFormStyles.ts';
 import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
-import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
+import {
+  AppImagePicker,
+  AppImagePickerGetURI,
+} from '../AppImagePicker/AppImagePicker.tsx';
 import Pensil from '../../assets/icons/pensill.svg';
 import {useEditUserMutation} from '../../api/endpoints/index.ts';
 import {transformValuesEditUser} from '../formElements/transformValuesToRequestFunc.ts';
@@ -33,7 +36,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const [imageUrl, setImageUrl] = useState(user.photo);
   const [editUser, {isError, error, isSuccess}] = useEditUserMutation();
-  const getUri = (id: number, val: string) => {
+  const getUri: AppImagePickerGetURI = val => {
     setImageUrl(val);
   };
   const initialValues = {
@@ -163,7 +166,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
               onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
               value={values.phone}
-              placeholder="Phone. For example: +99-999-99-99"
+              placeholder="Phone. For example: +999-999-99-99"
               keyboardType="phone-pad"
             />
             {touched.phone && errors.phone && (

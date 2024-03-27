@@ -20,15 +20,13 @@ import {ROUTES} from '../../constants/routes';
 import {FC} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selector} from '../../store/selector';
-import {currentUserActions} from '../../store/slices/currentUserSlice';
-import {useAuthenticator} from '@aws-amplify/ui-react-native';
+import {logout} from '../../store/functions/userActions';
 
 type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
 
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const dispatch = useAppDispatch();
-  const {signOut} = useAuthenticator();
 
   const onPressPersonalData = () => {
     navigation.navigate(ROUTES.PersonalData, {
@@ -72,9 +70,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
     });
   };
   const onPressLogout = () => {
-    dispatch(currentUserActions.isLogout());
-    signOut();
-    navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
+    dispatch(logout());
   };
 
   return (

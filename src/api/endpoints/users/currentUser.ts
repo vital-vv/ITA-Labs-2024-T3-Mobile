@@ -1,4 +1,6 @@
 import {showToast} from '../../../components/toasts';
+import {ROUTES} from '../../../constants/routes';
+import {globalNavigate} from '../../../navigation/globalNavigation';
 import {currentUserActions} from '../../../store/slices/currentUserSlice';
 import {UserRoles} from '../../../types/api/info';
 import {CurrentUserResponse} from '../../../types/api/users';
@@ -13,43 +15,23 @@ export const getCurrentUser = agroexAPI.injectEndpoints({
       query: () => ({
         url: API_URL.currentUser,
       }),
-
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
-          const result = await queryFulfilled;
-          const {
-            first_name,
-            last_name,
-            phoneNumber,
-            preferred_currency,
-            role,
-            email,
-            photo,
-          } = (await queryFulfilled).data;
-
-          if (role === UserRoles.Admin) {
+          const userData = (await queryFulfilled).data;
+          if (userData.role === UserRoles.Admin) {
             dispatch(currentUserActions.setCurrentUserAsGuest());
             showToast(ToastTypes.Warning, 'Sorry, you cannot login as Admin');
           }
-
           dispatch(currentUserActions.setCurrentUserAsLogedIn());
-          dispatch(
-            currentUserActions.setCurrentUserInfo({
-              name: first_name,
-              surname: last_name,
-              phone: phoneNumber,
-              currency: preferred_currency,
-              photo,
-              email,
-              role,
-            }),
-          );
+          dispatch(currentUserActions.setCurrentUserInfo({...userData}));
+          globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
         } catch (e: any) {
           const {status} = e.error;
           if (status === 404) {
             dispatch(
               currentUserActions.setCurrentUserAsLogedInAndNotOnboarded(),
             );
+            globalNavigate(ROUTES.OnBoarding);
           }
           //temporary 401 status checking (backend have a permission bug for new users)
           if (status === 401) {

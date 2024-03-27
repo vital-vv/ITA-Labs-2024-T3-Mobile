@@ -1,6 +1,6 @@
 import {FC, useState} from 'react';
 import {MainWrapper} from '../mainWrapper/mainWrapper.tsx';
-import {Formik, FormikProps, FormikState, FormikValues} from 'formik';
+import {Formik, FormikState, FormikValues} from 'formik';
 import {ReviewSchema} from './ReviewSchema.ts';
 import {ScrollView, StyleProp, TextInput, View, ViewStyle} from 'react-native';
 import {AppText} from '../appText/appText.tsx';
@@ -12,7 +12,10 @@ import styles from './personalDataFormStyles.ts';
 import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
-import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
+import {
+  AppImagePicker,
+  AppImagePickerGetURI,
+} from '../AppImagePicker/AppImagePicker.tsx';
 import Pensil from '../../assets/icons/pensill.svg';
 import {
   useCreateUserMutation,
@@ -20,39 +23,32 @@ import {
 } from '../../api/endpoints/index.ts';
 import {transformValuesCreateUser} from '../formElements/transformValuesToRequestFunc.ts';
 import {useAppNavigation} from '../../utils/hooks/useAppNavigation.tsx';
+import * as ImagePicker from 'react-native-image-picker';
 import {ROUTES} from '../../constants/routes.ts';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
-export type UserValues = {
-  name: string;
-  surname: string;
-  phone: string;
-};
-
+type UserValues = typeof initialValues;
 type ResetForm = {
   resetForm: (nextState?: Partial<FormikState<UserValues>> | undefined) => void;
 };
 
+const initialValues = {
+  name: '',
+  surname: '',
+  phone: '',
+};
+
 export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
-  const [usersInitials, setUsersInitials] = useState<UserValues>({
-    name: '',
-    surname: '',
-    phone: '',
-  });
-  const [imageUrl, setImageUrl] = useState('');
+  const [usersInitials, setUsersInitials] = useState<UserValues>(initialValues);
+  const [imageInfo, setImageInfo] = useState<ImagePicker.Asset>();
   const navigation = useAppNavigation();
   const [createUserTrigger, {isLoading}] = useCreateUserMutation();
   const [getCurrentUserTrigger] = useLazyGetCurrentUserQuery();
-  const initialValues = {
-    name: '',
-    surname: '',
-    phone: '',
-  };
 
-  const getUri = (id: number, val: string) => {
-    setImageUrl(val);
+  const getUri: AppImagePickerGetURI = (_, __, imageInfo) => {
+    setImageInfo(imageInfo);
   };
 
   const checkValues = (param: string, values: FormikValues) => {
@@ -75,11 +71,9 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
   };
 
   const onSubmit = async (values: UserValues, {resetForm}: ResetForm) => {
-    const newValues = transformValuesCreateUser(values);
+    const newValues = transformValuesCreateUser(values, imageInfo);
     try {
-      await createUserTrigger(newValues).unwrap();
-      await getCurrentUserTrigger();
-      navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
+      await createUserTrigger(newValues);
     } finally {
       resetForm();
     }
