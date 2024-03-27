@@ -11,8 +11,7 @@ export const styles = StyleSheet.create({
     ...setMargin(8, 0, 0, 0),
     ...setPadding(0, 16, 0, 16),
   },
-  buttons: {
-    flex: 1,
+  buttons_wrapper: {
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 16,

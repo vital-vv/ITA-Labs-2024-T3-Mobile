@@ -49,7 +49,15 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
             icon={<ShoppingIcon fill={Colors.WHITE} />}
           />
         </View>
-        <BetsModalContainer isOpen={isModalVisible} onClose={setIsModalVisible} minBet={10000} maxBet={12000} lot_id={id}/>
+        <BetsModalContainer 
+          isOpen={isModalVisible} 
+          onClose={setIsModalVisible} 
+          minBet={(lot.leading.amount === (lot.total_price-1)) ? (lot.total_price-1) :
+            (lot.start_price >= lot.leading.amount) ? (lot.start_price + 1) : (lot.leading.amount+1)} 
+          maxBet={lot.total_price - 1} 
+          lot_id={id}
+          currency={lot.currency}
+        />
         </ScrollView>
   ));
 }

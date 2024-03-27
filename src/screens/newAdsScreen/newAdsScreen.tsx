@@ -40,7 +40,7 @@ import React from 'react';
 import { ImagePickerCarousel } from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
 import {DropdownArray, transformValuesCreateLot} from '../../components/formElements/transformValuesToRequestFunc.ts';
 import { ReviewSchema } from './reviewSchema.ts';
-import { Selection } from '../../types/api/api.ts';
+import { Selection } from '../../types/api/info.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 
@@ -202,7 +202,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             {touched.description && errors.description && (
               <AppText
                 text={errors.description}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />

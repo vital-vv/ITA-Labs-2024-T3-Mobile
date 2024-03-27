@@ -63,7 +63,15 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
             headerTitle: item.title,
           });
         }}>
-        <ListItem lot={item} />
+        <ListItem 
+          title={item.title} 
+          expiration_date={item.expiration_date} 
+          lot_id={item.lot_id} 
+          total_price={item.total_price}
+          price_per_unit={item.price_per_unit}
+          currency={item.currency} 
+          amount={item.leading ? item.leading.amount : 0}
+          weight={item.weight}/>
       </Pressable>
     );
   };

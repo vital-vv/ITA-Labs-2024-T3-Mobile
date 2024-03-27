@@ -1,4 +1,4 @@
-import { Packaging } from './info';
+import { Currency, Packaging, Status, Weight } from './info';
 import {PaginationMetaData} from './pagination';
 
 export type SubCategory = {
@@ -31,6 +31,11 @@ export type Lot = {
   variety: string;
   size: string;
   packaging: Packaging;
+  total_price: number;
+  currency: Currency;
+  leading: Bet,
+  weight: Weight;
+  start_price: number;
 };
 
 export type Location = {
@@ -74,11 +79,15 @@ export type Bet = {
 
 export type BetRequest = {
   bid_id: number;
-  user_id: string;
   lot_id: number;
-  status: 'LEADING' | 'OVERBID' | 'WON'
+  expiration_date: string;
+  total_price: number;
+  price_per_unit: number;
+  status: Status;
   amount: number;
-  currency: string;
+  currency: Currency;
+  title: string;
+  weight: Weight;
 };
 
 export type BetRequestMetaData = {

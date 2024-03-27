@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {View, Modal, Pressable, TextInput} from 'react-native';
 import {styles} from '../modalStyles';
 import CloseIcon from '../../../assets/icons/close.svg';
@@ -7,6 +7,7 @@ import ButtonWithoutIcon from '../../buttons/ButtonWithoutIcon/ButtonWithoutIcon
 import { setMargin } from '../../../utils/styling/margin';
 import { Colors } from '../../../constants/colors';
 import { TEXT_VARIANT } from '../../../types/textVariant';
+import { Currency } from '../../../types/api/info';
 
 type Props = {
   isOpen: boolean;
@@ -14,19 +15,27 @@ type Props = {
   minBet: number;
   maxBet: number;
   bet: number;
+  currency: Currency;
   setBet: Function;
   setIsBetComplieted: Function;
 };
 
-export const BetsModal = ({isOpen, onClose, minBet, maxBet, bet, setBet, setIsBetComplieted}: Props) => {
-    const [isValidBet, setIsValidBet] = useState(true)
+export const BetsModal = ({isOpen, onClose, minBet, maxBet, bet, currency, setBet, setIsBetComplieted}: Props) => {
+    const [isValidBet, setIsValidBet] = useState(false)
 
-    const checkIsValidBet: (bet:number, minBet: number, maxBet: number) => void = (bet, minBet, maxBet) => {
-      if (bet >= minBet && bet <= maxBet) {
+    const checkIsValidBet = (bet:number, minBet: number, maxBet: number) => {
+      if (minBet === maxBet) {
+        return setIsValidBet(false)
+      }
+      else if (bet >= minBet && bet <= maxBet) {
         return setIsValidBet(true)
       }
-      else return setIsValidBet(false)
+      return setIsValidBet(false)
     }
+
+    useEffect(() => {
+      checkIsValidBet(bet, minBet, maxBet);
+    }, [])
 
   return (
     <Modal
@@ -54,13 +63,20 @@ export const BetsModal = ({isOpen, onClose, minBet, maxBet, bet, setBet, setIsBe
           ></TextInput>
           { isValidBet ? 
           <AppText
-            text={`Price from ${minBet} to ${maxBet}`}
+            text={`Price from ${minBet} ${currency} to ${maxBet} ${currency}`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={setMargin(4, 0, 16, 0)}
           /> :  
+          (minBet === maxBet) ?
           <AppText
-            text={`The bet is not correct. Please enter a bet from ${minBet} to ${maxBet}`}
+            text={`No more bets allowed, max bet has already been done`}
+            variant={TEXT_VARIANT.MAIN_12_400}
+            color={Colors.WARNING}
+            style={setMargin(4, 0, 16, 0)}
+          /> :
+          <AppText
+            text={`The bet is not correct. Please enter a bet from ${minBet} ${currency} to ${maxBet} ${currency}`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.WARNING}
             style={setMargin(4, 0, 16, 0)}
@@ -68,9 +84,10 @@ export const BetsModal = ({isOpen, onClose, minBet, maxBet, bet, setBet, setIsBe
           <ButtonWithoutIcon 
             style={[{minHeight: 44},setMargin(0, 0, 24, 0)]}
             type="dark" 
-            title={`Bet $${bet.toString()}`} 
+            title={`Bet ${currency} ${bet.toString()}`} 
             variant={TEXT_VARIANT.MAIN_16_500} 
-            onPress={() => {if (isValidBet) {
+            onPress={() => {
+              if (isValidBet) {
               setIsBetComplieted(true);
               onClose(false)}}}
             disabled={isValidBet ? false : true}

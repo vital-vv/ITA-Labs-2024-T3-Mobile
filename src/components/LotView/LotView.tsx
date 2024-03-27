@@ -38,11 +38,11 @@ export const LotView: FC<Props> = ({lot, position}) => {
           <View style={[styles.bets_block, styles.price]}>
             {position == 'outbid' && <AlertIcon/>}
           <AppText
-            text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
+            text={lot.leading.amount !== 0 ? `${lot.currency} ${(lot.leading.amount)}` : 'No bets'}
             variant={TEXT_VARIANT.MAIN_24_500}
             color={
               (position == 'leading') ? Colors.SYSTEM_BASE :
-              (position == 'outbid') ? Colors.ERROR_BASE : Colors.WARNING}
+              (position == 'outbid') ? Colors.WARNING : Colors.WARNING}
           />
           </View>
           <AppText
@@ -51,7 +51,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
             style={[styles.text, styles.price]}
           />
           <AppText
-            text={`$${lot.price_per_unit}/kg`}
+            text={lot.leading.amount !== 0 ? `${lot.currency} ${(lot.leading.amount/lot.quantity).toFixed(2)}/${lot.weight}` : ''}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={[styles.text, styles.price]}

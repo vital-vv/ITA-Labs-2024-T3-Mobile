@@ -15,6 +15,7 @@ import BetIcon from '../../assets/icons/bet.svg';
 import {setMargin} from '../../utils/styling/margin';
 import {ModalWindow} from '../../components/modal/modal';
 import { LotView } from '../../components/LotView/LotView';
+import { BetsModalContainer } from '../../components/modal/betsModal/BetsModalContainer';
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Lot>;
 
 export const LotScreen: FC<Props> = ({navigation, route}) => {
@@ -32,32 +33,29 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
           <RefreshControl refreshing={isLoading} onRefresh={refetchLot} />
         }>
         <LotView lot={lot}/>
-        <View style={styles.buttons}>
+        <View style={styles.buttons_wrapper}>
           <ButtonWithIcon
             title="Place a bet"
             type="light"
-            icon={<BetIcon fill={Colors.BUTTON_PRIMARY} />}
+            icon={<BetIcon fill={Colors.BUTTON_PRIMARY} 
+          />}
             onPress={() => setIsModalVisible(true)}
           />
           <ButtonWithIcon
             title="Buy now"
             type="dark"
-            icon={<ShoppingIcon fill={Colors.WHITE} />}
+            icon={<ShoppingIcon fill={Colors.WHITE} 
+          />}
           />
         </View>
-        <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
-          <TextInput
-            keyboardType="number-pad"
-            style={{borderColor: 'black', borderWidth: 1, padding: 10}}
-            value="1000"></TextInput>
-          <AppText
-            text={'Price from 11.100 to 11.900'}
-            variant={TEXT_VARIANT.MAIN_12_400}
-            color={Colors.SECONDARY}
-            style={setMargin(4, 0, 16, 0)}
-          />
-          <ButtonWithIcon type="dark" title={`Bet $${`10,000`}`} />
-        </ModalWindow>
+        <BetsModalContainer 
+          isOpen={isModalVisible} 
+          onClose={setIsModalVisible} 
+          minBet={lot.start_price + 1} 
+          maxBet={lot.total_price - 1} 
+          lot_id={id}
+          currency={lot.currency}
+        />
       </ScrollView>
     )
   );

@@ -5,5 +5,5 @@ export const agroexAPI = createApi({
   reducerPath: 'agroexAPI',
   baseQuery: baseQueryWithReAuth,
   endpoints: builder => ({}),
-  tagTypes: ['subCategoryLots', 'User'],
+  tagTypes: ['subCategoryLots', 'User', 'Bets'],
 });

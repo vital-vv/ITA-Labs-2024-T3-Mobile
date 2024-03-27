@@ -9,14 +9,26 @@ import {setMargin} from '../../utils/styling/margin';
 import {DateCounter} from '../DateCounter/dateCounter';
 import { Lot } from '../../types/api/lots';
 import AlertIcon from '../../assets/icons/alert.svg';
+import { string } from 'yup';
+import { Currency, Weight } from '../../types/api/info';
 
 type Props = {
-  lot: Lot;
-  position?: 'leading'|'outbid'
+  title: string;
+  expiration_date: string;
+  lot_id: number;
+  total_price: number; 
+  price_per_unit: number;
+  position?: 'leading'|'outbid';
+  currency: Currency;
+  amount?: number;
+  weight: Weight;
 };
 
-export const ListItem: FC<Props> = ({lot, position}) => {
-  const {title, expiration_date, lot_id, quantity, price_per_unit} = lot;
+export const ListItem: FC<Props> = ({
+  title, expiration_date, lot_id, 
+  total_price, price_per_unit, currency, 
+  amount, weight, position}) => {
+  // const {title, expiration_date, lot_id, quantity, price_per_unit} = lot;
 
   return (
     <>
@@ -39,21 +51,21 @@ export const ListItem: FC<Props> = ({lot, position}) => {
           <View style={[styles.bets_block, {...setMargin(16, 0, 0, 0)}]}>
             {position == 'outbid' && <AlertIcon/>}
             <AppText
-              text={'No bets'}
+              text={amount !== 0 ? `${currency} ${amount}` : 'No bets'}
               variant={TEXT_VARIANT.MAIN_16_400}
-              color={
+              color={(amount === 0) ? Colors.TERTIARY :
                     (position == 'leading') ? Colors.SYSTEM_BASE :
-                    (position == 'outbid') ? Colors.ERROR_BASE : Colors.WARNING}
+                    (position == 'outbid') ? Colors.WARNING : Colors.WARNING}
               style={{lineHeight: 24}}
             />
           </View>
           <View style={styles.lot_block}>
             <AppText
-              text={`$${(quantity * price_per_unit).toFixed(2)}`}
+              text={`${currency} ${total_price}`}
               variant={TEXT_VARIANT.MAIN_16_400}
             />
             <AppText
-              text={`$${price_per_unit}/kg`}
+              text={`${currency} ${(price_per_unit).toFixed(2)}/${weight}`}
               variant={TEXT_VARIANT.MAIN_10_400}
               color={Colors.SECONDARY}
             />

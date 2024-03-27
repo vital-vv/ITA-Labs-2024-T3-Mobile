@@ -9,6 +9,7 @@ export const getLot = agroexAPI.injectEndpoints({
         url: API_URL.lot(id),
         method: 'GET',
       }),
+      providesTags: ['Bets'],
     }),
   }),
 });

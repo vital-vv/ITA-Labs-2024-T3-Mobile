@@ -13,14 +13,12 @@ import {Colors} from '../../constants/colors.tsx';
 import styles from './betsScreenStyles.ts';
 import {FlashList} from '@shopify/flash-list';
 import {ListItem} from '../../components/listItem/ListItem.tsx';
-import { number } from 'yup';
 
 type Props = NativeStackScreenProps<BetStackParams, ROUTES.Bets>;
 
 export const BetsScreen: FC<Props> = ({navigation, route}) => {
   
   const [isActiveFirst, setIsActiveFirst] = useState(true);
-  let id:number = 0
   
   const {
     data: userLeadingBetsData,
@@ -33,13 +31,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
     isLoading: isLoadingOverbidBets,
     refetch: refetchGetUserOverbidBets,
   } = useGetUserBetsQuery('OVERBID');
-
-  const {
-    data: LotData,
-    isLoading: isLoadingLotData,
-    refetch: refetchLotData,
-  } = useGetLotQuery(id);
-  
+ 
 
   if (isLoadingLeadingBets && isLoadingOverbidBets) return <SpinnerWrapper />;
 
@@ -81,19 +73,27 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
             />
           }
           data={userLeadingBetsData?.content}
-          renderItem={({item}) => (useGetLotQuery(item.lot_id) &&
-            <Pressable
+          renderItem={({item}) => (
+             <Pressable
               style={{...setPadding(0, 16, 0, 16)}}
               onPress={() => {
                 navigation.navigate(ROUTES.BetView, {
-                  id: LotData?.lot_id || 0,
-                  // headerTitle: item.category_name,
-                  headerTitle: LotData?.title || '',
+                  id: item.lot_id,
+                  headerTitle: item.title || '',
                   position:'leading',
                 });
               }}
               >
-              <ListItem lot={LotData} position='leading'/>
+              <ListItem 
+                title={item.title} 
+                expiration_date={item.expiration_date} 
+                lot_id={item.lot_id} 
+                total_price={item.total_price}
+                price_per_unit={item.price_per_unit}
+                currency={item.currency} 
+                amount={item.amount}
+                weight={item.weight}
+                position='leading'/>
             </Pressable>
           )}
         />) : 
@@ -106,19 +106,27 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
             />
           }
           data={userOverbidBetsData?.content}
-          renderItem={({item}) => (useGetLotQuery(item.lot_id) &&
+          renderItem={({item}) => (
             <Pressable
               style={{...setPadding(0, 16, 0, 16)}}
               onPress={() => {
                 navigation.navigate(ROUTES.BetView, {
-                  id: LotData?.lot_id || 0,
-                  // headerTitle: item.category_name,
-                  headerTitle: LotData?.title || '',
+                  id: item.lot_id,
+                  headerTitle: item.title,
                   position:'outbid',
                 });
               }}
               >
-              <ListItem lot={LotData} position='outbid'/>
+              <ListItem 
+                title={item.title} 
+                expiration_date={item.expiration_date} 
+                lot_id={item.lot_id} 
+                total_price={item.total_price}
+                price_per_unit={item.price_per_unit}
+                currency={item.currency} 
+                amount={item.amount}
+                weight={item.weight}
+                position='outbid'/>
             </Pressable>
           )}
         />
