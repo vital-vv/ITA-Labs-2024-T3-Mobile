@@ -24,7 +24,6 @@ import {
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
 import {setMargin} from '../../utils/styling/margin.ts';
 import styles from './newAdsScreenStyles.ts';
-import data from './createLotData.json';
 import inputStyles from '../../components/formElements/Input/inputStyles.ts';
 import AppDropDown from '../../components/formElements/DropDownInput/AppDropDown.tsx';
 import {textTypographyStyles} from '../../styles/textTypographyStyles';
@@ -50,6 +49,7 @@ import {
 } from '../../components/formElements/transformValuesToRequestFunc.ts';
 import {ReviewSchema} from './reviewSchema.ts';
 import {SubCategory, imageUrl} from '../../types/api/lots.ts';
+import {Currency, Packaging, Weight} from '../../types/api/info.tsx';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
 const initialImageUrl: imageUrl[] = [
@@ -58,7 +58,7 @@ const initialImageUrl: imageUrl[] = [
   {id: 3, imageURL: '', file: {uri: '', type: '', name: ''}},
   {id: 4, imageURL: '', file: {uri: '', type: '', name: ''}},
   {id: 5, imageURL: '', file: {uri: '', type: '', name: ''}},
-]
+];
 
 export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -71,6 +71,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [varietyValue, setVarietyValue] = useState('');
   const [countryValue, setCountryValue] = useState('');
   const [skip, setSkip] = useState(true);
+  const [isValidimageUrl, setIsValidImageUrl] = useState(false);
   const [skipCity, setSkipCity] = useState(true);
   const [createLot, {isError, error, isSuccess}] = useCreateLotMutation();
 
@@ -93,15 +94,24 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
 
   const {data: CitiesData} = useGetCitiesQuery(countryValue, {skip: skipCity});
 
-  let weightArray: Array<DropdownArray>;
-  let currencyArray: Array<DropdownArray>;
-  let packagingArray: Array<DropdownArray>;
+  let weightArray: {
+    label: Weight;
+    value: number;
+  }[];
+  let currencyArray: {
+    label: Currency;
+    value: number;
+  }[];
+  let packagingArray: {
+    label: Packaging;
+    value: number;
+  }[];
   let lengthArray: Array<DropdownArray>;
   let countriesArray: Array<DropdownArray>;
   let citiesArray: Array<DropdownArray>;
   let varietyArray: SubCategory[];
 
-  const mapData = (arr: any): Array<DropdownArray> => {
+  const mapData = (arr: any) => {
     let newArr = arr.map(function (elem: string, index: number) {
       return {
         label: elem,
@@ -116,6 +126,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       {id: id, imageURL: val, file: {uri: val, type: type, name: name}},
       ...imageUrl.filter(element => element.id !== id),
     ]);
+    setIsValidImageUrl(true);
   };
 
   const onSubmit = async (values: FormikValues, {resetForm}: any) => {
@@ -134,7 +145,8 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       console.log('fulfilled');
       setisSuccessModalVisible(true);
       resetForm();
-      setImageUrl(initialImageUrl)
+      setImageUrl(initialImageUrl);
+      setIsValidImageUrl(false);
     } catch (error) {
       console.error('rejected', error);
       setisErrorModalVisible(true);
@@ -182,6 +194,8 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
       case 'discard':
         formikRef.current?.resetForm();
         setIsDiscardModalVisible(false);
+        setImageUrl(initialImageUrl);
+        setIsValidImageUrl(false);
         navigation.navigate(ROUTES.HomeStack, {
           screen: ROUTES.Home,
         });
@@ -673,7 +687,19 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(0, 0, 16, 0)}}
               />
-              <ImagePickerCarousel imageUrl={imageUrl} getUri={getUri} isLot={true}/>
+              <ImagePickerCarousel
+                imageUrl={imageUrl}
+                getUri={getUri}
+                isLot={true}
+              />
+              {!isValidimageUrl && (
+                <AppText
+                  text={'Image is a required field'}
+                  color={Colors.ERROR_BASE}
+                  variant={TEXT_VARIANT.MAIN_12_400}
+                  style={{...setMargin(4, 0, 0, 0)}}
+                />
+              )}
               <View style={styles.send_block}>
                 <ButtonWithoutIcon
                   style={styles.preview_button}
@@ -692,7 +718,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   onPress={handleSubmit}
                   title="Place an advertisment"
                   type="dark"
-                  disabled={!isValid}
+                  disabled={!(isValid && isValidimageUrl)}
                 />
                 <Modal visible={isModalVisible} transparent={false}>
                   <MainWrapper>

@@ -6,7 +6,7 @@ import {NewAdsScreen} from '../../../screens/newAdsScreen/newAdsScreen';
 import BettingIcon from '../../../assets/icons/bottomTabNavIcons/auction.svg';
 import NewAds from '../../../assets/icons/bottomTabNavIcons/plus-square.svg';
 import DeliveryIcon from '../../../assets/icons/bottomTabNavIcons/truck.svg';
-import { BetScreenStack } from '../betStack/betScreenStack';
+import {BetScreenStack} from '../betStack/betScreenStack';
 
 export const protectedScreens = {
   [ROUTES.NewAds]: (

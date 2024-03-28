@@ -1,8 +1,8 @@
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import { useCreateBetMutation } from '../../../api/endpoints';
-import { BetsModal } from './BetsModal';
-import { Currency } from '../../../types/api/info';
-import { Bet } from '../../../types/api/lots';
+import {useCreateBetMutation} from '../../../api/endpoints';
+import {BetsModal} from './BetsModal';
+import {Currency} from '../../../types/api/info';
+import {Bet} from '../../../types/api/lots';
 
 type Props = {
   isOpen: boolean;
@@ -14,28 +14,41 @@ type Props = {
 };
 
 export const BetsModalContainer = (props: Props) => {
-    const [bet, setBet] = useState(props.maxBet)
-    const [isBetComplieted, setIsBetComplieted] = useState(false)
-    const [createBet, {isError, error, isSuccess }] = useCreateBetMutation()
+  const [bet, setBet] = useState(props.maxBet);
+  const [isBetComplieted, setIsBetComplieted] = useState(false);
+  const [createBet, {isError, error, isSuccess}] = useCreateBetMutation();
 
-    const transformValuesCreateBet = (bet:number, lot_id: number, currency: Currency) : Bet => {
-        const RequestBody = {
-          lot_id:  lot_id,
-          amount: bet,
-          currency: currency,
-        };
-        return RequestBody
+  const transformValuesCreateBet = (
+    bet: number,
+    lot_id: number,
+    currency: Currency,
+  ): Bet => {
+    const RequestBody = {
+      lot_id: lot_id,
+      amount: bet,
+      currency: currency,
+    };
+    return RequestBody;
+  };
+
+  useEffect(() => {
+    if (isBetComplieted) {
+      const values = transformValuesCreateBet(
+        bet,
+        props.lot_id,
+        props.currency,
+      );
+      createBet(values);
+      setIsBetComplieted(false);
     }
-
-    useEffect(() => {
-      if (isBetComplieted) {
-        const values = transformValuesCreateBet(bet, props.lot_id, props.currency);
-        createBet(values)
-        setIsBetComplieted(false)
-      }
-    }, [isBetComplieted])
+  }, [isBetComplieted]);
 
   return (
-    <BetsModal {...props} bet={bet} setBet={setBet} setIsBetComplieted={setIsBetComplieted}/>
+    <BetsModal
+      {...props}
+      bet={bet}
+      setBet={setBet}
+      setIsBetComplieted={setIsBetComplieted}
+    />
   );
 };

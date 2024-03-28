@@ -1,7 +1,7 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
 import {FormikValues} from 'formik';
 import {UserCreateParams, UserUpdateParams} from '../../types/api/users';
-import {Currency} from '../../types/api/info';
+import {Currency, Packaging, Weight} from '../../types/api/info';
 import {LotCreate, imageUrl} from '../../types/api/lots';
 
 export type UserValues = {
@@ -19,19 +19,28 @@ export type DropdownArray = {
 export const getImagesData = (imageUrl: imageUrl[]) => {
   const imagesDataTemp = imageUrl.filter(element => element.imageURL != '');
 
-  const imagesData = imagesDataTemp.map((image) => image.file)
+  const imagesData = imagesDataTemp.map(image => image.file);
 
   return imagesData;
 };
 
 export const transformValuesCreateLot: (
   values: FormikValues,
-  weightArray: Array<DropdownArray>,
-  currencyArray: Array<DropdownArray>,
+  weightArray: {
+    label: Weight;
+    value: number;
+  }[],
+  currencyArray: {
+    label: Currency;
+    value: number;
+  }[],
   lengthArray: Array<DropdownArray>,
   countriesArray: Array<DropdownArray>,
   citiesArray: Array<DropdownArray>,
-  packagingArray: Array<DropdownArray>,
+  packagingArray: {
+    label: Packaging;
+    value: number;
+  }[],
   imageUrl: imageUrl[],
 ) => FormData = (
   values,
@@ -65,15 +74,13 @@ export const transformValuesCreateLot: (
   const formData = new FormData();
 
   const lotdata = JSON.stringify(lot);
- 
-  formData.append(`lot`, lotdata);
+
+  formData.append('lot', lotdata);
 
   const imagesData = getImagesData(imageUrl);
-  
-  formData.append('images', JSON.stringify([]));
 
   imagesData.forEach((val, index) => {
-    formData.append(`images[][${index}]`, val);
+    formData.append('images', val);
   });
 
   return formData;

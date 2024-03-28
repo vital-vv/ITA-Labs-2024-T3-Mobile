@@ -14,8 +14,8 @@ import ShoppingIcon from '../../assets/icons/shopping.svg';
 import BetIcon from '../../assets/icons/bet.svg';
 import {setMargin} from '../../utils/styling/margin';
 import {ModalWindow} from '../../components/modal/modal';
-import { LotView } from '../../components/LotView/LotView';
-import { BetsModalContainer } from '../../components/modal/betsModal/BetsModalContainer';
+import {LotView} from '../../components/LotView/LotView';
+import {BetsModalContainer} from '../../components/modal/betsModal/BetsModalContainer';
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Lot>;
 
 export const LotScreen: FC<Props> = ({navigation, route}) => {
@@ -23,7 +23,9 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  if (isLoading) return <SpinnerWrapper />;
+  if (isLoading) {
+    return <SpinnerWrapper />;
+  }
 
   return (
     lot && (
@@ -32,27 +34,31 @@ export const LotScreen: FC<Props> = ({navigation, route}) => {
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetchLot} />
         }>
-        <LotView lot={lot}/>
+        <LotView lot={lot} />
         <View style={styles.buttons_wrapper}>
           <ButtonWithIcon
             title="Place a bet"
             type="light"
-            icon={<BetIcon fill={Colors.BUTTON_PRIMARY} 
-          />}
+            icon={<BetIcon fill={Colors.BUTTON_PRIMARY} />}
             onPress={() => setIsModalVisible(true)}
           />
           <ButtonWithIcon
             title="Buy now"
             type="dark"
-            icon={<ShoppingIcon fill={Colors.WHITE} 
-          />}
+            icon={<ShoppingIcon fill={Colors.WHITE} />}
           />
         </View>
-        <BetsModalContainer 
-          isOpen={isModalVisible} 
-          onClose={setIsModalVisible} 
-          minBet={lot.start_price + 1} 
-          maxBet={lot.total_price - 1} 
+        <BetsModalContainer
+          isOpen={isModalVisible}
+          onClose={setIsModalVisible}
+          minBet={
+            lot.leading.amount === lot.total_price - 1
+              ? lot.total_price - 1
+              : lot.start_price >= lot.leading.amount
+              ? lot.start_price + 1
+              : lot.leading.amount + 1
+          }
+          maxBet={lot.total_price - 1}
           lot_id={id}
           currency={lot.currency}
         />

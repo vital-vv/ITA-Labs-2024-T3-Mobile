@@ -48,7 +48,9 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
       setQueryParams(prevState => {
         return {...prevState, page: prevState.page + 1};
       });
-    } else return;
+    } else {
+      return;
+    }
   };
   const refetchToInitialPage = () => {
     setQueryParams({...queryParams, page: initialQueryParams.page});
@@ -63,15 +65,17 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
             headerTitle: item.title,
           });
         }}>
-        <ListItem 
-          title={item.title} 
-          expiration_date={item.expiration_date} 
-          lot_id={item.lot_id} 
+        <ListItem
+          title={item.title}
+          expiration_date={item.expiration_date}
+          lot_id={item.lot_id}
           total_price={item.total_price}
           price_per_unit={item.price_per_unit}
-          currency={item.currency} 
+          currency={item.currency}
           amount={item.leading ? item.leading.amount : 0}
-          weight={item.weight}/>
+          weight={item.weight}
+          quantity={item.quantity}
+        />
       </Pressable>
     );
   };

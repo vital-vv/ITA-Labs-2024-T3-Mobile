@@ -8,14 +8,14 @@ import {DateTime} from 'luxon';
 import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {Lot} from '../../types/api/lots';
 import AlertIcon from '../../assets/icons/alert.svg';
+import InfoIcon from '../../assets/icons/info.svg';
 
 type Props = {
   lot: Lot;
-  position?: 'leading'|'outbid'
+  position?: 'leading' | 'outbid';
 };
 
 export const LotView: FC<Props> = ({lot, position}) => {
-
   return (
     <ScrollView>
       <Image
@@ -33,31 +33,58 @@ export const LotView: FC<Props> = ({lot, position}) => {
           />
         </View>
       </View>
+      {lot.description && (
+        <View style={styles.discriptionWrapper}>
+          <InfoIcon />
+          <AppText
+            color={Colors.PRIMARY}
+            text={`${lot.description}`}
+            variant={TEXT_VARIANT.MAIN_14_400}
+            style={styles.discriptionText}
+          />
+        </View>
+      )}
       <View style={styles.mainInfoWrapper}>
         <View style={styles.pricesWrapper}>
           <View style={[styles.bets_block, styles.price]}>
-            {position == 'outbid' && <AlertIcon/>}
-          <AppText
-            text={lot.leading.amount !== 0 ? `${lot.currency} ${(lot.leading.amount)}` : 'No bets'}
-            variant={TEXT_VARIANT.MAIN_24_500}
-            color={
-              (position == 'leading') ? Colors.SYSTEM_BASE :
-              (position == 'outbid') ? Colors.WARNING : Colors.WARNING}
-          />
+            {position == 'outbid' && <AlertIcon />}
+            <AppText
+              text={
+                lot.leading
+                  ? `${lot.currency} ${lot.leading.amount.toFixed(2)}`
+                  : 'No bets'
+              }
+              variant={TEXT_VARIANT.MAIN_24_500}
+              color={
+                position == 'leading'
+                  ? Colors.SYSTEM_BASE
+                  : position == 'outbid'
+                  ? Colors.WARNING
+                  : Colors.WARNING
+              }
+            />
           </View>
           <AppText
-            text={`$${(lot.price_per_unit * lot.quantity).toFixed(2)}`}
+            text={`${lot.currency} ${(
+              lot.price_per_unit * lot.quantity
+            ).toFixed(2)}`}
             variant={TEXT_VARIANT.MAIN_24_500}
             style={[styles.text, styles.price]}
           />
           <AppText
-            text={lot.leading.amount !== 0 ? `${lot.currency} ${(lot.leading.amount/lot.quantity).toFixed(2)}/${lot.weight}` : ''}
+            text={
+              lot.leading
+                ? `${lot.currency} ${(
+                    lot.leading.amount / lot.quantity
+                  ).toFixed(2)}/${lot.weight}`
+                : ''
+            }
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={[styles.text, styles.price]}
           />
           <AppText
-            text={`$${lot.price_per_unit}/kg`}
+            text={`${lot.currency} ${lot.price_per_unit}/${lot.weight}`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={[styles.text, styles.price]}
@@ -70,7 +97,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
           style={styles.text}
         />
         <AppText
-          text={`${lot.variety}`}
+          text={`${lot.category_name}`}
           variant={TEXT_VARIANT.MAIN_16_400}
           style={styles.text}
         />
@@ -81,7 +108,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
           style={styles.text}
         />
         <AppText
-          text={`${lot.quantity}`}
+          text={`${lot.quantity} ${lot.weight}`}
           variant={TEXT_VARIANT.MAIN_16_400}
           style={styles.text}
         />
@@ -92,7 +119,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
           style={styles.text}
         />
         <AppText
-          text={`${lot.size}`}
+          text={`${lot.size} ${lot.length_unit}`}
           variant={TEXT_VARIANT.MAIN_16_400}
           style={styles.text}
         />
@@ -133,5 +160,5 @@ export const LotView: FC<Props> = ({lot, position}) => {
         />
       </View>
     </ScrollView>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {setPadding} from '../../utils/styling/padding';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
-
+const screenWidth = Dimensions.get('window').width;
 const LotViewStyles = StyleSheet.create({
   image: {
     height: 288,
@@ -51,6 +51,21 @@ const LotViewStyles = StyleSheet.create({
     width: '50%',
     gap: 8,
   },
+  discriptionWrapper: {
+    marginHorizontal: 16,
+    padding: 20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: Colors.SECONDARY,
+    backgroundColor: Colors.SORT_BTN_BACKGROUND,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  discriptionText: {
+    width: screenWidth - 32 - 40 - 24 - 8,
+  },
 });
 
-export default LotViewStyles
+export default LotViewStyles;

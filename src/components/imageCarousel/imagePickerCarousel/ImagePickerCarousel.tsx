@@ -71,6 +71,7 @@ export const ImagePickerCarousel: FC<Props> = ({imageUrl, getUri, isLot}) => {
         renderItem={({item}) => (
           <AppImagePicker
             id={item.id}
+            imageUrl={item.imageURL}
             getUri={getUri}
             children={<Plus />}
             noimage_style={styles.image_block}

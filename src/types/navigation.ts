@@ -34,5 +34,9 @@ export type AccountStackParams = {
 
 export type BetStackParams = {
   [ROUTES.Bets]: undefined;
-  [ROUTES.BetView]: {id: number; headerTitle: string; position?: 'leading'|'outbid'};
+  [ROUTES.BetView]: {
+    id: number;
+    headerTitle: string;
+    position?: 'leading' | 'outbid';
+  };
 };

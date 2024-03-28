@@ -25,7 +25,7 @@ type Props = {
   image_style: StyleProp<ImageStyle>;
   noimage_style: StyleProp<ViewStyle>;
   imageUrl?: string;
-  isLot?: boolean
+  isLot?: boolean;
 };
 
 export const AppImagePicker: FC<Props> = ({
@@ -34,12 +34,12 @@ export const AppImagePicker: FC<Props> = ({
   children,
   image_style,
   noimage_style,
-  imageUrl, 
+  imageUrl,
   isLot,
 }) => {
   const [filePath, setFilePath] = useState<ImagePicker.ImagePickerResponse>({});
   const [isOpen, setIsOpen] = useState(false);
-  const showDelete = !isLot && true
+  const showDelete = !isLot && true;
 
   const chooseFile = (type: 'photo') => {
     let options = {
@@ -78,7 +78,7 @@ export const AppImagePicker: FC<Props> = ({
 
   return (
     <Pressable style={noimage_style} onPress={() => setIsOpen(true)}>
-      {filePath.assets ? (
+      {imageUrl && filePath.assets ? (
         <Image source={{uri: filePath.assets[0]?.uri}} style={image_style} />
       ) : (
         <View>{children}</View>
@@ -101,15 +101,17 @@ export const AppImagePicker: FC<Props> = ({
               color={Colors.ERROR_DARK}
             />
           </Pressable>
-        ) : ( showDelete &&
-          <Pressable style={styles.modal_container} disabled={true}>
-            <Bin style={setMargin(0, 12, 0, 0)} fill={Colors.TERTIARY} />
-            <AppText
-              text={'Delete profile image'}
-              variant={TEXT_VARIANT.MAIN_18_400}
-              color={Colors.TERTIARY}
-            />
-          </Pressable>
+        ) : (
+          showDelete && (
+            <Pressable style={styles.modal_container} disabled={true}>
+              <Bin style={setMargin(0, 12, 0, 0)} fill={Colors.TERTIARY} />
+              <AppText
+                text={'Delete profile image'}
+                variant={TEXT_VARIANT.MAIN_18_400}
+                color={Colors.TERTIARY}
+              />
+            </Pressable>
+          )
         )}
       </ModalWindow>
     </Pressable>
