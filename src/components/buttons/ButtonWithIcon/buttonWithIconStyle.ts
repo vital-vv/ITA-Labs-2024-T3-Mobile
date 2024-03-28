@@ -4,13 +4,15 @@ import {Colors} from '../../../constants/colors';
 
 const buttonWithIconStyle = StyleSheet.create({
   buttonWrapper: {
-    ...setPadding(10, 0, 10, 0),
+    flex: 1,
+    ...setPadding(8, 0, 8, 0),
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     gap: 10,
     borderWidth: 1,
     borderRadius: 3,
+    minHeight: 44,
   },
   ligth: {
     backgroundColor: Colors.WHITE,

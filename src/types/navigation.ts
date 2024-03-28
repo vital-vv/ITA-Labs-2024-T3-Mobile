@@ -4,7 +4,7 @@ import {CurrentUserStateType} from '../store/slices/currentUserSlice';
 
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
-  [ROUTES.Bets]: {headerTitle: string};
+  [ROUTES.BetStack]: NavigatorScreenParams<BetStackParams>;
   [ROUTES.Delivery]: {headerTitle: string};
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.AccountStack]: NavigatorScreenParams<AccountStackParams>;
@@ -30,4 +30,13 @@ export type AccountStackParams = {
   [ROUTES.Settings]: {headerTitle: string};
   [ROUTES.Password]: {headerTitle: string};
   [ROUTES.GuestAccount]: undefined;
+};
+
+export type BetStackParams = {
+  [ROUTES.Bets]: undefined;
+  [ROUTES.BetView]: {
+    id: number;
+    headerTitle: string;
+    position?: 'leading' | 'outbid';
+  };
 };

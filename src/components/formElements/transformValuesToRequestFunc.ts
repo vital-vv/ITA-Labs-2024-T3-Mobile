@@ -1,8 +1,8 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
 import {FormikValues} from 'formik';
-import {LotCreate} from '../../types/api/lots';
 import {UserCreateParams, UserUpdateParams} from '../../types/api/users';
-import {Currency} from '../../types/api/info';
+import {Currency, Packaging, Weight} from '../../types/api/info';
+import {LotCreate, imageUrl} from '../../types/api/lots';
 
 export type UserValues = {
   name: string;
@@ -16,36 +16,74 @@ export type DropdownArray = {
   value: number;
 };
 
+export const getImagesData = (imageUrl: imageUrl[]) => {
+  const imagesDataTemp = imageUrl.filter(element => element.imageURL != '');
+
+  const imagesData = imagesDataTemp.map(image => image.file);
+
+  return imagesData;
+};
+
 export const transformValuesCreateLot: (
   values: FormikValues,
-  weightArray: Array<DropdownArray>,
-  data: any,
-  packagingArray: Array<DropdownArray>,
-) => LotCreate = (values, weightArray, data, packagingArray) => {
-  const requestValues: LotCreate = {
-    category_id: Number(values.category),
-    price_per_unit: Number(
-      (Number(values.price) / Number(values.quantity)).toFixed(2),
-    ),
-    length_unit: 'cm',
+  weightArray: {
+    label: Weight;
+    value: number;
+  }[],
+  currencyArray: {
+    label: Currency;
+    value: number;
+  }[],
+  lengthArray: Array<DropdownArray>,
+  countriesArray: Array<DropdownArray>,
+  citiesArray: Array<DropdownArray>,
+  packagingArray: {
+    label: Packaging;
+    value: number;
+  }[],
+  imageUrl: imageUrl[],
+) => FormData = (
+  values,
+  weightArray,
+  currencyArray,
+  lengthArray,
+  countriesArray,
+  citiesArray,
+  packagingArray,
+  imageUrl,
+) => {
+  const lot: LotCreate = {
+    category_id: Number(values.variety),
+    total_price: Number(values.price),
+    start_price: Number(values.start_price),
+    expiration_days: Number(values.expiration_days),
+    length_unit: lengthArray[Number(values.length_unit) - 1].label,
     title: values.title,
     quantity: Number(values.quantity),
     weight: weightArray[Number(values.unitOfWeight) - 1].label,
     location: {
-      country: data.countries[Number(values.country) - 1].countryName,
-      region:
-        data.countries[Number(values.country) - 1].regions[
-          Number(values.region) - 1
-        ].regionName,
+      country: countriesArray[Number(values.country) - 1].label,
+      region: citiesArray[Number(values.region) - 1].label,
     },
     description: values.description || '',
-    status: 'active',
-    variety: values.variety || '',
     size: Number(values.size),
     packaging: packagingArray[Number(values.packaging) - 1].label,
+    currency: currencyArray[Number(values.currency) - 1].label,
   };
 
-  return requestValues;
+  const formData = new FormData();
+
+  const lotdata = JSON.stringify(lot);
+
+  formData.append('lot', lotdata);
+
+  const imagesData = getImagesData(imageUrl);
+
+  imagesData.forEach((val, index) => {
+    formData.append('images', val);
+  });
+
+  return formData;
 };
 
 export const transformValuesCreateUser = (

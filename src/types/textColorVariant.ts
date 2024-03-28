@@ -12,5 +12,5 @@ export type TEXT_COLOR_VARIANT =
   | Colors.WHITE
   | Colors.ERROR_BACKGROUND
   | Colors.ERROR_BASE
-  | Colors.ERROR
+  | Colors.ERROR_DARK
   | Colors.SELECTED_TAB_NAV;

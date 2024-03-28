@@ -4,11 +4,18 @@ import {Currency, UserRoles} from './info';
 export type UserCreateParams = {
   first_name: string;
   last_name: string;
-  preferred_currency: Currency;
-  phoneNumber: string;
+  preferred_currency?: Currency;
+  email?: string;
+  role?: UserRoles;
+  phoneNumber?: string;
 };
 
-export type UserUpdateParams = UserCreateParams;
+export type UserUpdateParams = {
+  first_name: string;
+  last_name: string;
+  preferred_currency: string;
+  phoneNumber: string;
+};
 
 export type UserCreateResponse = {
   user_id: string;

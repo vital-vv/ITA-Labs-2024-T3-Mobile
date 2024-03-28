@@ -20,4 +20,6 @@ export enum ROUTES {
   Settings = 'Settings',
   Password = 'Password',
   RootStack = 'RootStack',
+  BetStack = 'BetStack',
+  BetView = 'BetView',
 }

@@ -30,4 +30,11 @@ export const styles = StyleSheet.create({
     ...setPadding(4, 8, 4, 8),
     borderRadius: 5,
   },
+  bets_block: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: 8,
+  }
 });

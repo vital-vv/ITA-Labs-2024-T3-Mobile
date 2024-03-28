@@ -1,41 +1,35 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {setPadding} from '../../utils/styling/padding';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
 const screenWidth = Dimensions.get('window').width;
-
-const lotPreviewStyles = StyleSheet.create({
+const LotViewStyles = StyleSheet.create({
   image: {
     height: 288,
     width: '100%',
   },
-  lotScreenWrapper: {
-    backgroundColor: Colors.WHITE,
-  },
   titleWrapper: {
-    ...setMargin(8, 16, 16, 16),
+    ...setMargin(8, 0, 0, 0),
+    ...setPadding(0, 16, 0, 16),
   },
-  bets: {
-    textAlign: 'center',
-    ...setMargin(0, 0, 16, 0),
+  dateInfo: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    ...setMargin(8, 0, 0, 0),
   },
-  price: {...setPadding(0, 16, 4, 16), width: '100%', textAlign: 'right'},
-  expiration: {
-    backgroundColor: Colors.SYSTEM_EXTRALIGHT,
-    ...setPadding(4, 8, 4, 8),
-    borderRadius: 5,
-  },
+  price: {...setPadding(0, 16, 4, 16)},
   mainInfoWrapper: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   pricesWrapper: {
-    width: '50%',
     display: 'flex',
-    flexDirection: 'column',
-    ...setMargin(0, 0, 16, 0),
-    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    ...setPadding(16, 0, 16, 0),
   },
   text: {
     flexShrink: 1,
@@ -48,12 +42,17 @@ const lotPreviewStyles = StyleSheet.create({
     paddingHorizontal: 16,
     columnGap: 8,
   },
-  no_info: {
+  bets_block: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexShrink: 1,
     width: '50%',
+    gap: 8,
   },
   discriptionWrapper: {
     marginHorizontal: 16,
-    marginBottom: 16,
     padding: 20,
     borderRadius: 4,
     borderWidth: 1,
@@ -65,8 +64,8 @@ const lotPreviewStyles = StyleSheet.create({
     gap: 8,
   },
   discriptionText: {
-    width: screenWidth - 104,
+    width: screenWidth - 32 - 40 - 24 - 8,
   },
 });
 
-export default lotPreviewStyles;
+export default LotViewStyles;

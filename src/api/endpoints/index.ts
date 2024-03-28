@@ -7,6 +7,8 @@ import {createLot} from './lots/createLot';
 import {createUser} from './users/createUser';
 import {editUser} from './users/editUser';
 import {getCurrentUser} from './users/currentUser';
+import {createBet} from './bets/createBet';
+import {getUserBets} from './bets/getUserBets';
 
 export const {useGetCategoryQuery, useLazyGetCategoryQuery} = getCategory;
 
@@ -17,8 +19,12 @@ export const {useGetLotsInSubCategoryQuery, useLazyGetLotsInSubCategoryQuery} =
   getLotsInSubCategory;
 export const {useGetLotQuery, useLazyGetLotQuery} = getLot;
 
-export const {useGetAllSelectionQuery, useLazyGetAllSelectionQuery} =
-  getAllDataSelection;
+export const {
+  useGetAllSelectionQuery,
+  useLazyGetAllSelectionQuery,
+  useGetCitiesQuery,
+  useLazyGetCitiesQuery,
+} = getAllDataSelection;
 
 export const {useCreateLotMutation} = createLot;
 
@@ -28,3 +34,7 @@ export const {useEditUserMutation} = editUser;
 
 export const {useGetCurrentUserQuery, useLazyGetCurrentUserQuery} =
   getCurrentUser;
+
+export const {useCreateBetMutation} = createBet;
+
+export const {useGetUserBetsQuery, useLazyGetUserBetsQuery} = getUserBets;

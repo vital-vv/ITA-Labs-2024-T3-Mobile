@@ -12,6 +12,10 @@ export const API_URL = {
   ) => `categories/${id}/lots?page=${page}&limit=${limit}${filterArgs}`,
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
+  cities: (country: string) => `/data-selection/${country}/cities`,
   lots: '/lots',
   users: '/users',
-  currentUser: '/users/me',};
+  currentUser: '/users/me',
+  userBets: (status: string) => `/users/bids?status=${status}`,
+  bets: '/bids',
+};

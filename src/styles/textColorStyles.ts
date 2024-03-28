@@ -38,8 +38,8 @@ export const textColorStyles = StyleSheet.create<{
   [Colors.ERROR_BACKGROUND]: {
     color: Colors.ERROR_BACKGROUND,
   },
-  [Colors.ERROR]: {
-    color: Colors.ERROR,
+  [Colors.ERROR_DARK]: {
+    color: Colors.ERROR_DARK,
   },
   [Colors.SELECTED_TAB_NAV]: {
     color: Colors.SELECTED_TAB_NAV,

@@ -5,38 +5,43 @@ import {FC} from 'react';
 import {Image, ScrollView, View} from 'react-native';
 import styles from './lotPreviewStyles';
 import React from 'react';
+import {SubCategory} from '../../types/api/lots';
+import {DropdownArray} from '../formElements/transformValuesToRequestFunc';
+import InfoIcon from '../../assets/icons/info.svg';
 
 export type Props = {
-  values: {
-    title?: string;
-    description?: string;
-    category?: string;
-    subcategory?: string;
-    quantity?: string;
-    unitOfWeight?: string;
-    price?: string;
-    currency?: string;
-    country?: string;
-    region?: string;
-    size?: string;
-    packaging?: string;
-    variety?: string;
-  };
-  data: any;
-  weightArray: Array<any>;
-  currencyArray: Array<any>;
-  packagingArray: Array<any>;
-  sizeArray: Array<any>;
+  values: Record<string, string>;
+  weightArray: DropdownArray[];
+  currencyArray: DropdownArray[];
+  packagingArray: DropdownArray[];
+  lengthArray: DropdownArray[];
+  countriesArray: DropdownArray[];
+  varietyArray: SubCategory[];
+  citiesArray: DropdownArray[];
 };
 
 export const LotPreview: FC<Props> = ({
   values,
-  data,
   weightArray,
   currencyArray,
   packagingArray,
-  sizeArray,
+  lengthArray,
+  countriesArray,
+  varietyArray,
+  citiesArray,
 }) => {
+  const currentCurrency = currencyArray[Number(values.currency) - 1].label;
+  const currentUnitOfWeight =
+    weightArray[Number(values.unitOfWeight) - 1].label;
+  let currentVariety;
+  if (values.variety) {
+    const currentVarietyArray = varietyArray[0].subcategories.filter(
+      subcategory => subcategory.category_id === Number(values.variety),
+    );
+    currentVariety = currentVarietyArray[0].name;
+  }
+  const currentLength = lengthArray[Number(values.length_unit) - 1].label;
+
   return (
     <ScrollView style={styles.lotScreenWrapper}>
       <Image
@@ -52,6 +57,17 @@ export const LotPreview: FC<Props> = ({
           />
         )}
       </View>
+      {values.description && (
+        <View style={styles.discriptionWrapper}>
+          <InfoIcon />
+          <AppText
+            color={Colors.PRIMARY}
+            text={`${values.description}`}
+            variant={TEXT_VARIANT.MAIN_14_400}
+            style={styles.discriptionText}
+          />
+        </View>
+      )}
       <View style={styles.mainInfoWrapper}>
         <AppText
           text={'No bets'}
@@ -68,7 +84,7 @@ export const LotPreview: FC<Props> = ({
           />
           {values.price && !isNaN(Number(values.price)) && (
             <AppText
-              text={`$${Number(values.price).toFixed(2)}`}
+              text={`${currentCurrency} ${Number(values.price).toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_24_500}
               style={[styles.price]}
             />
@@ -78,9 +94,9 @@ export const LotPreview: FC<Props> = ({
             !isNaN(Number(values.price)) &&
             !isNaN(Number(values.quantity)) && (
               <AppText
-                text={`$${(
+                text={`${currentCurrency} ${(
                   Number(values.price) / Number(values.quantity)
-                ).toFixed(2)}/kg`}
+                ).toFixed(2)}/${currentUnitOfWeight}`}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 color={Colors.SECONDARY}
                 style={[styles.price]}
@@ -95,7 +111,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.variety && (
           <AppText
-            text={`${values.variety}`}
+            text={`${currentVariety}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -109,7 +125,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.quantity && !isNaN(Number(values.quantity)) && (
           <AppText
-            text={`${values.quantity}`}
+            text={`${values.quantity} ${currentUnitOfWeight}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -123,7 +139,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.size && (
           <AppText
-            text={`${sizeArray[Number(values.size)-1].label}`}
+            text={`${values.size} ${currentLength}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -137,7 +153,7 @@ export const LotPreview: FC<Props> = ({
         />
         {values.packaging && (
           <AppText
-            text={`${packagingArray[Number(values.packaging)-1].label}`}
+            text={`${packagingArray[Number(values.packaging) - 1].label}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
@@ -151,10 +167,8 @@ export const LotPreview: FC<Props> = ({
         />
         {values.country && values.region && (
           <AppText
-            text={`${data.countries[Number(values.country) - 1].countryName}, ${
-              data.countries[Number(values.country) - 1].regions[
-                Number(values.region) - 1
-              ].regionName
+            text={`${countriesArray[Number(values.country) - 1].label}, ${
+              citiesArray[Number(values.region) - 1].label
             }`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}

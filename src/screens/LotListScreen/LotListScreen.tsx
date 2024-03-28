@@ -19,7 +19,7 @@ import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 import {setPadding} from '../../utils/styling/padding';
 import FilterIcon from '../../assets/icons/filter.svg';
 import {Colors} from '../../constants/colors';
-import {Lot} from '../../types/api/api';
+import {Lot} from '../../types/api/lots';
 import {FilterOptionsModal} from './components/filterOptionsModal/filterOptionsModal';
 
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.LotList>;
@@ -48,7 +48,9 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
       setQueryParams(prevState => {
         return {...prevState, page: prevState.page + 1};
       });
-    } else return;
+    } else {
+      return;
+    }
   };
   const refetchToInitialPage = () => {
     setQueryParams({...queryParams, page: initialQueryParams.page});
@@ -63,7 +65,17 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
             headerTitle: item.title,
           });
         }}>
-        <ListItem lot={item} />
+        <ListItem
+          title={item.title}
+          expiration_date={item.expiration_date}
+          lot_id={item.lot_id}
+          total_price={item.total_price}
+          price_per_unit={item.price_per_unit}
+          currency={item.currency}
+          amount={item.leading ? item.leading.amount : 0}
+          weight={item.weight}
+          quantity={item.quantity}
+        />
       </Pressable>
     );
   };

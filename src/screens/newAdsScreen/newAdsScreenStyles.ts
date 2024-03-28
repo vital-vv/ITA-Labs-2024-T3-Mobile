@@ -81,6 +81,12 @@ const formCreateLotStyles = StyleSheet.create({
     marginBottom: 85.75,
     alignSelf: 'center',
   },
+  error_image: {
+    marginTop: 35,
+    height: '50%',
+    width: '70%',
+    alignSelf: 'center',
+  },
   modal_mainwrapper: {
     position: 'relative',
   },
