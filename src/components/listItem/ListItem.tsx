@@ -8,9 +8,6 @@ import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
 import {DateCounter} from '../DateCounter/dateCounter';
 import { Lot } from '../../types/api/lots';
-import AlertIcon from '../../assets/icons/alert.svg';
-import { string } from 'yup';
-import { Currency, Weight } from '../../types/api/info';
 
 type Props = {
   title: string;
@@ -24,11 +21,8 @@ type Props = {
   weight: Weight;
 };
 
-export const ListItem: FC<Props> = ({
-  title, expiration_date, lot_id, 
-  total_price, price_per_unit, currency, 
-  amount, weight, position}) => {
-  // const {title, expiration_date, lot_id, quantity, price_per_unit} = lot;
+export const ListItem: FC<Props> = ({lot}) => {
+  const {title, expiration_date, lot_id, quantity, price_per_unit} = lot;
 
   return (
     <>
@@ -50,14 +44,32 @@ export const ListItem: FC<Props> = ({
           </View>
           <View style={[styles.bets_block, {...setMargin(16, 0, 0, 0)}]}>
             {position == 'outbid' && <AlertIcon/>}
-            <AppText
-              text={amount !== 0 ? `${currency} ${amount}` : 'No bets'}
-              variant={TEXT_VARIANT.MAIN_16_400}
-              color={(amount === 0) ? Colors.TERTIARY :
-                    (position == 'leading') ? Colors.SYSTEM_BASE :
-                    (position == 'outbid') ? Colors.WARNING : Colors.WARNING}
-              style={{lineHeight: 24}}
-            />
+            {(amount !== 0) ? (
+              <View style={styles.lot_block}>
+                <AppText
+                text={`${currency} ${amount}`}
+                variant={TEXT_VARIANT.MAIN_16_400}
+                color={(amount === 0) ? Colors.TERTIARY :
+                      (position == 'leading') ? Colors.SYSTEM_BASE :
+                      (position == 'outbid') ? Colors.WARNING : Colors.WARNING}
+                style={{lineHeight: 24}}
+                />
+                <AppText
+                  text={`${currency} ${(amount / quantity).toFixed(
+                    2,
+                  )}/${weight}`}
+                  variant={TEXT_VARIANT.MAIN_10_400}
+                  color={Colors.SECONDARY}
+                />
+            </View>
+          ) : (
+          <AppText
+            text={'No bets'}
+            variant={TEXT_VARIANT.MAIN_16_400}
+            color={Colors.SECONDARY}
+            style={{...setMargin(16, 0, 0, 0), lineHeight: 24}}
+          />
+      )}
           </View>
           <View style={styles.lot_block}>
             <AppText

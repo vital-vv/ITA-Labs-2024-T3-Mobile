@@ -1,11 +1,20 @@
-import { Currency, Packaging, Status, Weight } from './info';
+import {Bid} from './bids';
+import {Image, Currency, Packaging, Status, Weight} from './info';
 import {PaginationMetaData} from './pagination';
+
+export type Variety = {
+  category_id: number;
+  parent_id: number | null;
+  name: string;
+  subcategories: [];
+};
 
 export type SubCategory = {
   subcategory_id: string;
   category_id: number;
   parent_id: number | null;
   name: string;
+  subcategories: Variety[];
 };
 
 export type Category = {
@@ -16,26 +25,29 @@ export type Category = {
 };
 
 export type Lot = {
+  title: string;
+  quantity: number;
+  weight: Weight;
+  location: Location;
+  description: string;
+  status: Status;
+  size: number;
+  packaging: Packaging;
+  leading: Bid;
+  users: Bid;
+  currency: Currency;
   lot_id: number;
   category_id: number;
   category_name: string;
   price_per_unit: number;
-  image_url: string;
+  image_url: Image[];
   expiration_date: string;
   created_at: string;
-  title: string;
-  quantity: number;
-  location: Location;
-  description: string;
-  status: string;
-  variety: string;
-  size: string;
-  packaging: Packaging;
+  created_by: string;
   total_price: number;
-  currency: Currency;
-  leading: Bet,
-  weight: Weight;
   start_price: number;
+  length_unit: string;
+  bid_quantity: number;
 };
 
 export type Location = {
@@ -43,6 +55,8 @@ export type Location = {
   country: string;
   region: string;
 };
+
+export type Cities = string[];
 
 export type LotsInSubCategoryInitialResponse = {
   content: Lot[];
@@ -57,23 +71,30 @@ export type LotsInSubCategoryFinalResponse = {
 
 export type LotCreate = {
   category_id: number;
-  price_per_unit: number;
-  title: string;
+  total_price: number;
+  start_price: number;
+  expiration_days: number;
   length_unit: string;
+  title: string;
   quantity: number;
-  weight: string;
+  weight: Weight;
   location: Location;
   description: string;
-  status: string;
-  variety: string;
   size: number;
-  packaging: string;
+  packaging: Packaging;
+  currency: Currency;
+};
+
+export type imageUrl = {
+  id: number;
+  imageURL: string;
+  file: {uri: string; type: string; name: string};
 };
 
 
 export type Bet = {
   amount: number;
-  currency: string;
+  currency: Currency;
   lot_id: number;
 };
 

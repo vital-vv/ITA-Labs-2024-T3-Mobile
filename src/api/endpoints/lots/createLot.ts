@@ -4,12 +4,16 @@ import {agroexAPI} from '../../index';
 
 export const createLot = agroexAPI.injectEndpoints({
   endpoints: builder => ({
-    createLot: builder.mutation<LotCreate, LotCreate>({
+    createLot: builder.mutation<LotCreate, FormData>({
       query: body => ({
         url: API_URL.lots,
         method: 'POST',
-        body,
+        body: body,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }),
     }),
   }),
+  overrideExisting: true,
 });

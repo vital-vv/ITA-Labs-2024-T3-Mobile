@@ -12,6 +12,7 @@ export const createUser = agroexAPI.injectEndpoints({
         method: 'POST',
         body: userData,
       }),
+      invalidatesTags: ['User'],
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
           await queryFulfilled;

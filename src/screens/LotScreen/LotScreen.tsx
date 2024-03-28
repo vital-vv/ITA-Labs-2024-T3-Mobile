@@ -1,7 +1,7 @@
 import {RefreshControl, ScrollView, TextInput, View} from 'react-native';
 import {styles} from './lotScreenStyles';
 import ButtonWithIcon from '../../components/buttons/ButtonWithIcon/ButtonWithIcon';
-import {FC, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {HomeStackParams} from '../../types/navigation';
 import {ROUTES} from '../../constants/routes';

@@ -45,5 +45,17 @@ export type Selection = {
   role: UserRoles[];
   status: Status[];
   currency: Currency[];
+  countries: string[];
 };
 
+export type Image = {
+  id: number;
+  name: string;
+  url: string;
+  MainImage: boolean;
+};
+
+export type ImageRequest = {
+  file: string;
+  isMainImage: boolean;
+};
