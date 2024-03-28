@@ -18,9 +18,9 @@ type Props = {
   price_per_unit: number;
   position?: 'leading' | 'outbid';
   currency: Currency;
-  amount?: number;
+  amount: number;
   weight: Weight;
-  quantity?: number;
+  quantity: number;
 };
 
 export const ListItem: FC<Props> = ({
@@ -71,7 +71,6 @@ export const ListItem: FC<Props> = ({
                   }
                   style={{lineHeight: 24}}
                 />
-                {quantity &&
                   <AppText
                     text={`${currency} ${(amount / quantity).toFixed(
                       2,
@@ -79,7 +78,6 @@ export const ListItem: FC<Props> = ({
                     variant={TEXT_VARIANT.MAIN_10_400}
                     color={Colors.SECONDARY}
                   />
-                }
               </View>
             ) : (
               <AppText

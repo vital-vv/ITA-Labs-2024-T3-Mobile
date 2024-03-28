@@ -17,7 +17,7 @@ type Props = {
   bet: number;
   currency: Currency;
   setBet: Function;
-  setIsBetComplieted: Function;
+  setIsBetCompleted: Function;
 };
 
 export const BetsModal = ({
@@ -28,7 +28,7 @@ export const BetsModal = ({
   bet,
   currency,
   setBet,
-  setIsBetComplieted,
+  setIsBetCompleted,
 }: Props) => {
   const [isValidBet, setIsValidBet] = useState(false);
 
@@ -98,7 +98,7 @@ export const BetsModal = ({
             variant={TEXT_VARIANT.MAIN_16_500}
             onPress={() => {
               if (isValidBet) {
-                setIsBetComplieted(true);
+                setIsBetCompleted(true);
                 onClose(false);
               }
             }}

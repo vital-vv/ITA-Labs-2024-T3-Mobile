@@ -9,6 +9,7 @@ import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {Lot} from '../../types/api/lots';
 import AlertIcon from '../../assets/icons/alert.svg';
 import InfoIcon from '../../assets/icons/info.svg';
+import {lotViewData} from './lotViewData';
 
 type Props = {
   lot: Lot;
@@ -16,6 +17,15 @@ type Props = {
 };
 
 export const LotView: FC<Props> = ({lot, position}) => {
+
+  const lotData = lotViewData(lot).map((item) => {
+    return  <AppText
+    text={item.text}
+    variant={TEXT_VARIANT.MAIN_16_400}
+    color={item.colorSecondary? Colors.SECONDARY : Colors.PRIMARY}
+    style={styles.text}
+  />
+  }) 
   return (
     <ScrollView>
       <Image
@@ -90,74 +100,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
             style={[styles.text, styles.price]}
           />
         </View>
-        <AppText
-          text={'Variety'}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          color={Colors.SECONDARY}
-          style={styles.text}
-        />
-        <AppText
-          text={`${lot.category_name}`}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          style={styles.text}
-        />
-        <AppText
-          text={'Quantity'}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          color={Colors.SECONDARY}
-          style={styles.text}
-        />
-        <AppText
-          text={`${lot.quantity} ${lot.weight}`}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          style={styles.text}
-        />
-        <AppText
-          text={'Size'}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          color={Colors.SECONDARY}
-          style={styles.text}
-        />
-        <AppText
-          text={`${lot.size} ${lot.length_unit}`}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          style={styles.text}
-        />
-        <AppText
-          text={'Packaging'}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          color={Colors.SECONDARY}
-          style={styles.text}
-        />
-        <AppText
-          text={`${lot.packaging}`}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          style={styles.text}
-        />
-        <AppText
-          text={'Location'}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          color={Colors.SECONDARY}
-          style={styles.text}
-        />
-        <AppText
-          text={`${lot.location.country}, ${lot.location.region}`}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          style={styles.text}
-        />
-        <AppText
-          text={'Created'}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          color={Colors.SECONDARY}
-          style={styles.text}
-        />
-        <AppText
-          text={`${DateTime.fromISO('2024-03-05T15:20:00Z').toFormat(
-            'yyyy.LL.dd, HH:mm ',
-          )}`}
-          variant={TEXT_VARIANT.MAIN_16_400}
-          style={styles.text}
-        />
+        {lotData}
       </View>
     </ScrollView>
   );

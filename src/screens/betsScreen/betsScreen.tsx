@@ -42,11 +42,8 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           onPress={() => {
             setIsActiveFirst(!isActiveFirst);
           }}
-          style={
-            isActiveFirst
-              ? [styles.button, styles.button_pressed]
-              : styles.button
-          }>
+          style={[styles.button, isActiveFirst && styles.button_pressed]} 
+          >
           <AppText
             text={'My bets'}
             variant={TEXT_VARIANT.MAIN_18_500}
@@ -58,11 +55,8 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           onPress={() => {
             setIsActiveFirst(!isActiveFirst);
           }}
-          style={
-            !isActiveFirst
-              ? [styles.button, styles.button_pressed]
-              : styles.button
-          }>
+          style={[styles.button, !isActiveFirst && styles.button_pressed]} 
+          >
           <AppText
             text={'Outbid'}
             variant={TEXT_VARIANT.MAIN_18_500}
@@ -98,8 +92,9 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 total_price={item.total_price}
                 price_per_unit={item.price_per_unit}
                 currency={item.currency}
-                amount={item.amount}
+                amount={item.leading.amount}
                 weight={item.weight}
+                quantity={item.quantity}
                 position="leading"
               />
             </Pressable>
@@ -132,8 +127,9 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 total_price={item.total_price}
                 price_per_unit={item.price_per_unit}
                 currency={item.currency}
-                amount={item.amount}
+                amount={item.leading.amount}
                 weight={item.weight}
+                quantity={item.quantity}
                 position="outbid"
               />
             </Pressable>

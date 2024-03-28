@@ -65,7 +65,7 @@ const lotPreviewStyles = StyleSheet.create({
     gap: 8,
   },
   discriptionText: {
-    width: screenWidth - 32 - 40 - 24 - 8,
+    width: screenWidth - 104,
   },
 });
 

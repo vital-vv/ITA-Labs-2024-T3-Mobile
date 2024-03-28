@@ -15,7 +15,7 @@ type Props = {
 
 export const BetsModalContainer = (props: Props) => {
   const [bet, setBet] = useState(props.maxBet);
-  const [isBetComplieted, setIsBetComplieted] = useState(false);
+  const [isBetCompleted, setIsBetCompleted] = useState(false);
   const [createBet, {isError, error, isSuccess}] = useCreateBetMutation();
 
   const transformValuesCreateBet = (
@@ -32,23 +32,23 @@ export const BetsModalContainer = (props: Props) => {
   };
 
   useEffect(() => {
-    if (isBetComplieted) {
+    if (isBetCompleted) {
       const values = transformValuesCreateBet(
         bet,
         props.lot_id,
         props.currency,
       );
       createBet(values);
-      setIsBetComplieted(false);
+      setIsBetCompleted(false);
     }
-  }, [isBetComplieted]);
+  }, [isBetCompleted]);
 
   return (
     <BetsModal
       {...props}
       bet={bet}
       setBet={setBet}
-      setIsBetComplieted={setIsBetComplieted}
+      setIsBetCompleted={setIsBetCompleted}
     />
   );
 };

@@ -119,6 +119,6 @@ export type BetRequestMetaData = {
 };
 
 export type MyBetsInResponse = {
-  content: BetRequest[];
+  content: Lot[];
   metadata: BetRequestMetaData;
 };
