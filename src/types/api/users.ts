@@ -27,6 +27,7 @@ export type UserCreateResponse = {
   phoneNumber: string;
   photo: string;
   bids: Bid[] | null;
+  avatarId: string | number;
 };
 
 export type CurrentUserResponse = UserCreateResponse;

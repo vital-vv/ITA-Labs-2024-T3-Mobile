@@ -18,12 +18,21 @@ import {AppText} from '../appText/appText';
 import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 
+export type ImagePickerAsset = Required<
+  Pick<ImagePicker.Asset, 'uri' | 'type' | 'fileName'>
+>;
+
+export type AppImagePickerGetURI = {
+  (imageInfo: ImagePickerAsset, id?: number): void;
+};
+
 type Props = {
   id?: number;
-  getUri: Function;
+  getUri: AppImagePickerGetURI;
   children?: ReactNode;
   image_style: StyleProp<ImageStyle>;
   noimage_style: StyleProp<ViewStyle>;
+
   imageUrl?: string;
   isLot?: boolean;
 };
@@ -57,13 +66,11 @@ export const AppImagePicker: FC<Props> = ({
         return;
       }
       setFilePath(response);
-      if (response.assets) {
-        getUri(
-          id,
-          response.assets[0].uri,
-          response.assets[0].type,
-          response.assets[0].fileName,
-        );
+      if (response.assets && response.assets[0]) {
+        const {uri, type, fileName} = response.assets[0];
+        if (uri && type && fileName) {
+          getUri({uri, type, fileName}, id);
+        }
       }
     });
   };
@@ -73,7 +80,7 @@ export const AppImagePicker: FC<Props> = ({
   };
 
   const onDeletePhoto = () => {
-    getUri(0, ''), setIsOpen(false);
+    getUri({uri: '', type: '', fileName: ''}, id), setIsOpen(false);
   };
 
   return (

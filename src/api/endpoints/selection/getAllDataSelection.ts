@@ -11,12 +11,5 @@ export const getAllDataSelection = agroexAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
-    getCities: builder.query<Cities, string>({
-      query: city => ({
-        url: API_URL.cities(city),
-        method: 'GET',
-      }),
-    }),
   }),
-  overrideExisting: true,
 });

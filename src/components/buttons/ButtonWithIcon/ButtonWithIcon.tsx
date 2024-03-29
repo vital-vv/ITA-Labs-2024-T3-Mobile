@@ -12,6 +12,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
   variant?: TEXT_VARIANT;
   onPress?: () => void;
+  disabled?: boolean;
 };
 
 const ButtonWithIcon: FC<Props> = ({
@@ -21,13 +22,25 @@ const ButtonWithIcon: FC<Props> = ({
   style,
   variant = TEXT_VARIANT.MAIN_18_400,
   onPress,
+  disabled = false,
 }) => {
-  const wrapperStyle = type === 'light' ? styles.ligth : styles.dark;
-  const textColor = type === 'light' ? Colors.BUTTON_PRIMARY : Colors.WHITE;
+  const wrapperStyle =  
+  disabled === true
+  ? styles.disabled
+  : type === 'light' 
+  ? styles.ligth 
+  : styles.dark;
+  const textColor =  
+  disabled === true
+  ? Colors.TERTIARY
+  : type === 'light' 
+  ? Colors.BUTTON_PRIMARY 
+  : Colors.WHITE;
   return (
     <Pressable
       style={[styles.buttonWrapper, wrapperStyle, style]}
-      onPress={() => (onPress ? onPress() : null)}>
+      onPress={() => (onPress ? onPress() : null)}
+      disabled={disabled}>
       {icon}
       <AppText text={`${title}`} variant={variant} color={textColor} />
     </Pressable>

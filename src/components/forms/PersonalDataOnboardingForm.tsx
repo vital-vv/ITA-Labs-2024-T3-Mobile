@@ -1,6 +1,6 @@
 import {FC, useState} from 'react';
 import {MainWrapper} from '../mainWrapper/mainWrapper.tsx';
-import {Formik, FormikProps, FormikState, FormikValues} from 'formik';
+import {Formik, FormikState, FormikValues} from 'formik';
 import {ReviewSchema} from './ReviewSchema.ts';
 import {ScrollView, StyleProp, TextInput, View, ViewStyle} from 'react-native';
 import {AppText} from '../appText/appText.tsx';
@@ -12,47 +12,38 @@ import styles from './personalDataFormStyles.ts';
 import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
-import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
-import Pensil from '../../assets/icons/pensill.svg';
 import {
-  useCreateUserMutation,
-  useLazyGetCurrentUserQuery,
-} from '../../api/endpoints/index.ts';
-import {transformValuesCreateUser} from '../formElements/transformValuesToRequestFunc.ts';
-import {useAppNavigation} from '../../utils/hooks/useAppNavigation.tsx';
-import {ROUTES} from '../../constants/routes.ts';
+  AppImagePicker,
+  AppImagePickerGetURI,
+  ImagePickerAsset,
+} from '../AppImagePicker/AppImagePicker.tsx';
+import Pencil from '../../assets/icons/pencil.svg';
+import {useCreateUserMutation} from '../../api/endpoints/index.ts';
+import {transformValuesCreateUser} from '../../utils/helpers/transformValuesToRequestFunc.ts';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
-export type UserValues = {
-  name: string;
-  surname: string;
-  phone: string;
-};
+
+type UserValues = typeof initialValues;
 
 type ResetForm = {
   resetForm: (nextState?: Partial<FormikState<UserValues>> | undefined) => void;
 };
 
-export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
-  const [usersInitials, setUsersInitials] = useState<UserValues>({
-    name: '',
-    surname: '',
-    phone: '',
-  });
-  const [imageUrl, setImageUrl] = useState('');
-  const navigation = useAppNavigation();
-  const [createUserTrigger, {isLoading}] = useCreateUserMutation();
-  const [getCurrentUserTrigger] = useLazyGetCurrentUserQuery();
-  const initialValues = {
-    name: '',
-    surname: '',
-    phone: '',
-  };
+const initialValues = {
+  name: '',
+  surname: '',
+  phone: '',
+};
 
-  const getUri = (id: number, val: string) => {
-    setImageUrl(val);
+export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
+  const [usersInitials, setUsersInitials] = useState<UserValues>(initialValues);
+  const [imageInfo, setImageInfo] = useState<ImagePickerAsset>();
+  const [createUserTrigger] = useCreateUserMutation();
+
+  const getUri: AppImagePickerGetURI = (imageInfo, __) => {
+    setImageInfo(imageInfo);
   };
 
   const checkValues = (param: string, values: FormikValues) => {
@@ -75,11 +66,9 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
   };
 
   const onSubmit = async (values: UserValues, {resetForm}: ResetForm) => {
-    const newValues = transformValuesCreateUser(values);
+    const requestData = transformValuesCreateUser(values, imageInfo);
     try {
-      await createUserTrigger(newValues).unwrap();
-      await getCurrentUserTrigger();
-      navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
+      await createUserTrigger(requestData);
     } finally {
       resetForm();
     }
@@ -134,7 +123,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
                 </View>
               </AppImagePicker>
               <View style={styles.photo_edit}>
-                <Pensil />
+                <Pencil />
               </View>
             </View>
             <TextInput
@@ -155,7 +144,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
             {touched.name && errors.name && (
               <AppText
                 text={errors.name}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -178,7 +167,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
             {touched.surname && errors.surname && (
               <AppText
                 text={errors.surname}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -192,13 +181,13 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
               onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
               value={values.phone}
-              placeholder="Phone. For example: +99-999-99-99"
+              placeholder="Phone. For example: +375-999-99-99"
               keyboardType="phone-pad"
             />
             {touched.phone && errors.phone && (
               <AppText
                 text={errors.phone}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -206,7 +195,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
             <ButtonWithoutIcon
               style={{...setMargin(16, 0, 0, 0)}}
               onPress={handleSubmit}
-              disabled={!isValid && true}
+              disabled={!isValid}
               title="Save changes"
               type="dark"
             />

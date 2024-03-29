@@ -1,6 +1,6 @@
 export type PaginationMetaData = {
-    page: number;
-    size: number;
-    totalElements: number;
-  };
-  
+  totalElements: number;
+  has_next: string;
+  page: number;
+  size: number;
+};

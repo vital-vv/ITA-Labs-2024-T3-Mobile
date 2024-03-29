@@ -52,7 +52,7 @@ const LotViewStyles = StyleSheet.create({
     gap: 8,
   },
   discriptionWrapper: {
-    marginHorizontal: 16,
+    ...setMargin(12, 16, 0, 16),
     padding: 20,
     borderRadius: 4,
     borderWidth: 1,
@@ -64,7 +64,7 @@ const LotViewStyles = StyleSheet.create({
     gap: 8,
   },
   discriptionText: {
-    width: screenWidth - 32 - 40 - 24 - 8,
+    width: screenWidth - 104,
   },
 });
 

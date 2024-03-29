@@ -1,11 +1,8 @@
-import {AppImagePicker} from '../../AppImagePicker/AppImagePicker';
 import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+  AppImagePicker,
+  AppImagePickerGetURI,
+} from '../../AppImagePicker/AppImagePicker';
+import {Animated, Pressable, View, useWindowDimensions} from 'react-native';
 import {FC, useRef, useState} from 'react';
 import ArrowLeft from '../../../assets/icons/arrow-left.svg';
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
@@ -16,7 +13,7 @@ import Plus from '../../../assets/icons/plus_circle.svg';
 
 type Props = {
   imageUrl: {id: number; imageURL: string}[];
-  getUri: Function;
+  getUri: AppImagePickerGetURI;
   isLot?: boolean;
 };
 

@@ -1,13 +1,6 @@
 import {Bid} from './bids';
-import {Image, Currency, Packaging, Status, Weight} from './info';
+import {Currency, Location, Packaging, Status, Variety, Weight} from './info';
 import {PaginationMetaData} from './pagination';
-
-export type Variety = {
-  category_id: number;
-  parent_id: number | null;
-  name: string;
-  subcategories: [];
-};
 
 export type SubCategory = {
   subcategory_id: string;
@@ -33,14 +26,14 @@ export type Lot = {
   status: Status;
   size: number;
   packaging: Packaging;
-  leading: Bid;
+  leading: Bid | null;
   users: Bid;
   currency: Currency;
   lot_id: number;
   category_id: number;
   category_name: string;
   price_per_unit: number;
-  image_url: Image[];
+  image_url: LotImage[];
   expiration_date: string;
   created_at: string;
   created_by: string;
@@ -49,14 +42,6 @@ export type Lot = {
   length_unit: string;
   bid_quantity: number;
 };
-
-export type Location = {
-  id?: number;
-  country: string;
-  region: string;
-};
-
-export type Cities = string[];
 
 export type LotsInSubCategoryInitialResponse = {
   content: Lot[];
@@ -85,40 +70,15 @@ export type LotCreate = {
   currency: Currency;
 };
 
+export type LotImage = {
+  id: number;
+  name?: string;
+  url: string;
+  mainImage?: boolean;
+};
+
 export type imageUrl = {
   id: number;
   imageURL: string;
   file: {uri: string; type: string; name: string};
-};
-
-
-export type Bet = {
-  amount: number;
-  currency: Currency;
-  lot_id: number;
-};
-
-export type BetRequest = {
-  bid_id: number;
-  lot_id: number;
-  expiration_date: string;
-  total_price: number;
-  price_per_unit: number;
-  status: Status;
-  amount: number;
-  currency: Currency;
-  title: string;
-  weight: Weight;
-};
-
-export type BetRequestMetaData = {
-  totalElements: number;
-  has_next: string
-  page: number;
-  size: number;
-};
-
-export type MyBetsInResponse = {
-  content: Lot[];
-  metadata: BetRequestMetaData;
 };

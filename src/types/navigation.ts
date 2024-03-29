@@ -1,6 +1,5 @@
 import {ROUTES} from '../constants/routes';
 import {NavigatorScreenParams, Route} from '@react-navigation/native';
-import {CurrentUserStateType} from '../store/slices/currentUserSlice';
 
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
@@ -20,7 +19,6 @@ export type HomeStackParams = {
 };
 
 export type AccountStackParams = {
-  [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.Account]: undefined;
   [ROUTES.PersonalData]: {headerTitle: string};
   [ROUTES.MyAds]: {headerTitle: string};
