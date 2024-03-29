@@ -2,12 +2,13 @@ import {AppText} from '../appText/appText';
 import {Colors} from '../../constants/colors';
 import {TEXT_VARIANT} from '../../types/textVariant';
 import {FC} from 'react';
-import {Image, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import styles from './lotPreviewStyles';
 import React from 'react';
-import {SubCategory} from '../../types/api/lots';
-import {DropdownArray} from '../formElements/transformValuesToRequestFunc';
+import {SubCategory, imageUrl} from '../../types/api/lots';
+import {DropdownArray} from '../../utils/helpers/transformValuesToRequestFunc';
 import InfoIcon from '../../assets/icons/info.svg';
+import {Carousel} from '../imageCarousel';
 
 export type Props = {
   values: Record<string, string>;
@@ -18,6 +19,7 @@ export type Props = {
   countriesArray: DropdownArray[];
   varietyArray: SubCategory[];
   citiesArray: DropdownArray[];
+  image: imageUrl;
 };
 
 export const LotPreview: FC<Props> = ({
@@ -29,6 +31,7 @@ export const LotPreview: FC<Props> = ({
   countriesArray,
   varietyArray,
   citiesArray,
+  image,
 }) => {
   const currentCurrency = currencyArray[Number(values.currency) - 1].label;
   const currentUnitOfWeight =
@@ -42,12 +45,17 @@ export const LotPreview: FC<Props> = ({
   }
   const currentLength = lengthArray[Number(values.length_unit) - 1].label;
 
+  const transformedArray = [{id: image.id, url: image.imageURL}];
+
   return (
     <ScrollView style={styles.lotScreenWrapper}>
-      <Image
-        style={styles.image}
-        source={require('../../assets/images/apple_image.png')}
-      />
+      {image ? (
+        <Carousel data={transformedArray} />
+      ) : (
+        // <Image style={styles.image} source={{uri: image}} />
+
+        <View style={styles.image}></View>
+      )}
       <View style={styles.titleWrapper}>
         {values.title && (
           <AppText

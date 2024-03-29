@@ -10,6 +10,8 @@ import {showToast} from '../../components/toasts';
 import {ToastTypes} from '../../types/toasts';
 import {currentUserActions} from '../../store/slices/currentUserSlice';
 import {signOut} from 'aws-amplify/auth';
+import {globalNavigate} from '../../navigation/globalNavigation';
+import {ROUTES} from '../../constants/routes';
 
 const mutex = new Mutex();
 
@@ -35,9 +37,14 @@ export const baseQueryWithReAuth: BaseQueryFn<
           //retry initial query with updated tokens
           result = await baseQuery(args, api, extraOptions);
         } else {
+          //session update failed
           await signOut();
-          showToast(ToastTypes.Error);
+          showToast(
+            ToastTypes.Error,
+            'Something went wrong during token update',
+          );
           api.dispatch(currentUserActions.isLogout());
+          globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
         }
       } finally {
         //next query is available

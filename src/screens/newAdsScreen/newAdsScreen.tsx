@@ -10,17 +10,11 @@ import {AppText} from '../../components/appText/appText';
 import {Colors} from '../../constants/colors';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
 import {setPadding} from '../../utils/styling/padding';
-import {FC, useEffect, useRef, useState} from 'react';
+import {FC, useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../types/navigation.ts';
 import {ROUTES} from '../../constants/routes.ts';
-import {
-  Formik,
-  FormikFormProps,
-  FormikProps,
-  FormikState,
-  FormikValues,
-} from 'formik';
+import {Formik, FormikProps, FormikValues} from 'formik';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
 import {setMargin} from '../../utils/styling/margin.ts';
 import styles from './newAdsScreenStyles.ts';
@@ -41,17 +35,20 @@ import {
   useGetCitiesQuery,
 } from '../../api/endpoints/index.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
-import React from 'react';
 import {ImagePickerCarousel} from '../../components/imageCarousel/imagePickerCarousel/ImagePickerCarousel.tsx';
 import {
   DropdownArray,
   transformValuesCreateLot,
-} from '../../components/formElements/transformValuesToRequestFunc.ts';
+} from '../../utils/helpers/transformValuesToRequestFunc.ts';
 import {ReviewSchema} from './reviewSchema.ts';
 import {SubCategory, imageUrl} from '../../types/api/lots.ts';
 import {Currency, Packaging, Weight} from '../../types/api/info.tsx';
+import {AppImagePickerGetURI} from '../../components/AppImagePicker/AppImagePicker.tsx';
+import {showToast} from '../../components/toasts/index.tsx';
+import {ToastTypes} from '../../types/toasts.ts';
 
 type Props = NativeStackScreenProps<RootStackParams, ROUTES.NewAds>;
+
 const initialImageUrl: imageUrl[] = [
   {id: 1, imageURL: '', file: {uri: '', type: '', name: ''}},
   {id: 2, imageURL: '', file: {uri: '', type: '', name: ''}},
@@ -73,7 +70,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [skip, setSkip] = useState(true);
   const [isValidimageUrl, setIsValidImageUrl] = useState(false);
   const [skipCity, setSkipCity] = useState(true);
-  const [createLot, {isError, error, isSuccess}] = useCreateLotMutation();
+  const [createLot] = useCreateLotMutation();
 
   const {
     data: allSelectionData,
@@ -121,11 +118,14 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     return newArr;
   };
 
-  const getUri = (id: number, val: string, type: string, name: string) => {
-    setImageUrl([
-      {id: id, imageURL: val, file: {uri: val, type: type, name: name}},
-      ...imageUrl.filter(element => element.id !== id),
-    ]);
+  const getUri: AppImagePickerGetURI = (imageInfo, id) => {
+    const {type, uri, fileName} = imageInfo;
+    if (id) {
+      setImageUrl([
+        {id: id, imageURL: uri, file: {uri, type, name: fileName}},
+        ...imageUrl.filter(element => element.id !== id),
+      ]);
+    }
     setIsValidImageUrl(true);
   };
 
@@ -142,14 +142,14 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
     );
     try {
       await createLot(newValues).unwrap();
-      console.log('fulfilled');
       setisSuccessModalVisible(true);
       resetForm();
       setImageUrl(initialImageUrl);
       setIsValidImageUrl(false);
+      showToast(ToastTypes.Success, 'Lot was successfully created');
     } catch (error) {
-      console.error('rejected', error);
       setisErrorModalVisible(true);
+      showToast(ToastTypes.Error, 'Something went wrong during lot creation');
     }
   };
 
@@ -720,6 +720,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   type="dark"
                   disabled={!(isValid && isValidimageUrl)}
                 />
+
                 <Modal visible={isModalVisible} transparent={false}>
                   <MainWrapper>
                     <Pressable
@@ -749,6 +750,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                       packagingArray={packagingArray}
                       lengthArray={lengthArray}
                       values={values}
+                      image={imageUrl[0]}
                     />
                     <ButtonWithIcon
                       title="Go back"

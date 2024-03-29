@@ -2,7 +2,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {useCreateBetMutation} from '../../../api/endpoints';
 import {BetsModal} from './BetsModal';
 import {Currency} from '../../../types/api/info';
-import {Bet} from '../../../types/api/lots';
+import {transformValuesCreateBet} from '../../../utils/helpers/transformValuesToRequestFunc';
 
 type Props = {
   isOpen: boolean;
@@ -16,20 +16,7 @@ type Props = {
 export const BetsModalContainer = (props: Props) => {
   const [bet, setBet] = useState(props.maxBet);
   const [isBetCompleted, setIsBetCompleted] = useState(false);
-  const [createBet, {isError, error, isSuccess}] = useCreateBetMutation();
-
-  const transformValuesCreateBet = (
-    bet: number,
-    lot_id: number,
-    currency: Currency,
-  ): Bet => {
-    const RequestBody = {
-      lot_id: lot_id,
-      amount: bet,
-      currency: currency,
-    };
-    return RequestBody;
-  };
+  const [createBet] = useCreateBetMutation();
 
   useEffect(() => {
     if (isBetCompleted) {

@@ -14,74 +14,72 @@ import Lock from '../../assets/icons/lock.svg';
 import Settings from '../../assets/icons/settings.svg';
 import LogOut from '../../assets/icons/logout.svg';
 import {setMargin} from '../../utils/styling/margin';
-import {AccountStackParams} from '../../types/navigation';
+import {RootStackParams} from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes';
 import {FC} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selector} from '../../store/selector';
-import {currentUserActions} from '../../store/slices/currentUserSlice';
-import {useAuthenticator} from '@aws-amplify/ui-react-native';
+import {logout} from '../../store/functions/userActions';
 
-type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
+type Props = NativeStackScreenProps<RootStackParams, ROUTES.AccountStack>;
 
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const dispatch = useAppDispatch();
-  const {signOut} = useAuthenticator();
-
-  const onPressPersonalData = () => {
-    navigation.navigate(ROUTES.PersonalData, {
-      headerTitle: 'Personal data',
-    });
+  const onPressNavigation = (route: ROUTES) => {
+    switch (route) {
+      case ROUTES.PersonalData:
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.PersonalData,
+          params: {headerTitle: 'Personal data'},
+        });
+        break;
+      case ROUTES.MyAds:
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.MyAds,
+          params: {headerTitle: 'My advertisements'},
+        });
+        break;
+      case ROUTES.Notifications:
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.Notifications,
+          params: {headerTitle: 'My Notifications'},
+        });
+        break;
+      case ROUTES.Currency:
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.Currency,
+          params: {headerTitle: 'Currency'},
+        });
+        break;
+      case ROUTES.Language:
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.Language,
+          params: {headerTitle: 'Language'},
+        });
+        break;
+      case ROUTES.Password:
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.Password,
+          params: {headerTitle: 'Change password'},
+        });
+        break;
+      case 'Settings':
+        navigation.navigate(ROUTES.AccountStack, {
+          screen: ROUTES.Settings,
+          params: {headerTitle: 'Settings'},
+        });
+        break;
+      default:
+        return;
+    }
   };
-
-  const onPressMyAds = () => {
-    navigation.navigate(ROUTES.MyAds, {
-      headerTitle: 'My advertisements',
-    });
-  };
-
-  const onPressNotification = () => {
-    navigation.navigate(ROUTES.Notifications, {
-      headerTitle: 'Notifications',
-    });
-  };
-
-  const onPressCurrency = () => {
-    navigation.navigate(ROUTES.Currency, {
-      headerTitle: 'Currency',
-    });
-  };
-
-  const onPressLanguage = () => {
-    navigation.navigate(ROUTES.Language, {
-      headerTitle: 'Language',
-    });
-  };
-
-  const onPressPassword = () => {
-    navigation.navigate(ROUTES.Password, {
-      headerTitle: 'Change Password',
-    });
-  };
-
-  const onPressSettings = () => {
-    navigation.navigate(ROUTES.Settings, {
-      headerTitle: 'Settings',
-    });
-  };
-  const onPressLogout = () => {
-    dispatch(currentUserActions.isLogout());
-    signOut();
-    navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
-  };
-
   return (
     <MainWrapper>
       <ScrollView>
         <Pressable
-          onPress={onPressPersonalData}
+          onPress={() => onPressNavigation(ROUTES.PersonalData)}
           style={[
             styles.group_container,
             styles.tab_container,
@@ -126,7 +124,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         </Pressable>
         <View style={styles.group_container}>
           <Pressable
-            onPress={onPressMyAds}
+            onPress={() => onPressNavigation(ROUTES.MyAds)}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <MyAds style={setMargin(0, 12, 0, 0)} fill={Colors.SECONDARY} />
@@ -143,7 +141,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressNotification}
+            onPress={() => onPressNavigation(ROUTES.Notifications)}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <Notification style={setMargin(0, 12, 0, 0)} />
@@ -162,7 +160,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         </View>
         <View style={styles.group_container}>
           <Pressable
-            onPress={onPressCurrency}
+            onPress={() => onPressNavigation(ROUTES.Currency)}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <Currency
@@ -182,7 +180,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressLanguage}
+            onPress={() => onPressNavigation(ROUTES.Language)}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <Language style={setMargin(0, 12, 0, 0)} />
@@ -199,7 +197,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressPassword}
+            onPress={() => onPressNavigation(ROUTES.Password)}
             style={[styles.add_container, styles.tab]}>
             <Lock style={setMargin(0, 12, 0, 0)} />
             <AppText
@@ -209,7 +207,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
             />
           </Pressable>
           <Pressable
-            onPress={onPressSettings}
+            onPress={() => onPressNavigation(ROUTES.Settings)}
             style={[styles.add_container, styles.tab]}>
             <Settings style={setMargin(0, 12, 0, 0)} />
             <AppText
@@ -222,7 +220,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         <View style={styles.group_container}>
           <Pressable
             style={[styles.add_container, styles.tab]}
-            onPress={onPressLogout}>
+            onPress={() => dispatch(logout())}>
             <LogOut style={setMargin(0, 12, 0, 0)} />
             <AppText
               text={'Log out'}

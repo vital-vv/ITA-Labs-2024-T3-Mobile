@@ -38,6 +38,27 @@ export enum Status {
   Moderated = 'moderated',
 }
 
+export type Cities = string[];
+
+export type Location = {
+  id?: number;
+  country: string;
+  region: string;
+};
+
+export type Variety = {
+  category_id: number;
+  parent_id: number | null;
+  name: string;
+  subcategories: [];
+};
+
+export enum BidStatus {
+  LEADING = 'LEADING',
+  OVERBID = 'OVERBID',
+  WON = 'WON',
+}
+
 export type Selection = {
   packaging: Packaging[];
   weight: Weight[];
@@ -46,16 +67,4 @@ export type Selection = {
   status: Status[];
   currency: Currency[];
   countries: string[];
-};
-
-export type Image = {
-  id: number;
-  name: string;
-  url: string;
-  MainImage: boolean;
-};
-
-export type ImageRequest = {
-  file: string;
-  isMainImage: boolean;
 };

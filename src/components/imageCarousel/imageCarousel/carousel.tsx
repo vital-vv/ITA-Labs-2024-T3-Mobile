@@ -9,35 +9,43 @@ import {FC, useRef, useState} from 'react';
 import {Paginator} from '../paginator/paginator';
 import ArrowLeft from '../../../assets/icons/arrow-left.svg';
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
-import {FlashList} from '@shopify/flash-list';
+import {FlashList, ListRenderItem, ViewToken} from '@shopify/flash-list';
 import {styles} from './carouselStyles';
 import {Colors} from '../../../constants/colors';
+import ImageNotFound from '../../../assets/icons/imageNotFound.svg';
+import {LotImage} from '../../../types/api/lots';
 
 type Props = {
-  data: {id: number; imageURL: string}[];
+  data?: LotImage[];
 };
 
 export const Carousel: FC<Props> = ({data}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [slide, setSlide] = useState(0);
-  const slidesRef = useRef<FlashList<{id: number; imageURL: string}>>(null);
+  const slidesRef = useRef<FlashList<LotImage>>(null);
   const {width: SCREEN_WIDTH} = useWindowDimensions();
+  const imageQuantity = data ? data.length : 0;
 
-  const scrollToNext = () => {
-    if (slide === data.length - 1) {
-      return;
+  const renderItems: ListRenderItem<LotImage> = ({item}) => (
+    <Image source={{uri: item.url}} style={styles.image} />
+  );
+
+  const onViewableItemsChanged = (items: {
+    viewableItems: ViewToken[];
+    changed: ViewToken[];
+  }) => {
+    if (items.viewableItems[0] && items.viewableItems[0].index !== null) {
+      setSlide(items.viewableItems[0].index);
     }
-    slidesRef.current?.scrollToIndex({index: slide + 1});
   };
 
-  const scrollToPrev = () => {
-    if (slide === 0) {
-      return;
-    }
-    slidesRef.current?.scrollToIndex({index: slide - 1});
+  const scrollTo = (arg: 'next' | 'prev') => {
+    arg === 'next'
+      ? slidesRef.current?.scrollToIndex({index: slide + 1})
+      : slidesRef.current?.scrollToIndex({index: slide - 1});
   };
 
-  return (
+  return data ? (
     <View>
       <FlashList
         ref={slidesRef}
@@ -53,28 +61,36 @@ export const Carousel: FC<Props> = ({data}) => {
         pagingEnabled={true}
         keyExtractor={item => item.id.toString()}
         scrollEventThrottle={32}
-        onViewableItemsChanged={items => {
-          if (items.viewableItems[0] && items.viewableItems[0].index !== null) {
-            setSlide(items.viewableItems[0].index);
-          }
-        }}
+        onViewableItemsChanged={onViewableItemsChanged}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}
-        renderItem={({item}) => (
-          <Image source={{uri: item.imageURL}} style={styles.image} />
-        )}
+        renderItem={renderItems}
       />
-      <Paginator slides={data} scrollX={scrollX} />
-      <View style={styles.buttonsContainer}>
-        <Pressable style={styles.buttons} onPress={scrollToPrev}>
-          <ArrowLeft fill={Colors.WHITE} />
-        </Pressable>
-        <Pressable style={styles.buttons} onPress={scrollToNext}>
-          <ArrowRight fill={Colors.WHITE} />
-        </Pressable>
-      </View>
+      {imageQuantity > 1 && (
+        <>
+          <Paginator slides={data} scrollX={scrollX} />
+          <View style={styles.buttonsContainer}>
+            <Pressable
+              disabled={slide === 0}
+              style={styles.buttons}
+              onPress={() => scrollTo('prev')}>
+              <ArrowLeft fill={Colors.WHITE} />
+            </Pressable>
+            <Pressable
+              disabled={slide === data.length - 1}
+              style={styles.buttons}
+              onPress={() => scrollTo('next')}>
+              <ArrowRight fill={Colors.WHITE} />
+            </Pressable>
+          </View>
+        </>
+      )}
+    </View>
+  ) : (
+    <View style={styles.imageNotFound}>
+      <ImageNotFound fill={Colors.TERTIARY} width={50} height={50} />
     </View>
   );
 };

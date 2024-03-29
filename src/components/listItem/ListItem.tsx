@@ -18,9 +18,10 @@ type Props = {
   price_per_unit: number;
   position?: 'leading' | 'outbid';
   currency: Currency;
-  amount: number;
+  amount: number | null;
   weight: Weight;
   quantity: number;
+  image_url?: string;
 };
 
 export const ListItem: FC<Props> = ({
@@ -33,16 +34,14 @@ export const ListItem: FC<Props> = ({
   amount,
   weight,
   position,
+  image_url,
   quantity,
 }) => {
   return (
     <>
       <HorizontalDivider />
       <View style={styles.item}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/apple_image.png')}
-        />
+        <Image style={styles.image} source={{uri: image_url}} />
         <View style={styles.lot_info}>
           <AppText text={title} variant={TEXT_VARIANT.MAIN_16_400} />
           <View style={styles.lot_block}>
@@ -71,13 +70,13 @@ export const ListItem: FC<Props> = ({
                   }
                   style={{lineHeight: 24}}
                 />
-                  <AppText
-                    text={`${currency} ${(amount / quantity).toFixed(
-                      2,
-                    )}/${weight}`}
-                    variant={TEXT_VARIANT.MAIN_10_400}
-                    color={Colors.SECONDARY}
-                  />
+                <AppText
+                  text={`${currency} ${(amount / quantity).toFixed(
+                    2,
+                  )}/${weight}`}
+                  variant={TEXT_VARIANT.MAIN_10_400}
+                  color={Colors.SECONDARY}
+                />
               </View>
             ) : (
               <AppText

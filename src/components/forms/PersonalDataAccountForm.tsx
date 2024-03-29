@@ -19,9 +19,9 @@ import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
-import Pensil from '../../assets/icons/pensill.svg';
+import Pencil from '../../assets/icons/pencil.svg';
 import {useEditUserMutation} from '../../api/endpoints/index.ts';
-import {transformValuesEditUser} from '../formElements/transformValuesToRequestFunc.ts';
+import {transformValuesEditUser} from '../../utils/helpers/transformValuesToRequestFunc.ts';
 import {useAppSelector} from '../../store/hooks/index.ts';
 import {selector} from '../../store/selector.ts';
 
@@ -100,7 +100,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
                 </AppImagePicker>
               )}
               <View style={styles.photo_edit}>
-                <Pensil />
+                <Pencil />
               </View>
             </View>
             <TextInput
@@ -119,7 +119,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
             {touched.name && errors.name && (
               <AppText
                 text={errors.name}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -140,7 +140,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
             {touched.surname && errors.surname && (
               <AppText
                 text={errors.surname}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -169,7 +169,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
             {touched.phone && errors.phone && (
               <AppText
                 text={errors.phone}
-                color={Colors.ERROR}
+                color={Colors.ERROR_BASE}
                 variant={TEXT_VARIANT.MAIN_12_400}
                 style={{...setMargin(4, 0, 0, 0)}}
               />
@@ -177,7 +177,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
             <ButtonWithoutIcon
               style={{...setMargin(16, 0, 0, 0)}}
               onPress={handleSubmit}
-              disabled={!isValid && true}
+              disabled={!isValid}
               title="Save changes"
               type="dark"
             />

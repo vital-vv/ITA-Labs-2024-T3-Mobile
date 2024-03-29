@@ -1,8 +1,10 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
 import {FormikValues} from 'formik';
-import {UserCreateParams, UserUpdateParams} from '../../types/api/users';
+import {UserUpdateParams} from '../../types/api/users';
 import {Currency, Packaging, Weight} from '../../types/api/info';
 import {LotCreate, imageUrl} from '../../types/api/lots';
+import {ImagePickerAsset} from '../../components/AppImagePicker/AppImagePicker';
+import {Bet} from '../../types/api/bids';
 
 export type UserValues = {
   name: string;
@@ -88,16 +90,25 @@ export const transformValuesCreateLot: (
 
 export const transformValuesCreateUser = (
   values: Omit<UserValues, 'currency'>,
-  imageUrl?: string,
-): UserCreateParams => {
-  const requestValues = {
+  imageInfo?: ImagePickerAsset,
+) => {
+  const userData = new FormData();
+  const userInfoJSON = JSON.stringify({
     first_name: values.name,
     last_name: values.surname,
     preferred_currency: Currency.USD,
-    phoneNumber: values.phone || '',
+    phoneNumber: values.phone,
+  });
+  const imageData = {
+    uri: imageInfo?.uri,
+    type: imageInfo?.type,
+    name: imageInfo?.fileName,
   };
-
-  return requestValues;
+  userData.append('data', userInfoJSON);
+  if (imageInfo) {
+    userData.append('avatar', imageData);
+  }
+  return userData;
 };
 
 export const transformValuesEditUser = (
@@ -126,4 +137,16 @@ export const transformValuesChangeCurrency = (
   };
 
   return requestValues;
+};
+export const transformValuesCreateBet = (
+  bet: number,
+  lot_id: number,
+  currency: Currency,
+): Bet => {
+  const RequestBody = {
+    lot_id: lot_id,
+    amount: bet,
+    currency: currency,
+  };
+  return RequestBody;
 };

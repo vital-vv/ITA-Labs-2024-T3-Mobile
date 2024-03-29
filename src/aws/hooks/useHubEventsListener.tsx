@@ -3,34 +3,33 @@ import {useLazyGetCurrentUserQuery} from '../../api/endpoints';
 import {ROUTES} from '../../constants/routes';
 import {useAppDispatch} from '../../store/hooks';
 import {currentUserActions} from '../../store/slices/currentUserSlice';
-import {useAppNavigation} from '../../utils/hooks/useAppNavigation';
 import {Hub} from 'aws-amplify/utils';
-import {hubAuthEvents} from '../../constants/amplifyHubEvents';
+import {HubAuthEvents} from '../../constants/amplifyHubEvents';
+import {globalNavigate} from '../../navigation/globalNavigation';
 
 export const useHubEventsListener = () => {
   const [getCurrentUserQueryTrigger] = useLazyGetCurrentUserQuery();
   const dispatch = useAppDispatch();
-  const navigation = useAppNavigation();
 
   const checkUserData = async () => {
     await getCurrentUserQueryTrigger();
-    navigation.navigate(ROUTES.HomeStack, {
-      screen: ROUTES.Home,
-    });
   };
 
   const resetOnRefreshFailure = () => {
     dispatch(currentUserActions.setCurrentUserAsGuest());
-    navigation.navigate(ROUTES.HomeStack, {screen: ROUTES.Home});
+    globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
   };
 
   useEffect(() => {
     const hubListener = Hub.listen('auth', async ({payload}) => {
-      if (payload.event === hubAuthEvents.signedIn) {
+      if (payload.event === HubAuthEvents.signedIn) {
         checkUserData();
       }
-      if (payload.event === hubAuthEvents.tokenRefresh_failure) {
+      if (payload.event === HubAuthEvents.tokenRefresh_failure) {
         resetOnRefreshFailure();
+      }
+      if (payload.event === HubAuthEvents.signedOut) {
+        dispatch(currentUserActions.isLogout());
       }
     });
 

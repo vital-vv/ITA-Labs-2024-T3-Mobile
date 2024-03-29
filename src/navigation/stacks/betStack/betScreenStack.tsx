@@ -3,7 +3,6 @@ import {BetStackParams} from '../../../types/navigation';
 import {ROUTES} from '../../../constants/routes';
 import {BetsScreen} from '../../../screens/betsScreen/betsScreen';
 import {BetViewScreen} from '../../../screens/betViewScreen/BetViewScreen';
-import {SubCategoryScreen} from '../../../screens/subCategoryScreen/subCategoryScreen';
 import {Header} from '../../../components/header/header';
 
 const BetStack = createNativeStackNavigator<BetStackParams>();

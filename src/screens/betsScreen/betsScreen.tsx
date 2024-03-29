@@ -5,7 +5,7 @@ import {BetStackParams} from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes.ts';
 import {FC, useState} from 'react';
-import {useGetUserBetsQuery, useGetLotQuery} from '../../api/endpoints';
+import {useGetUserBetsQuery} from '../../api/endpoints';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 import {Pressable, RefreshControl, View} from 'react-native';
 import {TEXT_VARIANT} from '../../types/textVariant.ts';
@@ -13,6 +13,7 @@ import {Colors} from '../../constants/colors.tsx';
 import styles from './betsScreenStyles.ts';
 import {FlashList} from '@shopify/flash-list';
 import {ListItem} from '../../components/listItem/ListItem.tsx';
+import {BidStatus} from '../../types/api/info.tsx';
 
 type Props = NativeStackScreenProps<BetStackParams, ROUTES.Bets>;
 
@@ -23,13 +24,13 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
     data: userLeadingBetsData,
     isLoading: isLoadingLeadingBets,
     refetch: refetchGetUserLeadingBets,
-  } = useGetUserBetsQuery('LEADING');
+  } = useGetUserBetsQuery(BidStatus.LEADING);
 
   const {
     data: userOverbidBetsData,
     isLoading: isLoadingOverbidBets,
     refetch: refetchGetUserOverbidBets,
-  } = useGetUserBetsQuery('OVERBID');
+  } = useGetUserBetsQuery(BidStatus.OVERBID);
 
   if (isLoadingLeadingBets && isLoadingOverbidBets) {
     return <SpinnerWrapper />;
@@ -42,8 +43,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           onPress={() => {
             setIsActiveFirst(!isActiveFirst);
           }}
-          style={[styles.button, isActiveFirst && styles.button_pressed]} 
-          >
+          style={[styles.button, isActiveFirst && styles.button_pressed]}>
           <AppText
             text={'My bets'}
             variant={TEXT_VARIANT.MAIN_18_500}
@@ -55,8 +55,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
           onPress={() => {
             setIsActiveFirst(!isActiveFirst);
           }}
-          style={[styles.button, !isActiveFirst && styles.button_pressed]} 
-          >
+          style={[styles.button, !isActiveFirst && styles.button_pressed]}>
           <AppText
             text={'Outbid'}
             variant={TEXT_VARIANT.MAIN_18_500}
@@ -92,7 +91,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 total_price={item.total_price}
                 price_per_unit={item.price_per_unit}
                 currency={item.currency}
-                amount={item.leading.amount}
+                amount={item.leading ? item.leading.amount : null}
                 weight={item.weight}
                 quantity={item.quantity}
                 position="leading"
@@ -127,7 +126,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 total_price={item.total_price}
                 price_per_unit={item.price_per_unit}
                 currency={item.currency}
-                amount={item.leading.amount}
+                amount={item.leading ? item.leading.amount : null}
                 weight={item.weight}
                 quantity={item.quantity}
                 position="outbid"

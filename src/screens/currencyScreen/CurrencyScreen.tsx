@@ -14,7 +14,7 @@ import {FlashList} from '@shopify/flash-list';
 import {Pressable, RefreshControl} from 'react-native';
 import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
-import {transformValuesChangeCurrency} from '../../components/formElements/transformValuesToRequestFunc';
+import {transformValuesChangeCurrency} from '../../utils/helpers/transformValuesToRequestFunc';
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
 import {Currency} from '../../types/api/info';
 import {useAppSelector} from '../../store/hooks';
