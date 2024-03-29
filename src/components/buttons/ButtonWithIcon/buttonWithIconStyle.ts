@@ -22,6 +22,10 @@ const buttonWithIconStyle = StyleSheet.create({
     backgroundColor: Colors.BUTTON_PRIMARY,
     borderColor: Colors.BUTTON_PRIMARY,
   },
+  disabled: {
+    backgroundColor: Colors.HORIZONTAL_DIVIDER,
+    borderColor: Colors.HORIZONTAL_DIVIDER,
+  }
 });
 
 export default buttonWithIconStyle;

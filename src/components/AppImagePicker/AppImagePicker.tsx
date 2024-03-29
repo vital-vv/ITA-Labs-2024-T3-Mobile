@@ -85,7 +85,7 @@ export const AppImagePicker: FC<Props> = ({
 
   return (
     <Pressable style={noimage_style} onPress={() => setIsOpen(true)}>
-      {filePath.assets ? (
+      {imageUrl && filePath.assets ? (
         <Image source={{uri: filePath.assets[0]?.uri}} style={image_style} />
       ) : (
         <View>{children}</View>

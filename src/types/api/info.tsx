@@ -36,6 +36,7 @@ export enum Status {
   Active = 'active',
   Sold = 'sold',
   Moderated = 'moderated',
+  Auction_ended = 'auction_ended'
 }
 
 export type Cities = string[];

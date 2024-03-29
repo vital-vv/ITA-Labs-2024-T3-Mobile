@@ -85,6 +85,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 });
               }}>
               <ListItem
+                image_url={item.image_url[0].url}
                 title={item.title}
                 expiration_date={item.expiration_date}
                 lot_id={item.lot_id}
@@ -120,6 +121,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 });
               }}>
               <ListItem
+                image_url={item.image_url[0].url}
                 title={item.title}
                 expiration_date={item.expiration_date}
                 lot_id={item.lot_id}
