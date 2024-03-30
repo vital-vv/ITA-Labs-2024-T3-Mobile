@@ -100,6 +100,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
             style={styles.container}>
             <View style={styles.image_container}>
               <AppImagePicker
+                imageUrl={imageInfo?.uri}
                 getUri={getUri}
                 noimage_style={styles.nophoto}
                 image_style={styles.photo}>

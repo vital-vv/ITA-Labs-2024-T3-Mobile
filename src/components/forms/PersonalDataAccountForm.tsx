@@ -18,7 +18,7 @@ import styles from './personalDataFormStyles.ts';
 import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
 import inputStyles from '../formElements/Input/inputStyles.ts';
 import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
-import {AppImagePicker} from '../AppImagePicker/AppImagePicker.tsx';
+import {AppImagePicker, ImagePickerAsset} from '../AppImagePicker/AppImagePicker.tsx';
 import Pencil from '../../assets/icons/pencil.svg';
 import {useEditUserMutation} from '../../api/endpoints/index.ts';
 import {transformValuesEditUser} from '../../utils/helpers/transformValuesToRequestFunc.ts';
@@ -29,13 +29,19 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
+export type AppImagePickerGetURI = {
+  (imageInfo: ImagePickerAsset, id?: number): void;
+};
+
 export const PersonalDataAccountForm: FC<Props> = ({style}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const [imageUrl, setImageUrl] = useState(user.photo);
   const [editUser, {isError, error, isSuccess}] = useEditUserMutation();
-  const getUri = (id: number, val: string) => {
-    setImageUrl(val);
+
+  const getUri: AppImagePickerGetURI = (imageInfo, __) => {
+    setImageUrl(imageInfo.uri);
   };
+
   const initialValues = {
     name: user.name,
     surname: user.surname,

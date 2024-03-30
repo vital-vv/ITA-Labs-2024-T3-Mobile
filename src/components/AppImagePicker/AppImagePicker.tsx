@@ -48,8 +48,8 @@ export const AppImagePicker: FC<Props> = ({
 }) => {
   const [filePath, setFilePath] = useState<ImagePicker.ImagePickerResponse>({});
   const [isOpen, setIsOpen] = useState(false);
-  const showDelete = !isLot && true;
-
+  const showDelete = !isLot;
+  
   const chooseFile = (type: 'photo') => {
     let options = {
       mediaType: type,
@@ -85,11 +85,13 @@ export const AppImagePicker: FC<Props> = ({
 
   return (
     <Pressable style={noimage_style} onPress={() => setIsOpen(true)}>
-      {imageUrl && filePath.assets ? (
-        <Image source={{uri: filePath.assets[0]?.uri}} style={image_style} />
-      ) : (
-        <View>{children}</View>
-      )}
+      {( imageUrl && filePath.assets) ? 
+        (<Image source={{ uri: filePath.assets[0]?.uri }} style={image_style} />) 
+        : 
+        (
+          <View>{children}</View>
+        ) 
+        }
       <ModalWindow isOpen={isOpen} onClose={setIsOpen}>
         <Pressable style={styles.modal_container} onPress={onChoosePhoto}>
           <MyAds style={setMargin(0, 12, 0, 0)} />
@@ -99,11 +101,11 @@ export const AppImagePicker: FC<Props> = ({
             color={Colors.PRIMARY}
           />
         </Pressable>
-        {showDelete && imageUrl ? (
+        {imageUrl ? (
           <Pressable style={styles.modal_container} onPress={onDeletePhoto}>
             <Bin style={setMargin(0, 12, 0, 0)} fill={Colors.ERROR_DARK} />
             <AppText
-              text={'Delete profile image'}
+              text={isLot ? 'Delete image' : 'Delete profile image'}
               variant={TEXT_VARIANT.MAIN_18_400}
               color={Colors.ERROR_DARK}
             />
