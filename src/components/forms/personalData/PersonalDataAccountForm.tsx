@@ -1,7 +1,7 @@
 import {FC, useState} from 'react';
-import {MainWrapper} from '../mainWrapper/mainWrapper.tsx';
-import {Formik} from 'formik';
-import {ReviewSchema} from './ReviewSchema.ts';
+import {MainWrapper} from '../../mainWrapper/mainWrapper.tsx';
+import {Formik, FormikState} from 'formik';
+import {ReviewSchema} from '../ReviewSchema.ts';
 import {
   Image,
   ScrollView,
@@ -10,44 +10,68 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {AppText} from '../appText/appText.tsx';
-import {Colors} from '../../constants/colors.tsx';
-import {TEXT_VARIANT} from '../../types/textVariant.ts';
-import {setMargin} from '../../utils/styling/margin.ts';
+import {AppText} from '../../appText/appText.tsx';
+import {Colors} from '../../../constants/colors.tsx';
+import {TEXT_VARIANT} from '../../../types/textVariant.ts';
+import {setMargin} from '../../../utils/styling/margin.ts';
 import styles from './personalDataFormStyles.ts';
-import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
-import inputStyles from '../formElements/Input/inputStyles.ts';
-import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
-import {AppImagePicker, ImagePickerAsset} from '../AppImagePicker/AppImagePicker.tsx';
-import Pencil from '../../assets/icons/pencil.svg';
-import {useEditUserMutation} from '../../api/endpoints/index.ts';
-import {transformValuesEditUser} from '../../utils/helpers/transformValuesToRequestFunc.ts';
-import {useAppSelector} from '../../store/hooks/index.ts';
-import {selector} from '../../store/selector.ts';
+import {textTypographyStyles} from '../../../styles/textTypographyStyles.tsx';
+import inputStyles from '../../formElements/Input/inputStyles.ts';
+import ButtonWithoutIcon from '../../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
+import {
+  AppImagePicker,
+  AppImagePickerGetURI,
+  ImagePickerAsset,
+} from '../../AppImagePicker/AppImagePicker.tsx';
+import Pencil from '../../../assets/icons/pencil.svg';
+import {useEditUserMutation} from '../../../api/endpoints/index.ts';
+import {transformValuesEditUser} from '../../../utils/helpers/transformValuesToRequestFunc.ts';
+import {useAppSelector} from '../../../store/hooks/index.ts';
+import {selector} from '../../../store/selector.ts';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export type AppImagePickerGetURI = {
-  (imageInfo: ImagePickerAsset, id?: number): void;
-};
-
 export const PersonalDataAccountForm: FC<Props> = ({style}) => {
   const user = useAppSelector(selector.currentUserSliceData);
-  const [imageUrl, setImageUrl] = useState(user.photo);
-  const [editUser, {isError, error, isSuccess}] = useEditUserMutation();
-
-  const getUri: AppImagePickerGetURI = (imageInfo, __) => {
-    setImageUrl(imageInfo.uri);
-  };
+  const [selectedImageInfo, setImageInfo] = useState<ImagePickerAsset>();
+  const [imagePickerPreview, setImagePickerPreview] = useState<string>(
+    user.photo,
+  );
+  const [editUserTrigger] = useEditUserMutation();
 
   const initialValues = {
     name: user.name,
     surname: user.surname,
     email: user.email,
     phone: user.phone,
-    currency: user.currency,
+  };
+
+  type ResetForm = {
+    resetForm: (
+      nextState?: Partial<FormikState<typeof initialValues>> | undefined,
+    ) => void;
+  };
+
+  const getUri: AppImagePickerGetURI = (imageInfo, __) => {
+    setImageInfo(imageInfo);
+    setImagePickerPreview(imageInfo.uri);
+  };
+
+  const onSubmit = async (
+    values: typeof initialValues,
+    {resetForm}: ResetForm,
+  ) => {
+    const requestData = transformValuesEditUser(
+      {...values, currency: user.currency},
+      selectedImageInfo,
+    );
+    try {
+      await editUserTrigger(requestData);
+    } finally {
+      resetForm();
+    }
   };
 
   return (
@@ -55,10 +79,7 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
       <Formik
         initialValues={initialValues}
         validationSchema={ReviewSchema}
-        onSubmit={(values, {resetForm}) => {
-          let newValues = transformValuesEditUser(values);
-          editUser(newValues);
-        }}>
+        onSubmit={onSubmit}>
         {({
           handleChange,
           handleBlur,
@@ -72,13 +93,16 @@ export const PersonalDataAccountForm: FC<Props> = ({style}) => {
             keyboardShouldPersistTaps="handled"
             style={styles.container}>
             <View style={styles.image_container}>
-              {imageUrl ? (
+              {imagePickerPreview ? (
                 <AppImagePicker
                   getUri={getUri}
                   noimage_style={styles.nophoto}
                   image_style={styles.photo}
-                  imageUrl={imageUrl}>
-                  <Image source={{uri: imageUrl}} style={styles.photo} />
+                  imageUrl={imagePickerPreview}>
+                  <Image
+                    source={{uri: imagePickerPreview}}
+                    style={styles.photo}
+                  />
                 </AppImagePicker>
               ) : (
                 <AppImagePicker

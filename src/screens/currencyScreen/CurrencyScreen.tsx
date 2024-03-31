@@ -23,7 +23,7 @@ import {selector} from '../../store/selector';
 type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Currency>;
 
 export const CurrencyScreen: FC<Props> = ({navigation, route}) => {
-  const [editUser, {isError, error, isSuccess}] = useEditUserMutation();
+  const [editUserTrigger] = useEditUserMutation();
   const {
     data: allSelectionData,
     isLoading,
@@ -34,14 +34,13 @@ export const CurrencyScreen: FC<Props> = ({navigation, route}) => {
 
   const onSubmit = (user: CurrentUserStateType, currency: Currency) => {
     const newValues = transformValuesChangeCurrency(user, currency);
-    editUser(newValues);
-    navigation.navigate(ROUTES.Account);
+    editUserTrigger(newValues);
   };
 
   if (isLoading) {
     return <SpinnerWrapper />;
   }
-  
+
   return (
     <MainWrapper>
       <FlashList

@@ -11,10 +11,6 @@ export const useHubEventsListener = () => {
   const [getCurrentUserQueryTrigger] = useLazyGetCurrentUserQuery();
   const dispatch = useAppDispatch();
 
-  const checkUserData = async () => {
-    await getCurrentUserQueryTrigger();
-  };
-
   const resetOnRefreshFailure = () => {
     dispatch(currentUserActions.setCurrentUserAsGuest());
     globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
@@ -23,7 +19,7 @@ export const useHubEventsListener = () => {
   useEffect(() => {
     const hubListener = Hub.listen('auth', async ({payload}) => {
       if (payload.event === HubAuthEvents.signedIn) {
-        checkUserData();
+        await getCurrentUserQueryTrigger();
       }
       if (payload.event === HubAuthEvents.tokenRefresh_failure) {
         resetOnRefreshFailure();
@@ -32,8 +28,7 @@ export const useHubEventsListener = () => {
         dispatch(currentUserActions.isLogout());
       }
     });
-
-    //unsubscribe
+    //unsubscribe to prevent memory leaking
     return () => hubListener();
   });
 };

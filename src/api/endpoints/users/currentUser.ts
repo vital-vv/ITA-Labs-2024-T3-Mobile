@@ -15,6 +15,7 @@ export const getCurrentUser = agroexAPI.injectEndpoints({
       query: () => ({
         url: API_URL.currentUser,
       }),
+      providesTags: ['User'],
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
           const userData = (await queryFulfilled).data;

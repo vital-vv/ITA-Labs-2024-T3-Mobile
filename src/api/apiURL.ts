@@ -18,4 +18,5 @@ export const API_URL = {
   currentUser: '/users/me',
   userBets: (status: string) => `/users/bids?status=${status}`,
   bets: '/bids',
+  avatar: (id: string) => `/images/${id}`,
 };

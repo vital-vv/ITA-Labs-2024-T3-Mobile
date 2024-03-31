@@ -22,14 +22,12 @@ export const createUser = agroexAPI.injectEndpoints({
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
           //updata state from response data if user was successfully created
-          // (don't need to fetch user data one more time)
           const userData = (await queryFulfilled).data;
           dispatch(currentUserActions.setCurrentUserAsLogedIn());
           dispatch(currentUserActions.setCurrentUserInfo({...userData}));
           globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
           showToast(ToastTypes.Success, 'Registration was successful!');
         } catch (e) {
-          console.log(e);
           showToast(
             ToastTypes.Error,
             'Something went wrong during registration',

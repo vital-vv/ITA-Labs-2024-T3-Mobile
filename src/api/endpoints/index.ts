@@ -10,6 +10,7 @@ import {getCurrentUser} from './users/currentUser';
 import {createBet} from './bets/createBet';
 import {getUserBets} from './bets/getUserBets';
 import {getCities} from './selection/getCities';
+import {getUserAvatar} from './users/userAvatar';
 
 export const {useGetCategoryQuery, useLazyGetCategoryQuery} = getCategory;
 
@@ -33,6 +34,8 @@ export const {useEditUserMutation} = editUser;
 
 export const {useGetCurrentUserQuery, useLazyGetCurrentUserQuery} =
   getCurrentUser;
+
+export const {useGetUserAvatarQuery, useLazyGetUserAvatarQuery} = getUserAvatar;
 
 export const {useCreateBetMutation} = createBet;
 
