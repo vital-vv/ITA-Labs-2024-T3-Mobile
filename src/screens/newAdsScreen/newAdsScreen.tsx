@@ -750,7 +750,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                       packagingArray={packagingArray}
                       lengthArray={lengthArray}
                       values={values}
-                      image={imageUrl[0]}
+                      images={imageUrl}
                     />
                     <ButtonWithIcon
                       title="Go back"

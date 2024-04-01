@@ -1,6 +1,6 @@
 export type PaginationMetaData = {
   totalElements: number;
-  has_next: string;
+  has_next: boolean;
   page: number;
   size: number;
 };

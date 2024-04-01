@@ -6,6 +6,7 @@ import {SubCategoryScreen} from '../../../screens/subCategoryScreen/subCategoryS
 import {LotListScreen} from '../../../screens/LotListScreen/LotListScreen';
 import {LotScreen} from '../../../screens/LotScreen/LotScreen';
 import {Header} from '../../../components/header/header';
+import {VarietyScreen} from '../../../screens/varietyScreen/varietyScreen';
 
 const HomeStack = createNativeStackNavigator<HomeStackParams>();
 
@@ -32,6 +33,11 @@ export const HomeScreenStack = () => {
       <HomeStack.Screen
         name={ROUTES.Lot}
         component={LotScreen}
+        options={({route}) => ({title: route.params.headerTitle})}
+      />
+      <HomeStack.Screen
+        name={ROUTES.Variety}
+        component={VarietyScreen}
         options={({route}) => ({title: route.params.headerTitle})}
       />
     </HomeStack.Navigator>

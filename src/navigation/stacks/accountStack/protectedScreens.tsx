@@ -23,7 +23,7 @@ export const protectedScreens = {
     <AccountStack.Screen
       name={ROUTES.PersonalData}
       component={PersonalDataScreen}
-      options={{title: 'PersonalData'}}
+      options={{title: 'Personal data'}}
     />
   ),
   [ROUTES.MyAds]: (
