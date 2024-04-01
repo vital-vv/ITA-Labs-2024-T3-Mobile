@@ -1,8 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
-import {Colors} from '../../constants/colors';
-
-const screenWidth = Dimensions.get('window').width;
+import {Colors} from '../../../constants/colors';
 
 const PersonalDataFormStyles = StyleSheet.create({
   container: {

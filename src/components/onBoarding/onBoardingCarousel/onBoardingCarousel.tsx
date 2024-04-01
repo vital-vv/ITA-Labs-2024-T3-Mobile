@@ -15,7 +15,7 @@ import {AppText} from '../../appText/appText';
 import {TEXT_VARIANT} from '../../../types/textVariant';
 import {Colors} from '../../../constants/colors';
 import ArrowRight from '../../../assets/icons/arrow-right.svg';
-import {PersonalDataOnboardingForm} from '../../forms/PersonalDataOnboardingForm';
+import {PersonalDataOnboardingForm} from '../../forms/personalData/PersonalDataOnboardingForm';
 
 type OnboardingCarouselItem = {
   id: number;

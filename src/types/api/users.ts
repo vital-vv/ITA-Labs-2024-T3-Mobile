@@ -1,21 +1,6 @@
 import {Bid} from './bids';
 import {Currency, UserRoles} from './info';
-
-export type UserCreateParams = {
-  first_name: string;
-  last_name: string;
-  preferred_currency?: Currency;
-  email?: string;
-  role?: UserRoles;
-  phoneNumber?: string;
-};
-
-export type UserUpdateParams = {
-  first_name: string;
-  last_name: string;
-  preferred_currency: string;
-  phoneNumber: string;
-};
+import {LotImage} from './lots';
 
 export type UserCreateResponse = {
   user_id: string;
@@ -27,9 +12,11 @@ export type UserCreateResponse = {
   phoneNumber: string;
   photo: string;
   bids: Bid[] | null;
-  avatarId: string | number;
+  avatarId: string;
 };
 
 export type CurrentUserResponse = UserCreateResponse;
 
-export type UserUpdateResponse = UserCreateResponse;
+export type UserEditResponse = UserCreateResponse;
+
+export type UserAvatarResponse = LotImage;

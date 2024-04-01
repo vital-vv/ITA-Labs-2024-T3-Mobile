@@ -1,32 +1,30 @@
 import {FC, useState} from 'react';
-import {MainWrapper} from '../mainWrapper/mainWrapper.tsx';
+import {MainWrapper} from '../../mainWrapper/mainWrapper.tsx';
 import {Formik, FormikState, FormikValues} from 'formik';
-import {ReviewSchema} from './ReviewSchema.ts';
+import {ReviewSchema} from '../ReviewSchema.ts';
 import {ScrollView, StyleProp, TextInput, View, ViewStyle} from 'react-native';
-import {AppText} from '../appText/appText.tsx';
-import {Colors} from '../../constants/colors.tsx';
-import {TEXT_VARIANT} from '../../types/textVariant.ts';
-import {setMargin} from '../../utils/styling/margin.ts';
-import {setPadding} from '../../utils/styling/padding.ts';
+import {AppText} from '../../appText/appText.tsx';
+import {Colors} from '../../../constants/colors.tsx';
+import {TEXT_VARIANT} from '../../../types/textVariant.ts';
+import {setMargin} from '../../../utils/styling/margin.ts';
+import {setPadding} from '../../../utils/styling/padding.ts';
 import styles from './personalDataFormStyles.ts';
-import {textTypographyStyles} from '../../styles/textTypographyStyles.tsx';
-import inputStyles from '../formElements/Input/inputStyles.ts';
-import ButtonWithoutIcon from '../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
+import {textTypographyStyles} from '../../../styles/textTypographyStyles.tsx';
+import inputStyles from '../../formElements/Input/inputStyles.ts';
+import ButtonWithoutIcon from '../../buttons/ButtonWithoutIcon/ButtonWithoutIcon.tsx';
 import {
   AppImagePicker,
   AppImagePickerGetURI,
   ImagePickerAsset,
-} from '../AppImagePicker/AppImagePicker.tsx';
-import Pencil from '../../assets/icons/pencil.svg';
-import {useCreateUserMutation} from '../../api/endpoints/index.ts';
-import {transformValuesCreateUser} from '../../utils/helpers/transformValuesToRequestFunc.ts';
+} from '../../AppImagePicker/AppImagePicker.tsx';
+import Pencil from '../../../assets/icons/pencil.svg';
+import {useCreateUserMutation} from '../../../api/endpoints/index.ts';
+import {transformValuesCreateUser} from '../../../utils/helpers/transformValuesToRequestFunc.ts';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
-
 type UserValues = typeof initialValues;
-
 type ResetForm = {
   resetForm: (nextState?: Partial<FormikState<UserValues>> | undefined) => void;
 };

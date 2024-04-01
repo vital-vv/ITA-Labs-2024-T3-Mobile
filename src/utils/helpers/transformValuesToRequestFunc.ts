@@ -1,6 +1,5 @@
 import {CurrentUserStateType} from '../../store/slices/currentUserSlice';
 import {FormikValues} from 'formik';
-import {UserUpdateParams} from '../../types/api/users';
 import {Currency, Packaging, Weight} from '../../types/api/info';
 import {LotCreate, imageUrl} from '../../types/api/lots';
 import {ImagePickerAsset} from '../../components/AppImagePicker/AppImagePicker';
@@ -20,13 +19,11 @@ export type DropdownArray = {
 
 export const getImagesData = (imageUrl: imageUrl[]) => {
   const imagesDataTemp = imageUrl.filter(element => element.imageURL != '');
-
   const imagesData = imagesDataTemp.map(image => image.file);
-
   return imagesData;
 };
 
-export const transformValuesCreateLot: (
+export const transformValuesCreateLot = (
   values: FormikValues,
   weightArray: {
     label: Weight;
@@ -44,16 +41,7 @@ export const transformValuesCreateLot: (
     value: number;
   }[],
   imageUrl: imageUrl[],
-) => FormData = (
-  values,
-  weightArray,
-  currencyArray,
-  lengthArray,
-  countriesArray,
-  citiesArray,
-  packagingArray,
-  imageUrl,
-) => {
+): FormData => {
   const lot: LotCreate = {
     category_id: Number(values.variety),
     total_price: Number(values.price),
@@ -74,13 +62,9 @@ export const transformValuesCreateLot: (
   };
 
   const formData = new FormData();
-
   const lotdata = JSON.stringify(lot);
-
   formData.append('lot', lotdata);
-
   const imagesData = getImagesData(imageUrl);
-
   imagesData.forEach((val, index) => {
     formData.append('images', val);
   });
@@ -91,7 +75,7 @@ export const transformValuesCreateLot: (
 export const transformValuesCreateUser = (
   values: Omit<UserValues, 'currency'>,
   imageInfo?: ImagePickerAsset,
-) => {
+): FormData => {
   const userData = new FormData();
   const userInfoJSON = JSON.stringify({
     first_name: values.name,
@@ -105,39 +89,54 @@ export const transformValuesCreateUser = (
     name: imageInfo?.fileName,
   };
   userData.append('data', userInfoJSON);
-  if (imageInfo) {
+  if (imageData.uri) {
     userData.append('avatar', imageData);
+  } else {
+    userData.append('avatar', null);
   }
   return userData;
 };
 
 export const transformValuesEditUser = (
   values: UserValues,
-  imageUrl?: string,
-): UserUpdateParams => {
-  const requestValues = {
+  imageInfo?: ImagePickerAsset,
+): FormData => {
+  const userData = new FormData();
+  const userInfoJSON = JSON.stringify({
     first_name: values.name,
     last_name: values.surname,
     preferred_currency: values.currency,
-    phoneNumber: values.phone || '',
+    phoneNumber: values.phone,
+  });
+  const imageData = {
+    uri: imageInfo?.uri,
+    type: imageInfo?.type,
+    name: imageInfo?.fileName,
   };
-
-  return requestValues;
+  userData.append('data', userInfoJSON);
+  if (imageData.uri) {
+    userData.append('newAvatar', imageData);
+  } else {
+    userData.append('newAvatar', null);
+  }
+  return userData;
 };
 
 export const transformValuesChangeCurrency = (
   user: CurrentUserStateType,
   currency: Currency,
-): UserUpdateParams => {
-  const requestValues = {
+): FormData => {
+  const userData = new FormData();
+  const userInfoJSON = JSON.stringify({
     first_name: user.name,
     last_name: user.surname,
     preferred_currency: currency,
     phoneNumber: user.phone,
-  };
-
-  return requestValues;
+  });
+  userData.append('data', userInfoJSON);
+  return userData;
 };
+
 export const transformValuesCreateBet = (
   bet: number,
   lot_id: number,

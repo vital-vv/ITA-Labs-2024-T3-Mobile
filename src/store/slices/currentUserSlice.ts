@@ -11,9 +11,10 @@ export type CurrentUserStateType = {
   role: UserRoles | '';
   name: string;
   surname: string;
-  avatarId: string | number;
+  avatarId: string;
   currency: Currency;
   photo: string;
+  userId: string;
 };
 
 const initialState: CurrentUserStateType = {
@@ -26,6 +27,7 @@ const initialState: CurrentUserStateType = {
   name: '',
   surname: '',
   avatarId: '',
+  userId: '',
   photo: '',
   currency: Currency.USD,
 };
@@ -65,8 +67,11 @@ export const currentUserSlice = createSlice({
       state.surname = action.payload.last_name;
       state.avatarId = action.payload.avatarId;
       state.currency = action.payload.preferred_currency;
+      state.userId = action.payload.user_id;
     },
-
+    setCurrentUserAvatarURL(state, action: PayloadAction<string>) {
+      state.photo = action.payload;
+    },
     isLogout: state => {
       return {...initialState, isInitializing: false};
     },

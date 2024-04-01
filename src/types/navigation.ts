@@ -1,10 +1,10 @@
 import {ROUTES} from '../constants/routes';
-import {NavigatorScreenParams, Route} from '@react-navigation/native';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
   [ROUTES.BetStack]: NavigatorScreenParams<BetStackParams>;
-  [ROUTES.Delivery]: {headerTitle: string};
+  [ROUTES.Delivery]: undefined;
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.AccountStack]: NavigatorScreenParams<AccountStackParams>;
   [ROUTES.OnBoarding]: undefined;
@@ -20,13 +20,13 @@ export type HomeStackParams = {
 
 export type AccountStackParams = {
   [ROUTES.Account]: undefined;
-  [ROUTES.PersonalData]: {headerTitle: string};
-  [ROUTES.MyAds]: {headerTitle: string};
-  [ROUTES.Notifications]: {headerTitle: string};
-  [ROUTES.Currency]: {headerTitle: string};
-  [ROUTES.Language]: {headerTitle: string};
-  [ROUTES.Settings]: {headerTitle: string};
-  [ROUTES.Password]: {headerTitle: string};
+  [ROUTES.PersonalData]: undefined;
+  [ROUTES.MyAds]: undefined;
+  [ROUTES.Notifications]: undefined;
+  [ROUTES.Currency]: undefined;
+  [ROUTES.Language]: undefined;
+  [ROUTES.Settings]: undefined;
+  [ROUTES.Password]: undefined;
   [ROUTES.GuestAccount]: undefined;
 };
 
