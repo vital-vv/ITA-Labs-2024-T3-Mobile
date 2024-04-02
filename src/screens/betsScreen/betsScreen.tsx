@@ -85,7 +85,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 });
               }}>
               <ListItem
-                image_url={item.image_url[0].url}
+                image_url={item.image_url[0] ? item.image_url[0].url : ''}
                 title={item.title}
                 expiration_date={item.expiration_date}
                 lot_id={item.lot_id}
@@ -121,7 +121,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 });
               }}>
               <ListItem
-                image_url={item.image_url[0].url}
+                image_url={item.image_url[0] ? item.image_url[0].url : ''}
                 title={item.title}
                 expiration_date={item.expiration_date}
                 lot_id={item.lot_id}
@@ -129,6 +129,7 @@ export const BetsScreen: FC<Props> = ({navigation, route}) => {
                 price_per_unit={item.price_per_unit}
                 currency={item.currency}
                 amount={item.leading ? item.leading.amount : null}
+                userAmount={item.users.amount}
                 weight={item.weight}
                 quantity={item.quantity}
                 position="outbid"

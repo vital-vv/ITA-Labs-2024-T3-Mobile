@@ -11,6 +11,7 @@ type Props = {
   maxBet: number;
   lot_id: number;
   currency: Currency;
+  myBet?: number | null;
 };
 
 export const BetsModalContainer = (props: Props) => {

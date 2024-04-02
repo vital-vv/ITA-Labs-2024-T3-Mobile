@@ -6,7 +6,6 @@ import {TEXT_VARIANT} from '../../types/textVariant';
 import {Colors} from '../../constants/colors';
 import {DateCounter} from '../../components/DateCounter/dateCounter';
 import {Lot} from '../../types/api/lots';
-import AlertIcon from '../../assets/icons/alert.svg';
 import InfoIcon from '../../assets/icons/info.svg';
 import {lotViewData} from './utils/lotViewData';
 import {Carousel} from '../imageCarousel';
@@ -45,7 +44,6 @@ export const LotView: FC<Props> = ({lot, position}) => {
       <View style={styles.mainInfoWrapper}>
         <View style={styles.pricesWrapper}>
           <View style={[styles.bets_block, styles.price]}>
-            {position ==='outbid' && <AlertIcon />}
             <AppText
               text={
                 lot.leading
@@ -56,8 +54,6 @@ export const LotView: FC<Props> = ({lot, position}) => {
               color={
                 position === 'leading'
                   ? Colors.SYSTEM_BASE
-                  : position === 'outbid'
-                  ? Colors.WARNING
                   : Colors.WARNING
               }
             />

@@ -10,6 +10,7 @@ import {getCurrentUser} from './users/currentUser';
 import {createBet} from './bets/createBet';
 import {getUserBets} from './bets/getUserBets';
 import {getCities} from './selection/getCities';
+import {buyLot} from './lots/buyLot';
 
 export const {useGetCategoryQuery, useLazyGetCategoryQuery} = getCategory;
 
@@ -37,3 +38,5 @@ export const {useGetCurrentUserQuery, useLazyGetCurrentUserQuery} =
 export const {useCreateBetMutation} = createBet;
 
 export const {useGetUserBetsQuery, useLazyGetUserBetsQuery} = getUserBets;
+
+export const {useBuyLotMutation} = buyLot;

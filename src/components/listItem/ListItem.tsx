@@ -22,6 +22,7 @@ type Props = {
   weight: Weight;
   quantity: number;
   image_url?: string;
+  userAmount?:  number;
 };
 
 export const ListItem: FC<Props> = ({
@@ -36,14 +37,21 @@ export const ListItem: FC<Props> = ({
   position,
   image_url,
   quantity,
+  userAmount,
 }) => {
   return (
     <>
       <HorizontalDivider />
       <View style={styles.item}>
-        <Image style={styles.image} source={{uri: image_url}} />
+        <Image style={styles.image} source={
+          image_url ? {uri: image_url} 
+          : require('../../assets/images/no_image.png')} 
+        />
         <View style={styles.lot_info}>
-          <AppText text={title} variant={TEXT_VARIANT.MAIN_16_400} />
+          <AppText 
+            text={title} 
+            variant={TEXT_VARIANT.MAIN_16_400} 
+            style={styles.text} />
           <View style={styles.lot_block}>
             <DateCounter date={expiration_date} />
             <AppText
@@ -52,8 +60,22 @@ export const ListItem: FC<Props> = ({
               color={Colors.SECONDARY}
             />
           </View>
-          <View style={[styles.bets_block, {...setMargin(16, 0, 0, 0)}]}>
-            {position == 'outbid' && <AlertIcon />}
+          { position == 'outbid' && userAmount &&
+            <View style={styles.lot_block}>
+              <AlertIcon fill={Colors.ERROR_BASE} />
+              <AppText
+                text={`${currency} ${userAmount}`}
+                variant={TEXT_VARIANT.MAIN_16_400}
+                color={Colors.ERROR_BASE}
+              />
+              <AppText
+                text={`${currency} ${(userAmount/quantity).toFixed(2)}/${weight}`}
+                variant={TEXT_VARIANT.MAIN_10_400}
+                color={Colors.SECONDARY}
+              />
+            </View>
+          }
+          <View style={[styles.bets_block, position != 'outbid' && {...setMargin(16, 0, 0, 0)}]}>
             {amount ? (
               <View style={styles.lot_block}>
                 <AppText
@@ -64,8 +86,6 @@ export const ListItem: FC<Props> = ({
                       ? Colors.TERTIARY
                       : position == 'leading'
                       ? Colors.SYSTEM_BASE
-                      : position == 'outbid'
-                      ? Colors.WARNING
                       : Colors.WARNING
                   }
                   style={{lineHeight: 24}}
