@@ -45,7 +45,7 @@ export const Carousel: FC<Props> = ({data}) => {
       : slidesRef.current?.scrollToIndex({index: slide - 1});
   };
 
-  return data ? (
+  return data && data.length !== 0 ? (
     <View>
       <FlashList
         ref={slidesRef}

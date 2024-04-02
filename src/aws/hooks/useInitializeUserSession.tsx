@@ -18,7 +18,7 @@ export const useInitializeUserSession = () => {
 
   const isTokenValid = async () => {
     const userSessionData = await fetchAuthSession({forceRefresh: true});
-    if (!userSessionData.tokens?.idToken) {
+    if (!userSessionData.tokens?.idToken?.toString()) {
       throw new Error('SESSION_EXPIRED');
     }
   };

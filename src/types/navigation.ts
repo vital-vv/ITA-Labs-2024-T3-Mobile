@@ -13,8 +13,9 @@ export type RootStackParams = {
 
 export type HomeStackParams = {
   [ROUTES.Home]: undefined;
-  [ROUTES.SubCategory]: {subCategory: number; headerTitle: string};
-  [ROUTES.LotList]: {subCategory: number; headerTitle: string};
+  [ROUTES.SubCategory]: {id: number; headerTitle: string};
+  [ROUTES.Variety]: {id: number; headerTitle: string};
+  [ROUTES.LotList]: {id: number; headerTitle: string};
   [ROUTES.Lot]: {id: number; headerTitle: string};
 };
 

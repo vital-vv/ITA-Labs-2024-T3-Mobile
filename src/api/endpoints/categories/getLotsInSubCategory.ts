@@ -1,16 +1,10 @@
 import {
   LotsInSubCategoryInitialResponse,
   LotsInSubCategoryFinalResponse,
+  GetLotsInSubCategoryParams,
 } from '../../../types/api/lots';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
-
-type GetLotsInSubCategoryParams = {
-  id: number;
-  page?: number;
-  limit: number;
-  filterArgs?: string;
-};
 
 export const getLotsInSubCategory = agroexAPI.injectEndpoints({
   endpoints: builder => ({
@@ -26,10 +20,10 @@ export const getLotsInSubCategory = agroexAPI.injectEndpoints({
       providesTags: ['subCategoryLots', 'Bets'],
 
       transformResponse: (response: LotsInSubCategoryInitialResponse) => {
-        const {size, totalElements, page} = response.metadata;
+        const {has_next, page} = response.metadata;
         const transformedResponse = {
           lots: response.content,
-          isNextPageExist: totalElements - page * size >= 0 ? true : false,
+          isNextPage: has_next,
           currentPage: page,
         };
         return transformedResponse;
@@ -58,7 +52,7 @@ export const getLotsInSubCategory = agroexAPI.injectEndpoints({
         const newState = {
           lots: [...currentCache.lots, ...incomingData.lots],
           currentPage: incomingData.currentPage,
-          isNextPageExist: incomingData.isNextPageExist,
+          isNextPage: incomingData.isNextPage,
         };
         return newState;
       },

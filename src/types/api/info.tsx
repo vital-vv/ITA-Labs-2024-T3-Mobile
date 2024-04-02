@@ -36,7 +36,7 @@ export enum Status {
   Active = 'active',
   Sold = 'sold',
   Moderated = 'moderated',
-  Auction_ended = 'auction_ended'
+  Auction_ended = 'auction_ended',
 }
 
 export type Cities = string[];
@@ -45,13 +45,6 @@ export type Location = {
   id?: number;
   country: string;
   region: string;
-};
-
-export type Variety = {
-  category_id: number;
-  parent_id: number | null;
-  name: string;
-  subcategories: [];
 };
 
 export enum BidStatus {
