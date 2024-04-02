@@ -1,7 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {setPadding} from '../../utils/styling/padding';
 import {Colors} from '../../constants/colors';
 import {setMargin} from '../../utils/styling/margin';
+const screenWidth = Dimensions.get('window').width;
 
 export const styles = StyleSheet.create({
   item: {
@@ -36,5 +37,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     gap: 8,
+  },
+  text: {
+    maxWidth: screenWidth - 168,
   }
 });

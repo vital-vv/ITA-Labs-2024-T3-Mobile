@@ -29,4 +29,15 @@ export const styles = StyleSheet.create({
 
     elevation: 10,
   },
+  bets_block: {
+    marginVertical: 16,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexShrink: 1,
+    gap: 8,
+    minHeight: 20,
+  },
+
 });

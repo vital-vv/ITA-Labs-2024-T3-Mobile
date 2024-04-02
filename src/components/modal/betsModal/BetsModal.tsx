@@ -8,6 +8,7 @@ import {setMargin} from '../../../utils/styling/margin';
 import {Colors} from '../../../constants/colors';
 import {TEXT_VARIANT} from '../../../types/textVariant';
 import {Currency} from '../../../types/api/info';
+import AlertIcon from '../../../assets/icons/alert.svg';
 
 type Props = {
   isOpen: boolean;
@@ -18,6 +19,7 @@ type Props = {
   currency: Currency;
   setBet: Function;
   setIsBetCompleted: Function;
+  myBet?: number | null;
 };
 
 export const BetsModal = ({
@@ -29,6 +31,7 @@ export const BetsModal = ({
   currency,
   setBet,
   setIsBetCompleted,
+  myBet,
 }: Props) => {
   const [isValidBet, setIsValidBet] = useState(false);
 
@@ -69,6 +72,16 @@ export const BetsModal = ({
               setBet(Number(val));
             }}
           />
+          { myBet &&
+            <View style={styles.bets_block}>
+              <AlertIcon fill={Colors.ERROR_BASE} />
+              <AppText
+                text={`Your outbid bet is ${currency} ${myBet}`}
+                variant={TEXT_VARIANT.MAIN_16_500}
+                color={Colors.ERROR_BASE}
+              />
+            </View>
+          }
           {isValidBet ? (
             <AppText
               text={`Price from ${minBet} ${currency} to ${maxBet} ${currency}`}
