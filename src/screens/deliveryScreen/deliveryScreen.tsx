@@ -1,5 +1,4 @@
 import {AppText} from '../../components/appText/appText';
-import {Header} from '../../components/header/header';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
 import {setPadding} from '../../utils/styling/padding';
 

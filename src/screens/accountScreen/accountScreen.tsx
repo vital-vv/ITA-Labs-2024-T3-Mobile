@@ -14,7 +14,7 @@ import Lock from '../../assets/icons/lock.svg';
 import Settings from '../../assets/icons/settings.svg';
 import LogOut from '../../assets/icons/logout.svg';
 import {setMargin} from '../../utils/styling/margin';
-import {RootStackParams} from '../../types/navigation';
+import {AccountStackParams} from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes';
 import {FC} from 'react';
@@ -22,59 +22,16 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selector} from '../../store/selector';
 import {logout} from '../../store/functions/userActions';
 
-type Props = NativeStackScreenProps<RootStackParams, ROUTES.AccountStack>;
+type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
 
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const dispatch = useAppDispatch();
-  const onPressNavigation = (route: ROUTES) => {
-    switch (route) {
-      case ROUTES.PersonalData:
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.PersonalData,
-          params: {headerTitle: 'Personal data'},
-        });
-        break;
-      case ROUTES.MyAds:
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.MyAds,
-          params: {headerTitle: 'My advertisements'},
-        });
-        break;
-      case ROUTES.Notifications:
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.Notifications,
-          params: {headerTitle: 'My Notifications'},
-        });
-        break;
-      case ROUTES.Currency:
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.Currency,
-          params: {headerTitle: 'Currency'},
-        });
-        break;
-      case ROUTES.Language:
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.Language,
-          params: {headerTitle: 'Language'},
-        });
-        break;
-      case ROUTES.Password:
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.Password,
-          params: {headerTitle: 'Change password'},
-        });
-        break;
-      case 'Settings':
-        navigation.navigate(ROUTES.AccountStack, {
-          screen: ROUTES.Settings,
-          params: {headerTitle: 'Settings'},
-        });
-        break;
-      default:
-        return;
-    }
+
+  const onPressNavigation = (route: keyof AccountStackParams | 'logout') => {
+    route !== 'logout' ? navigation.navigate(route) : dispatch(logout());
   };
+
   return (
     <MainWrapper>
       <ScrollView>
@@ -220,7 +177,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         <View style={styles.group_container}>
           <Pressable
             style={[styles.add_container, styles.tab]}
-            onPress={() => dispatch(logout())}>
+            onPress={() => onPressNavigation('logout')}>
             <LogOut style={setMargin(0, 12, 0, 0)} />
             <AppText
               text={'Log out'}

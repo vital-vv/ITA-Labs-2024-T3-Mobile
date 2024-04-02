@@ -5,7 +5,7 @@ import {FC} from 'react';
 import {ScrollView, View} from 'react-native';
 import styles from './lotPreviewStyles';
 import React from 'react';
-import {SubCategory, imageUrl} from '../../types/api/lots';
+import {LotImage, SubCategory, imageUrl} from '../../types/api/lots';
 import {DropdownArray} from '../../utils/helpers/transformValuesToRequestFunc';
 import InfoIcon from '../../assets/icons/info.svg';
 import {Carousel} from '../imageCarousel';
@@ -19,7 +19,7 @@ export type Props = {
   countriesArray: DropdownArray[];
   varietyArray: SubCategory[];
   citiesArray: DropdownArray[];
-  image: imageUrl;
+  images: imageUrl[];
 };
 
 export const LotPreview: FC<Props> = ({
@@ -31,7 +31,7 @@ export const LotPreview: FC<Props> = ({
   countriesArray,
   varietyArray,
   citiesArray,
-  image,
+  images,
 }) => {
   const currentCurrency = currencyArray[Number(values.currency) - 1].label;
   const currentUnitOfWeight =
@@ -45,17 +45,17 @@ export const LotPreview: FC<Props> = ({
   }
   const currentLength = lengthArray[Number(values.length_unit) - 1].label;
 
-  const transformedArray = [{id: image.id, url: image.imageURL}];
+  const imagesCarouselData: LotImage[] = [];
+  images.forEach(item => {
+    if (item.imageURL) {
+      imagesCarouselData.push({id: item.id, url: item.imageURL});
+    }
+  });
 
   return (
     <ScrollView style={styles.lotScreenWrapper}>
-      {image ? (
-        <Carousel data={transformedArray} />
-      ) : (
-        // <Image style={styles.image} source={{uri: image}} />
+      <Carousel data={imagesCarouselData} />
 
-        <View style={styles.image}></View>
-      )}
       <View style={styles.titleWrapper}>
         {values.title && (
           <AppText

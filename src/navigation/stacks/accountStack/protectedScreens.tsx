@@ -23,21 +23,21 @@ export const protectedScreens = {
     <AccountStack.Screen
       name={ROUTES.PersonalData}
       component={PersonalDataScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'Personal data'}}
     />
   ),
   [ROUTES.MyAds]: (
     <AccountStack.Screen
       name={ROUTES.MyAds}
       component={MyAdsScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'My advertisements'}}
     />
   ),
   [ROUTES.Notifications]: (
     <AccountStack.Screen
       name={ROUTES.Notifications}
       component={NotificationsScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'Notifications'}}
     />
   ),
 
@@ -45,7 +45,7 @@ export const protectedScreens = {
     <AccountStack.Screen
       name={ROUTES.Currency}
       component={CurrencyScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'Currency'}}
     />
   ),
 
@@ -53,21 +53,21 @@ export const protectedScreens = {
     <AccountStack.Screen
       name={ROUTES.Language}
       component={LanguageScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'Language'}}
     />
   ),
   [ROUTES.Settings]: (
     <AccountStack.Screen
       name={ROUTES.Settings}
       component={SettingsScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'Settings'}}
     />
   ),
   [ROUTES.Password]: (
     <AccountStack.Screen
       name={ROUTES.Password}
       component={PasswordScreen}
-      options={({route}) => ({title: route.params.headerTitle})}
+      options={{title: 'Change Passwords'}}
     />
   ),
 };

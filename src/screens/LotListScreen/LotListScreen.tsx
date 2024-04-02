@@ -25,13 +25,13 @@ import {FilterOptionsModal} from './components/filterOptionsModal/filterOptionsM
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.LotList>;
 
 export const LotListScreen: FC<Props> = ({navigation, route}) => {
-  const {subCategory} = route.params;
+  const {id} = route.params;
   const initialPage = 1;
   const initialQueryParams = {
     page: initialPage,
     limit: 10,
     filterArgs: '',
-    id: subCategory,
+    id: id,
   };
   const [queryParams, setQueryParams] = useState({...initialQueryParams});
   const {
@@ -42,9 +42,11 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
   } = useGetLotsInSubCategoryQuery({
     ...queryParams,
   });
+  const flatListRef = useRef<FlatList<Lot>>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onEndOfListIsReached = () => {
-    if (infiniteLotsList?.isNextPageExist) {
+    if (infiniteLotsList?.isNextPage) {
       setQueryParams(prevState => {
         return {...prevState, page: prevState.page + 1};
       });
@@ -52,10 +54,10 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
       return;
     }
   };
+
   const refetchToInitialPage = () => {
     setQueryParams({...queryParams, page: initialQueryParams.page});
   };
-
   const renderItems: ListRenderItem<Lot> = ({item}) => {
     return (
       <Pressable
@@ -80,8 +82,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
       </Pressable>
     );
   };
-  const flatListRef = useRef<FlatList<Lot>>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <MainWrapper style={{...setPadding(0, 16, 0, 16)}}>
       <View style={styles.sort__block}>

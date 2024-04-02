@@ -8,6 +8,7 @@ export enum ROUTES {
   AccountStack = 'AccountStack',
   Home = 'Home',
   SubCategory = 'SubCategory',
+  Variety = 'Variety',
   LotList = 'LotList',
   Lot = 'Lot',
   Auth = 'Auth',
