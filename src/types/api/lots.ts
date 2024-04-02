@@ -82,3 +82,8 @@ export type imageUrl = {
   imageURL: string;
   file: {uri: string; type: string; name: string};
 };
+
+export type MyAdsResponse = {
+  content: Lot[];
+  metadata: PaginationMetaData;
+};
