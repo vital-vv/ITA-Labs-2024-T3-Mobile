@@ -15,6 +15,11 @@ export type UserCreateResponse = {
   avatarId: string;
 };
 
+export type EditUserParams = {
+  data: FormData;
+  isChange: boolean;
+};
+
 export type CurrentUserResponse = UserCreateResponse;
 
 export type UserEditResponse = UserCreateResponse;

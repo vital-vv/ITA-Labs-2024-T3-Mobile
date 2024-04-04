@@ -15,7 +15,7 @@ export const API_URL = {
   cities: (country: string) => `/data-selection/${country}/cities`,
   lots: '/lots',
   lotBuy: (id: number) => `/lots/${id}/buy`,
-  users: '/users',
+  users: (isChange: boolean) => `/users?isChange=${isChange}`,
   currentUser: '/users/me',
   userBets: (status: string) => `/users/bids?status=${status}`,
   bets: '/bids',

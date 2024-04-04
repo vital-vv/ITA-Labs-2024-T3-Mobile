@@ -100,7 +100,8 @@ export const transformValuesCreateUser = (
 export const transformValuesEditUser = (
   values: UserValues,
   imageInfo?: ImagePickerAsset,
-): FormData => {
+) => {
+  let isChange: boolean = true;
   const userData = new FormData();
   const userInfoJSON = JSON.stringify({
     first_name: values.name,
@@ -114,18 +115,26 @@ export const transformValuesEditUser = (
     name: imageInfo?.fileName,
   };
   userData.append('data', userInfoJSON);
-  if (imageData.uri) {
+  if (imageData.uri === undefined) {
+    isChange = false;
+  }
+  if (imageData.uri && imageData.uri.length > 1) {
     userData.append('newAvatar', imageData);
-  } else {
+  }
+  if (imageData.uri === '') {
     userData.append('newAvatar', null);
   }
-  return userData;
+  const requestData = {
+    data: userData,
+    isChange,
+  };
+  return requestData;
 };
 
 export const transformValuesChangeCurrency = (
   user: CurrentUserStateType,
   currency: Currency,
-): FormData => {
+) => {
   const userData = new FormData();
   const userInfoJSON = JSON.stringify({
     first_name: user.name,
@@ -134,7 +143,12 @@ export const transformValuesChangeCurrency = (
     phoneNumber: user.phone,
   });
   userData.append('data', userInfoJSON);
-  return userData;
+
+  const requestData = {
+    data: userData,
+    isChange: false,
+  };
+  return requestData;
 };
 
 export const transformValuesCreateBet = (
