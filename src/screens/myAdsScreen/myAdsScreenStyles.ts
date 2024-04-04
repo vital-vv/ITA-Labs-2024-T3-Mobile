@@ -1,13 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {Colors} from '../../constants/colors';
+const screenWidth = Dimensions.get('window').width;
 
-const betsScreenStyles = StyleSheet.create({
+const myAdsScreenStyles = StyleSheet.create({
   button_wrapper: {
     display: 'flex',
     flexDirection: 'row',
   },
   button: {
-    width: '50%',
+    width: screenWidth/3,
     alignItems: 'center',
     borderBottomColor: Colors.WHITE,
     borderBottomWidth: 2,
@@ -24,4 +25,4 @@ const betsScreenStyles = StyleSheet.create({
   },
 });
 
-export default betsScreenStyles;
+export default myAdsScreenStyles;

@@ -71,3 +71,13 @@ export type Selection = {
   currency: Currency[];
   countries: string[];
 };
+
+export enum StatusInResponce {
+  Active = 'ACTIVE',
+  Sold = 'SOLD',
+  Moderated = 'MODERATED',
+  Auction_ended = 'AUCTION_ENDED',
+  Cancelled = 'CANCELLED',
+  Expired = 'EXPIRED',
+  Deactivated = 'DEACTIVATED'
+}

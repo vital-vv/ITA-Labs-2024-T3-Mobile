@@ -22,6 +22,10 @@ const buttonWithIconStyle = StyleSheet.create({
     backgroundColor: Colors.BUTTON_PRIMARY,
     borderColor: Colors.BUTTON_PRIMARY,
   },
+  success: {
+    backgroundColor: Colors.SUCCEESS,
+    borderColor: Colors.SUCCEESS,
+  },
   disabled: {
     backgroundColor: Colors.HORIZONTAL_DIVIDER,
     borderColor: Colors.HORIZONTAL_DIVIDER,

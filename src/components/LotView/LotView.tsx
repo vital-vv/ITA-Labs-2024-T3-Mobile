@@ -13,7 +13,7 @@ import {Carousel} from '../imageCarousel';
 
 type Props = {
   lot: Lot;
-  position?: 'leading' | 'outbid';
+  position?: 'leading' | 'outbid' | 'success' | 'none';
 };
 
 export const LotView: FC<Props> = ({lot, position}) => {
@@ -54,10 +54,12 @@ export const LotView: FC<Props> = ({lot, position}) => {
               }
               variant={TEXT_VARIANT.MAIN_24_500}
               color={
-                position === 'leading'
+                  position === 'leading'
                   ? Colors.SYSTEM_BASE
                   : position === 'outbid'
                   ? Colors.WARNING
+                  : position === 'success'
+                  ? Colors.SUCCEESS 
                   : Colors.WARNING
               }
             />

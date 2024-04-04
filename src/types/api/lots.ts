@@ -41,6 +41,7 @@ export type Lot = {
   start_price: number;
   length_unit: string;
   bid_quantity: number;
+  reject_message: string;
 };
 
 export type LotsInSubCategoryInitialResponse = {

@@ -26,10 +26,10 @@ export const getLotsInSubCategory = agroexAPI.injectEndpoints({
       providesTags: ['subCategoryLots', 'Bets'],
 
       transformResponse: (response: LotsInSubCategoryInitialResponse) => {
-        const {size, totalElements, page} = response.metadata;
+        const {size, total_elements, page} = response.metadata;
         const transformedResponse = {
           lots: response.content,
-          isNextPageExist: totalElements - page * size >= 0 ? true : false,
+          isNextPageExist: total_elements - page * size >= 0 ? true : false,
           currentPage: page,
         };
         return transformedResponse;

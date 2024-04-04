@@ -14,6 +14,8 @@ export enum ROUTES {
   OnBoarding = 'OnBoarding',
   PersonalData = 'PersonalData',
   MyAds = 'MyAds',
+  MyAdsStack = 'MyAdsStack',
+  MyAdView = 'MyAdView',
   Notifications = 'Notifications',
   Currency = 'Currency',
   Language = 'Language',

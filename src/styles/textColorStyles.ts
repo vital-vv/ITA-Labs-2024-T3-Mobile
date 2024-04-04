@@ -44,4 +44,7 @@ export const textColorStyles = StyleSheet.create<{
   [Colors.SELECTED_TAB_NAV]: {
     color: Colors.SELECTED_TAB_NAV,
   },
+  [Colors.SUCCEESS]: {
+    color: Colors.SUCCEESS,
+  },
 });

@@ -9,6 +9,7 @@ export type RootStackParams = {
   [ROUTES.AccountStack]: NavigatorScreenParams<AccountStackParams>;
   [ROUTES.OnBoarding]: undefined;
   [ROUTES.Auth]: undefined;
+  [ROUTES.MyAdsStack]: MyAdsStackParams;
 };
 
 export type HomeStackParams = {
@@ -21,7 +22,7 @@ export type HomeStackParams = {
 export type AccountStackParams = {
   [ROUTES.Account]: undefined;
   [ROUTES.PersonalData]: undefined;
-  [ROUTES.MyAds]: undefined;
+  [ROUTES.MyAdsStack]: undefined;
   [ROUTES.Notifications]: undefined;
   [ROUTES.Currency]: undefined;
   [ROUTES.Language]: undefined;
@@ -36,5 +37,14 @@ export type BetStackParams = {
     id: number;
     headerTitle: string;
     position?: 'leading' | 'outbid';
+  };
+};
+
+export type MyAdsStackParams = {
+  [ROUTES.MyAds]: undefined;
+  [ROUTES.MyAdView]: {
+    id: number;
+    headerTitle: string;
+    position: string;
   };
 };

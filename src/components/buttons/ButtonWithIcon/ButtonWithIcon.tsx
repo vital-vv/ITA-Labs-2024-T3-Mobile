@@ -7,7 +7,7 @@ import styles from './buttonWithIconStyle';
 
 type Props = {
   title: string;
-  type?: 'light' | 'dark';
+  type?: 'light' | 'dark' | 'success';
   icon?: ReactNode;
   style?: StyleProp<ViewStyle>;
   variant?: TEXT_VARIANT;
@@ -29,6 +29,8 @@ const ButtonWithIcon: FC<Props> = ({
   ? styles.disabled
   : type === 'light' 
   ? styles.ligth 
+  : type === 'success' 
+  ? styles.success
   : styles.dark;
   const textColor =  
   disabled === true
