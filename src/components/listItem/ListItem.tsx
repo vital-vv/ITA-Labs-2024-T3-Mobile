@@ -109,7 +109,7 @@ export const ListItem: FC<Props> = ({
           </View>
           <View style={styles.lot_block}>
             <AppText
-              text={`${currency} ${total_price}`}
+              text={`${currency} ${(total_price).toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_16_400}
             />
             <AppText

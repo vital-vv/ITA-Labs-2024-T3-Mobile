@@ -56,7 +56,8 @@ export const transformValuesCreateLot = (
       region: citiesArray[Number(values.region) - 1].label,
     },
     description: values.description || '',
-    size: Number(values.size),
+    fromSize: Number(values.fromSize),
+    toSize: Number(values.toSize),
     packaging: packagingArray[Number(values.packaging) - 1].label,
     currency: currencyArray[Number(values.currency) - 1].label,
   };

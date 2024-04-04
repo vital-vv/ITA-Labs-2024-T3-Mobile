@@ -256,7 +256,8 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
             start_price: '',
             country: '',
             region: '',
-            size: '',
+            fromSize: '',
+            toSize: '',
             length_unit: '1',
             packaging: '',
             expiration_days: '30',
@@ -590,7 +591,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                 />
               )}
               <AppText
-                text={'Size'}
+                text={'Size from'}
                 color={Colors.PRIMARY}
                 variant={TEXT_VARIANT.MAIN_18_500}
                 style={{...setMargin(24, 0, 8, 0)}}
@@ -602,9 +603,9 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                     inputStyles.input,
                     styles.measure_input,
                   ]}
-                  onChangeText={handleChange('size')}
-                  onBlur={handleBlur('size')}
-                  value={values.size}
+                  onChangeText={handleChange('fromSize')}
+                  onBlur={handleBlur('fromSize')}
+                  value={values.fromSize}
                   placeholder="Enter a size from 1 to 1000"
                   placeholderTextColor={Colors.SECONDARY}
                   keyboardType="numeric"
@@ -621,9 +622,49 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
                   />
                 </View>
               </View>
-              {touched.size && errors.size && (
+              {touched.fromSize && errors.fromSize && (
                 <AppText
-                  text={errors.size}
+                  text={errors.fromSize}
+                  color={Colors.ERROR_BASE}
+                  variant={TEXT_VARIANT.MAIN_12_400}
+                  style={{...setMargin(4, 0, 0, 0)}}
+                />
+              )}
+              <AppText
+                text={'Size to'}
+                color={Colors.PRIMARY}
+                variant={TEXT_VARIANT.MAIN_18_500}
+                style={{...setMargin(24, 0, 8, 0)}}
+              />
+              <View style={styles.select_measure}>
+                <TextInput
+                  style={[
+                    textTypographyStyles.MAIN_16_400,
+                    inputStyles.input,
+                    styles.measure_input,
+                  ]}
+                  onChangeText={handleChange('toSize')}
+                  onBlur={handleBlur('toSize')}
+                  value={values.toSize}
+                  placeholder="Enter a size from 1 to 1000"
+                  placeholderTextColor={Colors.SECONDARY}
+                  keyboardType="numeric"
+                />
+                <View style={styles.measure_select}>
+                  {/* @ts-ignore */}
+                  <AppDropDown
+                    value={values.length_unit}
+                    name="length_unit"
+                    items={lengthArray}
+                    zIndex={2}
+                    placeholder={lengthArray[0].label}
+                    defaultValue={lengthArray[0].label}
+                  />
+                </View>
+              </View>
+              {touched.toSize && errors.toSize && (
+                <AppText
+                  text={errors.toSize}
                   color={Colors.ERROR_BASE}
                   variant={TEXT_VARIANT.MAIN_12_400}
                   style={{...setMargin(4, 0, 0, 0)}}

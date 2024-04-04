@@ -25,7 +25,8 @@ export type Lot = {
   location: Location;
   description: string;
   status: Status;
-  size: number;
+  fromSize: number;
+  toSize: number;
   packaging: Packaging;
   leading: Bid | null;
   users: Bid;
@@ -74,7 +75,8 @@ export type LotCreate = {
   weight: Weight;
   location: Location;
   description: string;
-  size: number;
+  fromSize: number;
+  toSize: number;
   packaging: Packaging;
   currency: Currency;
 };

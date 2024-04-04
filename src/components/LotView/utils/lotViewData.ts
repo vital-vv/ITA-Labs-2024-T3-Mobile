@@ -23,11 +23,18 @@ export const lotViewData = (lot: Lot): Array<LotData> => {
       text: `${lot.quantity} ${lot.weight}`,
     },
     {
-      text: 'Size',
+      text: 'Size from',
       color: true,
     },
     {
-      text: `${lot.size} ${lot.length_unit}`,
+      text: `${lot.fromSize} ${lot.length_unit}`,
+    },
+    {
+      text: 'Size to',
+      color: true,
+    },
+    {
+      text: `${lot.toSize} ${lot.length_unit}`,
     },
     {
       text: 'Packaging',

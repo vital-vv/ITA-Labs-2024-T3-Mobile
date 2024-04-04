@@ -80,7 +80,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
             style={[styles.text, styles.price]}
           />
           <AppText
-            text={`${lot.currency} ${lot.price_per_unit}/${lot.weight}`}
+            text={`${lot.currency} ${(lot.price_per_unit).toFixed(2)}/${lot.weight}`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={[styles.text, styles.price]}

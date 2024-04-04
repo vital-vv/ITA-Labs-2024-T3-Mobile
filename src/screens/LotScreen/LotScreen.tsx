@@ -38,7 +38,7 @@ export const LotScreen: FC<Props> = ({ navigation, route }) => {
       showToast(ToastTypes.Success, 'Lot was successfully bought');
       globalNavigate(ROUTES.HomeStack, {
         screen: ROUTES.LotList, 
-        params: { subCategory: route.params.id, headerTitle: route.params.headerTitle}
+        params: { id: route.params.id, headerTitle: route.params.headerTitle}
       });
     } catch (error) {
       showToast(ToastTypes.Error, 'Something went wrong during lot buying');
