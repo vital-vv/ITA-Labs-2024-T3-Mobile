@@ -13,7 +13,7 @@ export const confirmLot = agroexAPI.injectEndpoints({
         body: id,
       }),
 
-      invalidatesTags: ['MyAds'],
+      invalidatesTags: ['MyAds', 'Bought'],
 
       async onQueryStarted() {
         try {
