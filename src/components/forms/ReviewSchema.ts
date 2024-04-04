@@ -1,6 +1,5 @@
 import * as yup from 'yup';
-
-const phoneRegExp = new RegExp('[+]375\\d{9}');
+import {regExp} from '../../utils/regularExpessions/regExp';
 
 export const ReviewSchema = yup.object({
   name: yup.string().required().min(1).max(50),
@@ -8,5 +7,5 @@ export const ReviewSchema = yup.object({
   phone: yup
     .string()
     .required()
-    .matches(phoneRegExp, 'Phone number is not valid'),
+    .matches(regExp.phone, 'Phone number is not valid'),
 });

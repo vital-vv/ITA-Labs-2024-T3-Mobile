@@ -16,3 +16,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
     showToast(ToastTypes.Error, 'Something went wrong during logout');
   }
 };
+
+export const loginInAppFirstTime = () => async (dispatch: AppDispatch) => {
+  dispatch(currentUserActions.setCurrentUserAsLogedInAndNotOnboarded());
+  globalNavigate(ROUTES.OnBoarding);
+};

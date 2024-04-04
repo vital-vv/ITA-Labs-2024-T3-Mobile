@@ -67,7 +67,7 @@ export const protectedScreens = {
     <AccountStack.Screen
       name={ROUTES.Password}
       component={PasswordScreen}
-      options={{title: 'Change Passwords'}}
+      options={{title: 'Change Password'}}
     />
   ),
 };

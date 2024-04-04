@@ -49,7 +49,7 @@ export const AppImagePicker: FC<Props> = ({
   const [filePath, setFilePath] = useState<ImagePicker.ImagePickerResponse>({});
   const [isOpen, setIsOpen] = useState(false);
   const showDelete = !isLot;
-  
+
   const chooseFile = (type: 'photo') => {
     let options = {
       mediaType: type,
@@ -85,13 +85,11 @@ export const AppImagePicker: FC<Props> = ({
 
   return (
     <Pressable style={noimage_style} onPress={() => setIsOpen(true)}>
-      {( imageUrl && filePath.assets) ? 
-        (<Image source={{ uri: filePath.assets[0]?.uri }} style={image_style} />) 
-        : 
-        (
-          <View>{children}</View>
-        ) 
-        }
+      {imageUrl && filePath.assets ? (
+        <Image source={{uri: filePath.assets[0]?.uri}} style={image_style} />
+      ) : (
+        <View>{children}</View>
+      )}
       <ModalWindow isOpen={isOpen} onClose={setIsOpen}>
         <Pressable style={styles.modal_container} onPress={onChoosePhoto}>
           <MyAds style={setMargin(0, 12, 0, 0)} />
