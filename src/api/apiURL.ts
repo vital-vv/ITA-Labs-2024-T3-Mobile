@@ -14,6 +14,7 @@ export const API_URL = {
   dataSelection: '/data-selection',
   cities: (country: string) => `/data-selection/${country}/cities`,
   lots: '/lots',
+  lotBuy: (id: number) => `/lots/${id}/buy`,
   lotConfirm: (id: number) => `/lots/${id}/confirm`,
   lotDeactivate: (id: number) => `/lots/${id}/deactivate`,
   users: '/users',

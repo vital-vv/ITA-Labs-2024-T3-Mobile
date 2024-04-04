@@ -12,8 +12,8 @@ import {setMargin} from '../../utils/styling/margin';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 import {SubCategory} from '../../types/api/lots';
 
-type Props = NativeStackScreenProps<HomeStackParams, ROUTES.SubCategory>;
-export const SubCategoryScreen: FC<Props> = ({route, navigation}) => {
+type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Variety>;
+export const VarietyScreen: FC<Props> = ({route, navigation}) => {
   const {id} = route.params;
   const {
     data: categoriesData,
@@ -24,9 +24,9 @@ export const SubCategoryScreen: FC<Props> = ({route, navigation}) => {
   const renderItems: ListRenderItem<SubCategory> = ({item}) => (
     <Pressable
       onPress={() => {
-        navigation.navigate(ROUTES.Variety, {
+        navigation.navigate(ROUTES.LotList, {
           id: item.category_id,
-          headerTitle: `${item.name} varieties`,
+          headerTitle: `${item.name} lots`,
         });
       }}>
       <AppText text={`${item.name}`} style={setPadding(10, 16, 10, 16)} />

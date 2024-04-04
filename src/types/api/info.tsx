@@ -49,13 +49,6 @@ export type Location = {
   region: string;
 };
 
-export type Variety = {
-  category_id: number;
-  parent_id: number | null;
-  name: string;
-  subcategories: [];
-};
-
 export enum BidStatus {
   LEADING = 'LEADING',
   OVERBID = 'OVERBID',

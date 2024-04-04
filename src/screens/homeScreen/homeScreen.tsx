@@ -22,8 +22,9 @@ export const HomeScreen: FC<Props> = ({navigation, route}) => {
     isLoading,
     refetch: refetchAllCategoriesData,
   } = useGetAllCategoriesQuery();
-
+  
   if (isLoading) return <SpinnerWrapper />;
+
   return (
     <MainWrapper>
       <AppText
@@ -45,7 +46,7 @@ export const HomeScreen: FC<Props> = ({navigation, route}) => {
           <Pressable
             onPress={() => {
               navigation.navigate(ROUTES.SubCategory, {
-                subCategory: item.category_id,
+                id: item.category_id,
                 headerTitle: item.name,
               });
             }}>

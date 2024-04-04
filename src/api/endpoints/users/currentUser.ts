@@ -1,6 +1,10 @@
 import {showToast} from '../../../components/toasts';
 import {ROUTES} from '../../../constants/routes';
 import {globalNavigate} from '../../../navigation/globalNavigation';
+import {
+  loginInAppFirstTime,
+  logout,
+} from '../../../store/functions/userActions';
 import {currentUserActions} from '../../../store/slices/currentUserSlice';
 import {UserRoles} from '../../../types/api/info';
 import {CurrentUserResponse} from '../../../types/api/users';
@@ -20,26 +24,19 @@ export const getCurrentUser = agroexAPI.injectEndpoints({
         try {
           const userData = (await queryFulfilled).data;
           if (userData.role === UserRoles.Admin) {
-            dispatch(currentUserActions.setCurrentUserAsGuest());
+            dispatch(logout);
             showToast(ToastTypes.Warning, 'Sorry, you cannot login as Admin');
+          } else {
+            dispatch(currentUserActions.setCurrentUserAsLogedIn());
+            dispatch(currentUserActions.setCurrentUserInfo({...userData}));
+            globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
           }
-          dispatch(currentUserActions.setCurrentUserAsLogedIn());
-          dispatch(currentUserActions.setCurrentUserInfo({...userData}));
-          globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
         } catch (e: any) {
           const {status} = e.error;
           if (status === 404) {
-            dispatch(
-              currentUserActions.setCurrentUserAsLogedInAndNotOnboarded(),
-            );
-            globalNavigate(ROUTES.OnBoarding);
-          }
-          //temporary 401 status checking (backend have a permission bug for new users)
-          if (status === 401) {
-            await signOut();
-            showToast(ToastTypes.Error, 'Something went wrong');
+            dispatch(loginInAppFirstTime());
           } else {
-            dispatch(currentUserActions.setCurrentUserAsGuest());
+            dispatch(logout());
           }
         }
       },

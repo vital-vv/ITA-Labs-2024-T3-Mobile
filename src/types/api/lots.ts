@@ -1,20 +1,21 @@
 import {Bid} from './bids';
-import {Currency, Location, Packaging, Status, Variety, Weight} from './info';
+import {Currency, Location, Packaging, Status, Weight} from './info';
 import {PaginationMetaData} from './pagination';
 
 export type SubCategory = {
   subcategory_id: string;
   category_id: number;
-  parent_id: number | null;
+  parent_id: number;
   name: string;
-  subcategories: Variety[];
+  imageId: number | null;
+  subcategories: SubCategory[];
 };
 
 export type Category = {
   category_id: number;
   name: string;
-  parent_id: number | null;
-  subcategories: SubCategory[];
+  imageId: number | null;
+  parent_id: null;
 };
 
 export type Lot = {
@@ -44,6 +45,13 @@ export type Lot = {
   reject_message: string;
 };
 
+export type GetLotsInSubCategoryParams = {
+  id: number;
+  page?: number;
+  limit: number;
+  filterArgs?: string;
+};
+
 export type LotsInSubCategoryInitialResponse = {
   content: Lot[];
   metadata: PaginationMetaData;
@@ -52,7 +60,7 @@ export type LotsInSubCategoryInitialResponse = {
 export type LotsInSubCategoryFinalResponse = {
   lots: Lot[];
   currentPage: number;
-  isNextPageExist: boolean;
+  isNextPage: boolean;
 };
 
 export type LotCreate = {

@@ -26,18 +26,18 @@ const ButtonWithIcon: FC<Props> = ({
 }) => {
   const wrapperStyle =  
   disabled === true
-  ? styles.disabled
-  : type === 'light' 
-  ? styles.ligth 
-  : type === 'success' 
-  ? styles.success
-  : styles.dark;
+    ? styles.disabled
+    : type === 'light' 
+    ? styles.ligth 
+    : type === 'success' 
+    ? styles.success
+    : styles.dark;
   const textColor =  
   disabled === true
-  ? Colors.TERTIARY
-  : type === 'light' 
-  ? Colors.BUTTON_PRIMARY 
-  : Colors.WHITE;
+    ? Colors.TERTIARY
+    : type === 'light' 
+    ? Colors.BUTTON_PRIMARY 
+    : Colors.WHITE;
   return (
     <Pressable
       style={[styles.buttonWrapper, wrapperStyle, style]}
