@@ -1,7 +1,10 @@
 import {showToast} from '../../../components/toasts';
 import {ROUTES} from '../../../constants/routes';
 import {globalNavigate} from '../../../navigation/globalNavigation';
-import {logout} from '../../../store/functions/userActions';
+import {
+  loginInAppFirstTime,
+  logout,
+} from '../../../store/functions/userActions';
 import {currentUserActions} from '../../../store/slices/currentUserSlice';
 import {UserRoles} from '../../../types/api/info';
 import {CurrentUserResponse} from '../../../types/api/users';
@@ -23,19 +26,17 @@ export const getCurrentUser = agroexAPI.injectEndpoints({
           if (userData.role === UserRoles.Admin) {
             dispatch(logout);
             showToast(ToastTypes.Warning, 'Sorry, you cannot login as Admin');
+          } else {
+            dispatch(currentUserActions.setCurrentUserAsLogedIn());
+            dispatch(currentUserActions.setCurrentUserInfo({...userData}));
+            globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
           }
-          dispatch(currentUserActions.setCurrentUserAsLogedIn());
-          dispatch(currentUserActions.setCurrentUserInfo({...userData}));
-          globalNavigate(ROUTES.HomeStack, {screen: ROUTES.Home});
         } catch (e: any) {
           const {status} = e.error;
           if (status === 404) {
-            dispatch(
-              currentUserActions.setCurrentUserAsLogedInAndNotOnboarded(),
-            );
-            globalNavigate(ROUTES.OnBoarding);
+            dispatch(loginInAppFirstTime());
           } else {
-            dispatch(currentUserActions.setCurrentUserAsGuest());
+            dispatch(logout());
           }
         }
       },

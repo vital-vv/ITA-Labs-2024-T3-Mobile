@@ -5,7 +5,7 @@ import {PaginationMetaData} from './pagination';
 export type SubCategory = {
   subcategory_id: string;
   category_id: number;
-  parent_id: number | null;
+  parent_id: number;
   name: string;
   imageId: number | null;
   subcategories: SubCategory[];
@@ -15,7 +15,7 @@ export type Category = {
   category_id: number;
   name: string;
   imageId: number | null;
-  parent_id: number | null;
+  parent_id: null;
 };
 
 export type Lot = {
