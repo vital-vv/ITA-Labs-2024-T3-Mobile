@@ -8,7 +8,7 @@ import {useGetLotQuery} from '../../api/endpoints';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import styles from './deliveryViewScreenStyles';
 
-type Props = NativeStackScreenProps<DeliveryStackParams, ROUTES.DeliveryView> 
+type Props = NativeStackScreenProps<DeliveryStackParams, ROUTES.DeliveryView>;
 
 export const DeliveryViewScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;

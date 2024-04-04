@@ -44,10 +44,10 @@ const myAdsItemStyles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    ...setPadding(16, 0, 0, 0)
+    ...setPadding(16, 0, 0, 0),
   },
   price: {
-    ...setPadding(0, 16, 4, 16)
+    ...setPadding(0, 16, 4, 16),
   },
   text: {
     flexShrink: 1,
@@ -84,8 +84,7 @@ const myAdsItemStyles = StyleSheet.create({
     backgroundColor: Colors.ERROR_BACKGROUND,
     padding: 20,
     ...setMargin(16, 0, 0, 0),
-  }
+  },
 });
 
 export default myAdsItemStyles;
-

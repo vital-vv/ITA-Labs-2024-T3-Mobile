@@ -73,5 +73,5 @@ export enum StatusInResponce {
   Auction_ended = 'AUCTION_ENDED',
   Cancelled = 'CANCELLED',
   Expired = 'EXPIRED',
-  Deactivated = 'DEACTIVATED'
+  Deactivated = 'DEACTIVATED',
 }

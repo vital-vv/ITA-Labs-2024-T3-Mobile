@@ -52,18 +52,16 @@ export const LotView: FC<Props> = ({lot, position}) => {
               }
               variant={TEXT_VARIANT.MAIN_24_500}
               color={
-                  position === 'leading'
+                position === 'leading'
                   ? Colors.SYSTEM_BASE
                   : position === 'success'
-                  ? Colors.SUCCEESS 
+                  ? Colors.SUCCEESS
                   : Colors.WARNING
               }
             />
           </View>
           <AppText
-            text={`${lot.currency} ${(
-              lot.total_price
-            ).toFixed(2)}`}
+            text={`${lot.currency} ${lot.total_price.toFixed(2)}`}
             variant={TEXT_VARIANT.MAIN_24_500}
             style={[styles.text, styles.price]}
           />
@@ -80,7 +78,9 @@ export const LotView: FC<Props> = ({lot, position}) => {
             style={[styles.text, styles.price]}
           />
           <AppText
-            text={`${lot.currency} ${(lot.price_per_unit).toFixed(2)}/${lot.weight}`}
+            text={`${lot.currency} ${lot.price_per_unit.toFixed(2)}/${
+              lot.weight
+            }`}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.SECONDARY}
             style={[styles.text, styles.price]}

@@ -1,4 +1,4 @@
-import { Bet } from '../../../types/api/bids';
+import {Bet} from '../../../types/api/bids';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
 

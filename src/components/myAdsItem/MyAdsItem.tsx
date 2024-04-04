@@ -15,7 +15,10 @@ import CheckIcon from '../../assets/icons/checkmark.svg';
 import Warning from '../../assets/icons/warning.svg';
 import ShutDown from '../../assets/icons/shut_down.svg';
 import {ModalWindow} from '../modal/modal';
-import {useConfirmLotMutation, useDeactivateLotMutation} from '../../api/endpoints';
+import {
+  useConfirmLotMutation,
+  useDeactivateLotMutation,
+} from '../../api/endpoints';
 import {globalNavigate} from '../../navigation/globalNavigation';
 import {ROUTES} from '../../constants/routes';
 
@@ -23,8 +26,8 @@ type Props = {
   lot: Lot;
 };
 
-export const MyAdsItem: FC<Props> = ({ lot }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
+export const MyAdsItem: FC<Props> = ({lot}) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [confirmLot] = useConfirmLotMutation();
   const [deactivateLot] = useDeactivateLotMutation();
 
@@ -32,24 +35,35 @@ export const MyAdsItem: FC<Props> = ({ lot }) => {
     <>
       <HorizontalDivider />
       <View style={styles.item}>
-        <Image style={styles.image} source={{ uri: lot.image_url[0].url }} />
+        <Image style={styles.image} source={{uri: lot.image_url[0].url}} />
         <View style={styles.lot_info}>
           <View style={styles.lot_block}>
             <AppText text={lot.title} variant={TEXT_VARIANT.MAIN_18_500} />
-            {(lot.status === 'moderated' || lot.status === 'cancelled') &&
-              <View style={lot.status === 'moderated' ? styles.on_moderation : styles.rejected}>
+            {(lot.status === 'moderated' || lot.status === 'cancelled') && (
+              <View
+                style={
+                  lot.status === 'moderated'
+                    ? styles.on_moderation
+                    : styles.rejected
+                }>
                 <AppText
-                  text={lot.status === 'moderated' ? 'On moderation' : 'Rejected'}
+                  text={
+                    lot.status === 'moderated' ? 'On moderation' : 'Rejected'
+                  }
                   variant={TEXT_VARIANT.MAIN_14_400}
-                  color={lot.status === 'moderated' ? Colors.SYSTEM_BASE : Colors.ERROR_BASE}
+                  color={
+                    lot.status === 'moderated'
+                      ? Colors.SYSTEM_BASE
+                      : Colors.ERROR_BASE
+                  }
                 />
               </View>
-            }
+            )}
           </View>
           <View style={styles.lot_block}>
-            {lot.status === 'active' &&
+            {lot.status === 'active' && (
               <DateCounter date={lot.expiration_date} />
-            }
+            )}
             <AppText
               text={lot.lot_id}
               variant={TEXT_VARIANT.MAIN_10_400}
@@ -59,13 +73,12 @@ export const MyAdsItem: FC<Props> = ({ lot }) => {
           <AppText
             text={DateTime.fromISO(lot.created_at).toFormat(
               'yyyy.LL.dd, HH:mm ',
-            )
-            }
+            )}
             variant={TEXT_VARIANT.MAIN_12_400}
             color={Colors.PRIMARY}
-            style={{ ...setMargin(12, 0, 0, 0) }}
+            style={{...setMargin(12, 0, 0, 0)}}
           />
-          {lot.status === 'cancelled' && lot.reject_message &&
+          {lot.status === 'cancelled' && lot.reject_message && (
             <View style={[styles.moderator_description, styles.lot_block]}>
               <Warning />
               <AppText
@@ -74,21 +87,21 @@ export const MyAdsItem: FC<Props> = ({ lot }) => {
                 color={Colors.ERROR_BASE}
               />
             </View>
-          }
+          )}
           <View style={styles.pricesWrapper}>
             <View style={[styles.bets_block]}>
               {lot.leading?.amount ? (
-                <View >
+                <View>
                   <AppText
                     text={`${lot.currency} ${lot.leading.amount}`}
                     variant={TEXT_VARIANT.MAIN_20_500}
                     color={Colors.SUCCEESS}
-                    style={{ lineHeight: 24 }}
+                    style={{lineHeight: 24}}
                   />
                   <AppText
-                    text={`${lot.currency} ${(lot.leading.amount / lot.quantity).toFixed(
-                      2,
-                    )}/${lot.weight}`}
+                    text={`${lot.currency} ${(
+                      lot.leading.amount / lot.quantity
+                    ).toFixed(2)}/${lot.weight}`}
                     variant={TEXT_VARIANT.MAIN_12_400}
                     color={Colors.SECONDARY}
                   />
@@ -98,18 +111,20 @@ export const MyAdsItem: FC<Props> = ({ lot }) => {
                   text={'No bets'}
                   variant={TEXT_VARIANT.MAIN_16_400}
                   color={Colors.SECONDARY}
-                  style={{ ...setMargin(16, 0, 0, 0), lineHeight: 24 }}
+                  style={{...setMargin(16, 0, 0, 0), lineHeight: 24}}
                 />
               )}
             </View>
             <View style={styles.bets_block}>
-              <View >
+              <View>
                 <AppText
                   text={`${lot.currency} ${lot.total_price}`}
                   variant={TEXT_VARIANT.MAIN_20_500}
                 />
                 <AppText
-                  text={`${lot.currency} ${lot.price_per_unit.toFixed(2)}/${lot.weight}`}
+                  text={`${lot.currency} ${lot.price_per_unit.toFixed(2)}/${
+                    lot.weight
+                  }`}
                   variant={TEXT_VARIANT.MAIN_12_400}
                   color={Colors.SECONDARY}
                 />
@@ -117,35 +132,39 @@ export const MyAdsItem: FC<Props> = ({ lot }) => {
             </View>
           </View>
         </View>
-        {lot.status !== 'expired' &&
+        {lot.status !== 'expired' && (
           <View style={styles.buttons_wrapper}>
-            {lot.status === 'active' &&
+            {lot.status === 'active' && (
               <ButtonWithIcon
                 title="Confirm deal"
                 type="success"
                 icon={<CheckIcon fill={Colors.WHITE} />}
-                onPress={() => {confirmLot(lot.lot_id), 
-                  globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack})}}
+                onPress={() => {
+                  confirmLot(lot.lot_id),
+                    globalNavigate(ROUTES.AccountStack, {
+                      screen: ROUTES.MyAdsStack,
+                    });
+                }}
               />
-            }
-            {(lot.status === 'moderated' || lot.status === 'cancelled') &&
+            )}
+            {(lot.status === 'moderated' || lot.status === 'cancelled') && (
               <ButtonWithIcon
                 title="Manage"
                 type="light"
                 icon={<SettingsIcon fill={Colors.BUTTON_PRIMARY} />}
                 onPress={() => setIsModalVisible(true)}
               />
-            }
+            )}
           </View>
-        }
+        )}
       </View>
-      <ModalWindow
-        isOpen={isModalVisible}
-        onClose={setIsModalVisible}>
+      <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
         <Pressable
-          onPress={() => {deactivateLot(lot.lot_id), 
-          setIsModalVisible(false), 
-          globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack});}}>
+          onPress={() => {
+            deactivateLot(lot.lot_id),
+              setIsModalVisible(false),
+              globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack});
+          }}>
           <View style={styles.lot_block}>
             <ShutDown />
             <AppText

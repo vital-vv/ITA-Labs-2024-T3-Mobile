@@ -5,7 +5,11 @@ import React, {FC, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MyAdsStackParams} from '../../types/navigation';
 import {ROUTES} from '../../constants/routes';
-import {useConfirmLotMutation, useDeactivateLotMutation, useGetLotQuery} from '../../api/endpoints';
+import {
+  useConfirmLotMutation,
+  useDeactivateLotMutation,
+  useGetLotQuery,
+} from '../../api/endpoints';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper';
 import {Colors} from '../../constants/colors';
 import {LotView} from '../../components/LotView/LotView';
@@ -22,7 +26,7 @@ type Props = NativeStackScreenProps<MyAdsStackParams, ROUTES.MyAdView>;
 export const MyAdViewScreen: FC<Props> = ({navigation, route}) => {
   const {id, position} = route.params;
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [confirmLot] = useConfirmLotMutation();
   const [deactivateLot] = useDeactivateLotMutation();
 
@@ -37,33 +41,42 @@ export const MyAdViewScreen: FC<Props> = ({navigation, route}) => {
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetchLot} />
         }>
-        <LotView lot={lot} position={position === 'active' ? 'success' : 'none'}/>
+        <LotView
+          lot={lot}
+          position={position === 'active' ? 'success' : 'none'}
+        />
         <View style={styles.buttons_wrapper}>
-          {position === 'active' &&
-          <ButtonWithIcon
-            title="Confirm deal"
-            type="success"
-            icon={<CheckIcon fill={Colors.WHITE} />}
-            onPress={() => {confirmLot(lot.lot_id),
-              globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack})}}
-          />
-          }
-          {position === 'pending' &&
+          {position === 'active' && (
             <ButtonWithIcon
-            title="Manage"
-            type="light"
-            icon={<SettingsIcon fill={Colors.BUTTON_PRIMARY} />}
-            onPress={() => setIsModalVisible(true)}
-          />
-          }
+              title="Confirm deal"
+              type="success"
+              icon={<CheckIcon fill={Colors.WHITE} />}
+              onPress={() => {
+                confirmLot(lot.lot_id),
+                  globalNavigate(ROUTES.AccountStack, {
+                    screen: ROUTES.MyAdsStack,
+                  });
+              }}
+            />
+          )}
+          {position === 'pending' && (
+            <ButtonWithIcon
+              title="Manage"
+              type="light"
+              icon={<SettingsIcon fill={Colors.BUTTON_PRIMARY} />}
+              onPress={() => setIsModalVisible(true)}
+            />
+          )}
         </View>
-        <ModalWindow
-          isOpen={isModalVisible}
-          onClose={setIsModalVisible}>
+        <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
           <Pressable
-            onPress={() => {deactivateLot(lot.lot_id), 
-            setIsModalVisible(false),
-            globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack})}}>
+            onPress={() => {
+              deactivateLot(lot.lot_id),
+                setIsModalVisible(false),
+                globalNavigate(ROUTES.AccountStack, {
+                  screen: ROUTES.MyAdsStack,
+                });
+            }}>
             <View style={styles.block}>
               <ShutDown />
               <AppText
@@ -73,7 +86,7 @@ export const MyAdViewScreen: FC<Props> = ({navigation, route}) => {
               />
             </View>
           </Pressable>
-      </ModalWindow>
+        </ModalWindow>
       </ScrollView>
     )
   );

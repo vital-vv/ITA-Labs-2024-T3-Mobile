@@ -15,7 +15,7 @@ import {buyLot} from './lots/buyLot';
 import {getUserAds} from './lots/getUserAds';
 import {confirmLot} from './lots/confirmLot';
 import {deactivateLot} from './lots/deactivateLot';
-import { getUserBoughtLots } from './lots/getUserBoughtLots';
+import {getUserBoughtLots} from './lots/getUserBoughtLots';
 
 export const {useGetCategoryQuery, useLazyGetCategoryQuery} = getCategory;
 
@@ -50,9 +50,9 @@ export const {useCreateBetMutation} = createBet;
 
 export const {useGetUserBetsQuery, useLazyGetUserBetsQuery} = getUserBets;
 
-
 export const {useBuyLotMutation} = buyLot;
 
 export const {useGetUserAdsQuery, useLazyGetUserAdsQuery} = getUserAds;
 
-export const {useGetUserBoughtLotsQuery, useLazyGetUserBoughtLotsQuery} = getUserBoughtLots;
+export const {useGetUserBoughtLotsQuery, useLazyGetUserBoughtLotsQuery} =
+  getUserBoughtLots;

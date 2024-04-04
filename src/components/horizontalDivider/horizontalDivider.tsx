@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import { Colors } from '../../constants/colors';
+import {Colors} from '../../constants/colors';
 
 type Props = {width?: number};
 
@@ -13,5 +13,5 @@ export const HorizontalDivider = ({width = 100}: Props) => {
     },
   });
 
-  return <View style={styles.divider}></View>;
+  return <View style={styles.divider} />;
 };

@@ -72,7 +72,7 @@ export const BetsModal = ({
               setBet(Number(val));
             }}
           />
-          { myBet &&
+          {myBet && (
             <View style={styles.bets_block}>
               <AlertIcon fill={Colors.ERROR_BASE} />
               <AppText
@@ -81,7 +81,7 @@ export const BetsModal = ({
                 color={Colors.ERROR_BASE}
               />
             </View>
-          }
+          )}
           {isValidBet ? (
             <AppText
               text={`Price from ${minBet} ${currency} to ${maxBet} ${currency}`}

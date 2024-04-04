@@ -7,11 +7,11 @@ import {ROUTES} from '../../constants/routes';
 import {FC} from 'react';
 import {useGetUserBoughtLotsQuery} from '../../api/endpoints';
 import styles from './deliveryScreenStyles';
-import { Pressable, RefreshControl, View } from 'react-native';
-import { TEXT_VARIANT } from '../../types/textVariant';
-import { Colors } from '../../constants/colors';
-import { FlashList } from '@shopify/flash-list';
-import { ListItem } from '../../components/listItem/ListItem';
+import {Pressable, RefreshControl, View} from 'react-native';
+import {TEXT_VARIANT} from '../../types/textVariant';
+import {Colors} from '../../constants/colors';
+import {FlashList} from '@shopify/flash-list';
+import {ListItem} from '../../components/listItem/ListItem';
 
 type Props = NativeStackScreenProps<DeliveryStackParams, ROUTES.Delivery>;
 
@@ -25,8 +25,7 @@ export const DeliveryScreen: FC<Props> = ({navigation, route}) => {
   return (
     <MainWrapper>
       <View style={styles.button_wrapper}>
-        <View
-          style={[styles.button, styles.button_pressed]}>
+        <View style={[styles.button, styles.button_pressed]}>
           <AppText
             text={'Completed'}
             variant={TEXT_VARIANT.MAIN_18_500}
@@ -50,7 +49,7 @@ export const DeliveryScreen: FC<Props> = ({navigation, route}) => {
             onPress={() => {
               navigation.navigate(ROUTES.DeliveryView, {
                 id: item.lot_id,
-                headerTitle: item.title || ''
+                headerTitle: item.title || '',
               });
             }}>
             <ListItem
@@ -65,9 +64,9 @@ export const DeliveryScreen: FC<Props> = ({navigation, route}) => {
               weight={item.weight}
               quantity={item.quantity}
             />
-            </Pressable>
-          )}
-        />
+          </Pressable>
+        )}
+      />
     </MainWrapper>
   );
 };

@@ -8,7 +8,7 @@ const MyAdsStack = createNativeStackNavigator<MyAdsStackParams>();
 
 export const MyAdsScreenStack = () => {
   return (
-    <MyAdsStack.Navigator  initialRouteName={ROUTES.MyAds}>
+    <MyAdsStack.Navigator initialRouteName={ROUTES.MyAds}>
       <MyAdsStack.Screen
         name={ROUTES.MyAds}
         component={MyAdsScreen}

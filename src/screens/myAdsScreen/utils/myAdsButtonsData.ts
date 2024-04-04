@@ -1,6 +1,6 @@
 type ButtonsData = {
   title: string;
-  number: number
+  number: number;
 };
 
 export const buttonsData = (): Array<ButtonsData> => {
@@ -17,7 +17,6 @@ export const buttonsData = (): Array<ButtonsData> => {
       title: 'Inactive',
       number: 3,
     },
-
   ];
   return buttonsDataArray;
 };

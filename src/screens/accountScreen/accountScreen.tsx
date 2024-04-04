@@ -39,11 +39,13 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
     data: myAdsData,
     isLoading: isLoadingAds,
     refetch: refetchGetUserAds,
-  } = useGetUserAdsQuery({status: [
-    StatusInResponce.Active,
-    StatusInResponce.Moderated, 
-    StatusInResponce.Cancelled
-  ]});
+  } = useGetUserAdsQuery({
+    status: [
+      StatusInResponce.Active,
+      StatusInResponce.Moderated,
+      StatusInResponce.Cancelled,
+    ],
+  });
 
   return (
     <MainWrapper>
@@ -179,10 +181,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
           <Pressable
             onPress={() => onPressNavigation(ROUTES.Settings)}
             style={[styles.add_container, styles.tab]}>
-            <Settings 
-              style={setMargin(0, 12, 0, 0)}
-              fill={Colors.SECONDARY}
-            />
+            <Settings style={setMargin(0, 12, 0, 0)} fill={Colors.SECONDARY} />
             <AppText
               text={'Settings'}
               variant={TEXT_VARIANT.MAIN_18_400}

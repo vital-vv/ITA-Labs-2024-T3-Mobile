@@ -19,7 +19,7 @@ export const API_URL = {
   lotDeactivate: (id: number) => `/lots/${id}/deactivate`,
   users: '/users',
   currentUser: '/users/me',
-  userAds:  (status: string) => `/users/lots?status=${status}`,
+  userAds: (status: string) => `/users/lots?status=${status}`,
   userBets: (status: string) => `/users/bids?status=${status}`,
   userBoughtLots: '/users/lots/bought',
   bets: '/bids',

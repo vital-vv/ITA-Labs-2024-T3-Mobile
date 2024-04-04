@@ -8,7 +8,7 @@ const myAdsScreenStyles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
-    width: screenWidth/3,
+    width: screenWidth / 3,
     alignItems: 'center',
     borderBottomColor: Colors.WHITE,
     borderBottomWidth: 2,

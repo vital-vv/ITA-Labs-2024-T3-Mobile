@@ -21,7 +21,7 @@ import {globalNavigate} from '../../navigation/globalNavigation';
 
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Lot>;
 
-export const LotScreen: FC<Props> = ({ navigation, route }) => {
+export const LotScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
   const {data: lot, isLoading, refetch: refetchLot} = useGetLotQuery(id);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -37,8 +37,8 @@ export const LotScreen: FC<Props> = ({ navigation, route }) => {
       await buyLot(lot_id).unwrap();
       showToast(ToastTypes.Success, 'Lot was successfully bought');
       globalNavigate(ROUTES.HomeStack, {
-        screen: ROUTES.LotList, 
-        params: { id: route.params.id, headerTitle: route.params.headerTitle}
+        screen: ROUTES.LotList,
+        params: {id: route.params.id, headerTitle: route.params.headerTitle},
       });
     } catch (error) {
       showToast(ToastTypes.Error, 'Something went wrong during lot buying');
@@ -53,27 +53,35 @@ export const LotScreen: FC<Props> = ({ navigation, route }) => {
           <RefreshControl refreshing={isLoading} onRefresh={refetchLot} />
         }>
         <LotView lot={lot} />
-        {(lot.created_by !==user.userId) && user.isLoggedIn &&
+        {lot.created_by !== user.userId && user.isLoggedIn && (
           <View style={styles.buttons_wrapper}>
             <ButtonWithIcon
               title="Place a bet"
               type="light"
-              icon={<BetIcon fill={
-                (lot.status === Status.Auction_ended) ? 
-                Colors.TERTIARY : 
-                Colors.BUTTON_PRIMARY} />}
+              icon={
+                <BetIcon
+                  fill={
+                    lot.status === Status.Auction_ended
+                      ? Colors.TERTIARY
+                      : Colors.BUTTON_PRIMARY
+                  }
+                />
+              }
               onPress={() => setIsModalVisible(true)}
               disabled={lot.status === Status.Auction_ended}
             />
             <ButtonWithIcon
               title="Buy now"
               type="dark"
-              icon={<ShoppingIcon fill={Colors.WHITE} 
-              onPress={() => onBuyNow(lot.lot_id)}
-              />}
+              icon={
+                <ShoppingIcon
+                  fill={Colors.WHITE}
+                  onPress={() => onBuyNow(lot.lot_id)}
+                />
+              }
             />
           </View>
-        }
+        )}
         <BetsModalContainer
           isOpen={isModalVisible}
           onClose={setIsModalVisible}
