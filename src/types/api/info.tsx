@@ -39,6 +39,7 @@ export enum Status {
   Auction_ended = 'auction_ended',
   Cancelled = 'cancelled',
   Expired = 'expired',
+  Deactivated = 'deactivated',
 }
 
 export type Cities = string[];

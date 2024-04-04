@@ -2,7 +2,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppText} from '../../components/appText/appText';
 import {MainWrapper} from '../../components/mainWrapper/mainWrapper';
 import {setPadding} from '../../utils/styling/padding';
-import {RootStackParams } from '../../types/navigation';
+import {DeliveryStackParams} from '../../types/navigation';
 import {ROUTES} from '../../constants/routes';
 import {FC} from 'react';
 import {useGetUserBoughtLotsQuery} from '../../api/endpoints';
@@ -13,7 +13,7 @@ import { Colors } from '../../constants/colors';
 import { FlashList } from '@shopify/flash-list';
 import { ListItem } from '../../components/listItem/ListItem';
 
-type Props = NativeStackScreenProps<RootStackParams, ROUTES.Delivery>;
+type Props = NativeStackScreenProps<DeliveryStackParams, ROUTES.Delivery>;
 
 export const DeliveryScreen: FC<Props> = ({navigation, route}) => {
   const {
@@ -48,6 +48,10 @@ export const DeliveryScreen: FC<Props> = ({navigation, route}) => {
           <Pressable
             style={{...setPadding(0, 16, 0, 16)}}
             onPress={() => {
+              navigation.navigate(ROUTES.DeliveryView, {
+                id: item.lot_id,
+                headerTitle: item.title || ''
+              });
             }}>
             <ListItem
               image_url={item.image_url[0] ? item.image_url[0].url : ''}

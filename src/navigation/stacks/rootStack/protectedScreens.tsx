@@ -1,12 +1,11 @@
 import {RootStack} from '.';
 import {ROUTES} from '../../../constants/routes';
-import {DeliveryScreen} from '../../../screens/deliveryScreen/deliveryScreen';
 import {NewAdsScreen} from '../../../screens/newAdsScreen/newAdsScreen';
 import BettingIcon from '../../../assets/icons/bottomTabNavIcons/auction.svg';
 import NewAds from '../../../assets/icons/bottomTabNavIcons/plus-square.svg';
 import DeliveryIcon from '../../../assets/icons/bottomTabNavIcons/truck.svg';
 import {BetScreenStack} from '../betStack/betScreenStack';
-import {Header} from '../../../components/header/header';
+import {DeliveryScreenStack} from '../deliveryStack/deliveryScreenStack';
 
 export const protectedScreens = {
   [ROUTES.NewAds]: (
@@ -27,13 +26,11 @@ export const protectedScreens = {
       }}
     />
   ),
-  [ROUTES.Delivery]: (
+  [ROUTES.DeliveryStack]: (
     <RootStack.Screen
-      name={ROUTES.Delivery}
-      component={DeliveryScreen}
+      name={ROUTES.DeliveryStack}
+      component={DeliveryScreenStack}
       options={{
-        headerShown: true,
-        headerTitle: Header,
         tabBarIcon: ({color}) => <DeliveryIcon fill={`${color}`} />,
       }}
     />

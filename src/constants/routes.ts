@@ -2,6 +2,8 @@ export enum ROUTES {
   NewAds = 'NewAds',
   Bets = 'Bets',
   Delivery = 'Delivery',
+  DeliveryStack = 'DeliveryStack',
+  DeliveryView = 'DeliveryView',
   HomeStack = 'HomeStack',
   Account = 'Account',
   GuestAccount = 'GuestAccount',

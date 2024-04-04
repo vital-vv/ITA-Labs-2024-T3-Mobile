@@ -4,7 +4,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
   [ROUTES.BetStack]: NavigatorScreenParams<BetStackParams>;
-  [ROUTES.Delivery]: undefined;
+  [ROUTES.DeliveryStack]: undefined;
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.AccountStack]: NavigatorScreenParams<AccountStackParams>;
   [ROUTES.OnBoarding]: undefined;
@@ -48,4 +48,9 @@ export type MyAdsStackParams = {
     headerTitle: string;
     position: string;
   };
+};
+
+export type DeliveryStackParams = {
+  [ROUTES.Delivery]: undefined;
+  [ROUTES.DeliveryView]: {id: number; headerTitle: string};
 };
