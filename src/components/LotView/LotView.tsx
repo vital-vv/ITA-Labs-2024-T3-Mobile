@@ -55,7 +55,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
                 position === 'leading'
                   ? Colors.SYSTEM_BASE
                   : position === 'success'
-                  ? Colors.SUCCEESS
+                  ? Colors.SUCCESS
                   : Colors.WARNING
               }
             />

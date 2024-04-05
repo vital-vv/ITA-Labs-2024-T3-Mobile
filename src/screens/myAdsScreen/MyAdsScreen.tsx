@@ -15,11 +15,12 @@ import {Colors} from '../../constants/colors';
 import {buttonsData} from './utils/myAdsButtonsData';
 import {FlashList} from '@shopify/flash-list';
 import {MyAdsItem} from '../../components/myAdsItem/MyAdsItem';
+import {Lot} from '../../types/api/lots';
 
 type Props = NativeStackScreenProps<MyAdsStackParams, ROUTES.MyAds>;
 
 export const MyAdsScreen: FC<Props> = ({navigation, route}) => {
-  const [isActive, setIsActive] = useState(1);
+  const [isActive, setIsActive] = useState('Active');
 
   const {
     data: myActiveAdsData,
@@ -48,6 +49,19 @@ export const MyAdsScreen: FC<Props> = ({navigation, route}) => {
     ],
   });
 
+  const onClick = (item: Lot) => {
+    navigation.navigate(ROUTES.MyAdView, {
+      id: item.lot_id,
+      headerTitle: item.title || '',
+      position:
+        isActive === 'Active'
+          ? 'active'
+          : isActive === 'Pending'
+          ? 'pending'
+          : 'expired',
+    });
+  };
+
   if (isLoadingActiveAds && isLoadingPendingAds && isLoadingInactiveAds) {
     return <SpinnerWrapper />;
   }
@@ -59,11 +73,11 @@ export const MyAdsScreen: FC<Props> = ({navigation, route}) => {
           <View key={item.number}>
             <Pressable
               onPress={() => {
-                setIsActive(item.number);
+                setIsActive(item.title);
               }}
               style={[
                 styles.button,
-                isActive === item.number && styles.button_pressed,
+                isActive === item.title && styles.button_pressed,
               ]}>
               <AppText
                 text={item.title}
@@ -80,43 +94,32 @@ export const MyAdsScreen: FC<Props> = ({navigation, route}) => {
         refreshControl={
           <RefreshControl
             refreshing={
-              isActive === 1
+              isActive === 'Active'
                 ? isLoadingActiveAds
-                : isActive === 2
+                : isActive === 'Pending'
                 ? isLoadingPendingAds
                 : isLoadingInactiveAds
             }
             onRefresh={
-              isActive === 1
+              isActive === 'Active'
                 ? refetchGetUserActiveAds
-                : isActive === 2
+                : isActive === 'Pending'
                 ? refetchGetUserPendingAds
                 : refetchGetUserInactiveAds
             }
           />
         }
         data={
-          isActive === 1
+          isActive === 'Active'
             ? myActiveAdsData?.content
-            : isActive === 2
+            : isActive === 'Pending'
             ? myPendingAdsData?.content
             : myInactiveAdsData?.content
         }
         renderItem={({item}) => (
           <Pressable
             style={{...setPadding(0, 16, 0, 16)}}
-            onPress={() => {
-              navigation.navigate(ROUTES.MyAdView, {
-                id: item.lot_id,
-                headerTitle: item.title || '',
-                position:
-                  isActive === 1
-                    ? 'active'
-                    : isActive === 2
-                    ? 'pending'
-                    : 'expired',
-              });
-            }}>
+            onPress={() => onClick(item)}>
             <MyAdsItem lot={item} />
           </Pressable>
         )}

@@ -58,23 +58,20 @@ const myAdsItemStyles = StyleSheet.create({
     flexDirection: 'row',
     columnGap: 8,
   },
-  on_moderation: {
-    borderColor: Colors.SYSTEM_BASE,
+  status: {
     borderWidth: 1,
     borderStyle: 'solid',
-    borderRadius: 20,
-    backgroundColor: Colors.SYSTEM_EXTRALIGHT,
     paddingHorizontal: 12,
     paddingVertical: 2,
+    borderRadius: 20,
+  },
+  on_moderation: {
+    borderColor: Colors.SYSTEM_BASE,
+    backgroundColor: Colors.SYSTEM_EXTRALIGHT,
   },
   rejected: {
     borderColor: Colors.ERROR_BASE,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderRadius: 20,
     backgroundColor: Colors.ERROR_BACKGROUND,
-    paddingHorizontal: 12,
-    paddingVertical: 2,
   },
   moderator_description: {
     borderColor: Colors.ERROR_BASE,

@@ -31,6 +31,19 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
   const [confirmLot] = useConfirmLotMutation();
   const [deactivateLot] = useDeactivateLotMutation();
 
+  const onConfirm = (lot_id: number) => {
+    confirmLot(lot_id),
+    globalNavigate(ROUTES.AccountStack, {
+      screen: ROUTES.MyAdsStack,
+    });
+  };
+
+  const onDeactivate = (lot_id: number) => {
+    deactivateLot(lot_id),
+    setIsModalVisible(false),
+    globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack});
+  };
+
   return (
     <>
       <HorizontalDivider />
@@ -41,11 +54,11 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
             <AppText text={lot.title} variant={TEXT_VARIANT.MAIN_18_500} />
             {(lot.status === 'moderated' || lot.status === 'cancelled') && (
               <View
-                style={
+                style={[styles.status, 
                   lot.status === 'moderated'
                     ? styles.on_moderation
                     : styles.rejected
-                }>
+                ]}>
                 <AppText
                   text={
                     lot.status === 'moderated' ? 'On moderation' : 'Rejected'
@@ -95,7 +108,7 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
                   <AppText
                     text={`${lot.currency} ${lot.leading.amount}`}
                     variant={TEXT_VARIANT.MAIN_20_500}
-                    color={Colors.SUCCEESS}
+                    color={Colors.SUCCESS}
                     style={{lineHeight: 24}}
                   />
                   <AppText
@@ -139,12 +152,7 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
                 title="Confirm deal"
                 type="success"
                 icon={<CheckIcon fill={Colors.WHITE} />}
-                onPress={() => {
-                  confirmLot(lot.lot_id),
-                    globalNavigate(ROUTES.AccountStack, {
-                      screen: ROUTES.MyAdsStack,
-                    });
-                }}
+                onPress={() => onConfirm(lot.lot_id)}
               />
             )}
             {(lot.status === 'moderated' || lot.status === 'cancelled') && (
@@ -160,11 +168,7 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
       </View>
       <ModalWindow isOpen={isModalVisible} onClose={setIsModalVisible}>
         <Pressable
-          onPress={() => {
-            deactivateLot(lot.lot_id),
-              setIsModalVisible(false),
-              globalNavigate(ROUTES.AccountStack, {screen: ROUTES.MyAdsStack});
-          }}>
+          onPress={() =>onDeactivate(lot.lot_id)}>
           <View style={styles.lot_block}>
             <ShutDown />
             <AppText
