@@ -3,7 +3,7 @@ import {EndpointWithMediaHeader} from '../../../constants/endpointWithMediaHeade
 import {ROUTES} from '../../../constants/routes';
 import {globalNavigate} from '../../../navigation/globalNavigation';
 import {currentUserActions} from '../../../store/slices/currentUserSlice';
-import {UserEditResponse} from '../../../types/api/users';
+import {EditUserParams, UserEditResponse} from '../../../types/api/users';
 import {ToastTypes} from '../../../types/toasts';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
@@ -12,12 +12,12 @@ export const editUser = agroexAPI.injectEndpoints({
   endpoints: builder => ({
     [EndpointWithMediaHeader.EditUser]: builder.mutation<
       UserEditResponse,
-      FormData
+      EditUserParams
     >({
       query: userData => ({
-        url: API_URL.users,
+        url: API_URL.users(userData.isChange),
         method: 'PUT',
-        body: userData,
+        body: userData.data,
       }),
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
