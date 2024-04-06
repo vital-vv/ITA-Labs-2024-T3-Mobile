@@ -140,19 +140,33 @@ export const LotPreview: FC<Props> = ({
         )}
         {!values.quantity && <AppText text={''} style={styles.no_info} />}
         <AppText
-          text={'Size'}
+          text={'Size from'}
           variant={TEXT_VARIANT.MAIN_16_400}
           color={Colors.SECONDARY}
           style={styles.text}
         />
-        {values.size && (
+        {values.fromSize && (
           <AppText
-            text={`${values.size} ${currentLength}`}
+            text={`${values.fromSize} ${currentLength}`}
             variant={TEXT_VARIANT.MAIN_16_400}
             style={styles.text}
           />
         )}
-        {!values.size && <AppText text={''} style={styles.no_info} />}
+        {!values.fromSize && <AppText text={''} style={styles.no_info} />}
+        <AppText
+          text={'Size to'}
+          variant={TEXT_VARIANT.MAIN_16_400}
+          color={Colors.SECONDARY}
+          style={styles.text}
+        />
+        {values.toSize && (
+          <AppText
+            text={`${values.toSize} ${currentLength}`}
+            variant={TEXT_VARIANT.MAIN_16_400}
+            style={styles.text}
+          />
+        )}
+        {!values.toSize && <AppText text={''} style={styles.no_info} />}
         <AppText
           text={'Packaging'}
           variant={TEXT_VARIANT.MAIN_16_400}

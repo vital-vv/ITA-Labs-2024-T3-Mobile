@@ -22,7 +22,7 @@ type Props = {
   weight: Weight;
   quantity: number;
   image_url?: string;
-  userAmount?:  number;
+  userAmount?: number;
 };
 
 export const ListItem: FC<Props> = ({
@@ -43,15 +43,20 @@ export const ListItem: FC<Props> = ({
     <>
       <HorizontalDivider />
       <View style={styles.item}>
-        <Image style={styles.image} source={
-          image_url ? {uri: image_url} 
-          : require('../../assets/images/no_image.png')} 
+        <Image
+          style={styles.image}
+          source={
+            image_url
+              ? {uri: image_url}
+              : require('../../assets/images/no_image.png')
+          }
         />
         <View style={styles.lot_info}>
-          <AppText 
-            text={title} 
-            variant={TEXT_VARIANT.MAIN_16_400} 
-            style={styles.text} />
+          <AppText
+            text={title}
+            variant={TEXT_VARIANT.MAIN_16_400}
+            style={styles.text}
+          />
           <View style={styles.lot_block}>
             <DateCounter date={expiration_date} />
             <AppText
@@ -60,7 +65,7 @@ export const ListItem: FC<Props> = ({
               color={Colors.SECONDARY}
             />
           </View>
-          { position == 'outbid' && userAmount &&
+          {position == 'outbid' && userAmount && (
             <View style={styles.lot_block}>
               <AlertIcon fill={Colors.ERROR_BASE} />
               <AppText
@@ -69,13 +74,19 @@ export const ListItem: FC<Props> = ({
                 color={Colors.ERROR_BASE}
               />
               <AppText
-                text={`${currency} ${(userAmount/quantity).toFixed(2)}/${weight}`}
+                text={`${currency} ${(userAmount / quantity).toFixed(
+                  2,
+                )}/${weight}`}
                 variant={TEXT_VARIANT.MAIN_10_400}
                 color={Colors.SECONDARY}
               />
             </View>
-          }
-          <View style={[styles.bets_block, position != 'outbid' && {...setMargin(16, 0, 0, 0)}]}>
+          )}
+          <View
+            style={[
+              styles.bets_block,
+              position != 'outbid' && {...setMargin(16, 0, 0, 0)},
+            ]}>
             {amount ? (
               <View style={styles.lot_block}>
                 <AppText
@@ -109,7 +120,7 @@ export const ListItem: FC<Props> = ({
           </View>
           <View style={styles.lot_block}>
             <AppText
-              text={`${currency} ${total_price}`}
+              text={`${currency} ${total_price.toFixed(2)}`}
               variant={TEXT_VARIANT.MAIN_16_400}
             />
             <AppText

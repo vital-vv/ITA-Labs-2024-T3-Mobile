@@ -3,11 +3,11 @@ import {ROUTES} from '../../../constants/routes';
 import {AccountScreen} from '../../../screens/accountScreen/accountScreen';
 import {CurrencyScreen} from '../../../screens/currencyScreen/CurrencyScreen';
 import {LanguageScreen} from '../../../screens/languageScreen/LanguageScreen';
-import {MyAdsScreen} from '../../../screens/myAdsScreen/MyAdsScreen';
 import {NotificationsScreen} from '../../../screens/notificationsScreen/NotificationsScreen';
 import {PasswordScreen} from '../../../screens/passwordScreen/PasswordScreen';
 import {PersonalDataScreen} from '../../../screens/personalDataScreen/PersonalDataScreen';
 import {SettingsScreen} from '../../../screens/settingsScreen/SettingsScreen';
+import {MyAdsScreenStack} from '../myAdsStack/myAdsScreenStack';
 
 export const protectedScreens = {
   [ROUTES.Account]: (
@@ -26,11 +26,13 @@ export const protectedScreens = {
       options={{title: 'Personal data'}}
     />
   ),
-  [ROUTES.MyAds]: (
+  [ROUTES.MyAdsStack]: (
     <AccountStack.Screen
-      name={ROUTES.MyAds}
-      component={MyAdsScreen}
-      options={{title: 'My advertisements'}}
+      name={ROUTES.MyAdsStack}
+      component={MyAdsScreenStack}
+      options={{
+        headerShown: false,
+      }}
     />
   ),
   [ROUTES.Notifications]: (

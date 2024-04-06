@@ -17,20 +17,35 @@ import {setMargin} from '../../utils/styling/margin';
 import {AccountStackParams} from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes';
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selector} from '../../store/selector';
 import {logout} from '../../store/functions/userActions';
+import {useGetUserAdsQuery} from '../../api/endpoints';
+import {StatusInResponce} from '../../types/api/info';
 
 type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
 
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const dispatch = useAppDispatch();
+  // const [myAdsCount, setMyAdsCount] = useState(0)
 
   const onPressNavigation = (route: keyof AccountStackParams | 'logout') => {
     route !== 'logout' ? navigation.navigate(route) : dispatch(logout());
   };
+
+  const {
+    data: myAdsData,
+    isLoading: isLoadingAds,
+    refetch: refetchGetUserAds,
+  } = useGetUserAdsQuery({
+    status: [
+      StatusInResponce.Active,
+      StatusInResponce.Moderated,
+      StatusInResponce.Cancelled,
+    ],
+  });
 
   return (
     <MainWrapper>
@@ -81,7 +96,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
         </Pressable>
         <View style={styles.group_container}>
           <Pressable
-            onPress={() => onPressNavigation(ROUTES.MyAds)}
+            onPress={() => onPressNavigation(ROUTES.MyAdsStack)}
             style={[styles.tab_container, styles.tab]}>
             <View style={styles.add_container}>
               <MyAds style={setMargin(0, 12, 0, 0)} fill={Colors.SECONDARY} />
@@ -92,7 +107,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
               />
             </View>
             <AppText
-              text={'3'}
+              text={myAdsData ? myAdsData.metadata.total_elements : '0'}
               variant={TEXT_VARIANT.MAIN_20_500}
               color={Colors.BUTTON_PRIMARY}
             />
@@ -166,7 +181,7 @@ export const AccountScreen: FC<Props> = ({navigation, route}) => {
           <Pressable
             onPress={() => onPressNavigation(ROUTES.Settings)}
             style={[styles.add_container, styles.tab]}>
-            <Settings style={setMargin(0, 12, 0, 0)} />
+            <Settings style={setMargin(0, 12, 0, 0)} fill={Colors.SECONDARY} />
             <AppText
               text={'Settings'}
               variant={TEXT_VARIANT.MAIN_18_400}

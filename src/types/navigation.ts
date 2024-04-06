@@ -4,11 +4,12 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 export type RootStackParams = {
   [ROUTES.NewAds]: {headerTitle: string};
   [ROUTES.BetStack]: NavigatorScreenParams<BetStackParams>;
-  [ROUTES.Delivery]: undefined;
+  [ROUTES.DeliveryStack]: undefined;
   [ROUTES.HomeStack]: NavigatorScreenParams<HomeStackParams>;
   [ROUTES.AccountStack]: NavigatorScreenParams<AccountStackParams>;
   [ROUTES.OnBoarding]: undefined;
   [ROUTES.Auth]: undefined;
+  [ROUTES.MyAdsStack]: MyAdsStackParams;
 };
 
 export type HomeStackParams = {
@@ -22,7 +23,7 @@ export type HomeStackParams = {
 export type AccountStackParams = {
   [ROUTES.Account]: undefined;
   [ROUTES.PersonalData]: undefined;
-  [ROUTES.MyAds]: undefined;
+  [ROUTES.MyAdsStack]: undefined;
   [ROUTES.Notifications]: undefined;
   [ROUTES.Currency]: undefined;
   [ROUTES.Language]: undefined;
@@ -38,4 +39,18 @@ export type BetStackParams = {
     headerTitle: string;
     position?: 'leading' | 'outbid';
   };
+};
+
+export type MyAdsStackParams = {
+  [ROUTES.MyAds]: undefined;
+  [ROUTES.MyAdView]: {
+    id: number;
+    headerTitle: string;
+    position: string;
+  };
+};
+
+export type DeliveryStackParams = {
+  [ROUTES.Delivery]: undefined;
+  [ROUTES.DeliveryView]: {id: number; headerTitle: string};
 };

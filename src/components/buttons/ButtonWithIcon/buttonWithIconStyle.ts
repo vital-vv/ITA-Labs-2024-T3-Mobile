@@ -4,6 +4,7 @@ import {Colors} from '../../../constants/colors';
 
 const buttonWithIconStyle = StyleSheet.create({
   buttonWrapper: {
+    flex: 1,
     ...setPadding(8, 0, 8, 0),
     alignItems: 'center',
     justifyContent: 'center',
@@ -20,6 +21,10 @@ const buttonWithIconStyle = StyleSheet.create({
   dark: {
     backgroundColor: Colors.BUTTON_PRIMARY,
     borderColor: Colors.BUTTON_PRIMARY,
+  },
+  success: {
+    backgroundColor: Colors.SUCCESS,
+    borderColor: Colors.SUCCESS,
   },
   disabled: {
     backgroundColor: Colors.HORIZONTAL_DIVIDER,

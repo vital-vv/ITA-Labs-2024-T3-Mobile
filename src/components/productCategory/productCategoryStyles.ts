@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { Colors } from '../../constants/colors';
+import {Colors} from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   categoryWrapper: {
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
+
   categoryTitle: {
     display: 'flex',
     flexDirection: 'row',

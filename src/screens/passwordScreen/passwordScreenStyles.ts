@@ -31,4 +31,7 @@ export const styles = StyleSheet.create({
     ...textTypographyStyles[TEXT_VARIANT.MAIN_10_500],
     ...textColorStyles[Colors.ERROR_BASE],
   },
+  button: {
+    maxHeight: 44,
+  }
 });

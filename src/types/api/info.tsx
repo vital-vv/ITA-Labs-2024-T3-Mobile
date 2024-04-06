@@ -37,6 +37,9 @@ export enum Status {
   Sold = 'sold',
   Moderated = 'moderated',
   Auction_ended = 'auction_ended',
+  Cancelled = 'cancelled',
+  Expired = 'expired',
+  Deactivated = 'deactivated',
 }
 
 export type Cities = string[];
@@ -62,3 +65,13 @@ export type Selection = {
   currency: Currency[];
   countries: string[];
 };
+
+export enum StatusInResponce {
+  Active = 'ACTIVE',
+  Sold = 'SOLD',
+  Moderated = 'MODERATED',
+  Auction_ended = 'AUCTION_ENDED',
+  Cancelled = 'CANCELLED',
+  Expired = 'EXPIRED',
+  Deactivated = 'DEACTIVATED',
+}

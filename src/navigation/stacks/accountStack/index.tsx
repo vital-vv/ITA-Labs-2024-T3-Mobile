@@ -18,7 +18,7 @@ export const AccountScreenStack = () => {
           {protectedScreens.Account}
           {protectedScreens.Currency}
           {protectedScreens.Language}
-          {protectedScreens.MyAds}
+          {protectedScreens.MyAdsStack}
           {protectedScreens.Notifications}
           {protectedScreens.Password}
           {protectedScreens.PersonalData}

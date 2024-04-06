@@ -12,6 +12,10 @@ import {getUserBets} from './bets/getUserBets';
 import {getCities} from './selection/getCities';
 import {getUserAvatar} from './users/userAvatar';
 import {buyLot} from './lots/buyLot';
+import {getUserAds} from './lots/getUserAds';
+import {confirmLot} from './lots/confirmLot';
+import {deactivateLot} from './lots/deactivateLot';
+import {getUserBoughtLots} from './lots/getUserBoughtLots';
 
 export const {useGetCategoryQuery, useLazyGetCategoryQuery} = getCategory;
 
@@ -29,6 +33,10 @@ export const {useGetCitiesQuery, useLazyGetCitiesQuery} = getCities;
 
 export const {useCreateLotMutation} = createLot;
 
+export const {useConfirmLotMutation} = confirmLot;
+
+export const {useDeactivateLotMutation} = deactivateLot;
+
 export const {useCreateUserMutation} = createUser;
 
 export const {useEditUserMutation} = editUser;
@@ -43,3 +51,8 @@ export const {useCreateBetMutation} = createBet;
 export const {useGetUserBetsQuery, useLazyGetUserBetsQuery} = getUserBets;
 
 export const {useBuyLotMutation} = buyLot;
+
+export const {useGetUserAdsQuery, useLazyGetUserAdsQuery} = getUserAds;
+
+export const {useGetUserBoughtLotsQuery, useLazyGetUserBoughtLotsQuery} =
+  getUserBoughtLots;

@@ -40,5 +40,5 @@ export const styles = StyleSheet.create({
   },
   text: {
     maxWidth: screenWidth - 168,
-  }
+  },
 });

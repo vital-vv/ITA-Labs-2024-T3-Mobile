@@ -85,6 +85,7 @@ export const PasswordScreen: FC<Props> = ({navigation, route}) => {
             disabled={!isValid}
             variant={TEXT_VARIANT.MAIN_16_500}
             title={'Set new Password'}
+            style={styles.button}
           />
         </ScrollView>
       )}

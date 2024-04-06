@@ -25,7 +25,8 @@ export type Lot = {
   location: Location;
   description: string;
   status: Status;
-  size: number;
+  fromSize: number;
+  toSize: number;
   packaging: Packaging;
   leading: Bid | null;
   users: Bid;
@@ -42,6 +43,7 @@ export type Lot = {
   start_price: number;
   length_unit: string;
   bid_quantity: number;
+  reject_message: string;
 };
 
 export type GetLotsInSubCategoryParams = {
@@ -73,7 +75,8 @@ export type LotCreate = {
   weight: Weight;
   location: Location;
   description: string;
-  size: number;
+  fromSize: number;
+  toSize: number;
   packaging: Packaging;
   currency: Currency;
 };
@@ -89,4 +92,9 @@ export type imageUrl = {
   id: number;
   imageURL: string;
   file: {uri: string; type: string; name: string};
+};
+
+export type MyAdsResponse = {
+  content: Lot[];
+  metadata: PaginationMetaData;
 };
