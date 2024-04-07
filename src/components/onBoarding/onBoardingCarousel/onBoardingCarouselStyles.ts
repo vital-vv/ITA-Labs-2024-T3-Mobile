@@ -37,5 +37,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     gap: 10,
     paddingHorizontal: 16,
+    paddingBottom: 16,
   },
 });

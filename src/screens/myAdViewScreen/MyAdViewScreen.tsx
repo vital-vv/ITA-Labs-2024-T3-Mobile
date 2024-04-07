@@ -65,6 +65,7 @@ export const MyAdViewScreen: FC<Props> = ({navigation, route}) => {
               type="success"
               icon={<CheckIcon fill={Colors.WHITE} />}
               onPress={() => onConfirm(lot.lot_id)}
+              disabled={!lot.leading?.amount}
             />
           )}
           {position === 'pending' && (

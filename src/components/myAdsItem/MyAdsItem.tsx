@@ -48,7 +48,13 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
     <>
       <HorizontalDivider />
       <View style={styles.item}>
-        <Image style={styles.image} source={{uri: lot.image_url[0].url}} />
+        <Image 
+          style={styles.image} 
+          source={
+            lot.image_url[0]
+              ? {uri: lot.image_url[0].url}
+              : require('../../assets/images/no_image.png')}
+         />
         <View style={styles.lot_info}>
           <View style={styles.lot_block}>
             <AppText text={lot.title} variant={TEXT_VARIANT.MAIN_18_500} />
@@ -153,6 +159,7 @@ export const MyAdsItem: FC<Props> = ({lot}) => {
                 type="success"
                 icon={<CheckIcon fill={Colors.WHITE} />}
                 onPress={() => onConfirm(lot.lot_id)}
+                disabled={!lot.leading?.amount}
               />
             )}
             {(lot.status === 'moderated' || lot.status === 'cancelled') && (

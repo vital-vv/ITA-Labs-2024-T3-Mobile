@@ -180,7 +180,7 @@ export const PersonalDataOnboardingForm: FC<Props> = ({style}) => {
               onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
               value={values.phone}
-              placeholder="Phone. For example: +375-999-99-99"
+              placeholder="Phone. For example: +375-29-999-99-99"
               keyboardType="phone-pad"
             />
             {touched.phone && errors.phone && (

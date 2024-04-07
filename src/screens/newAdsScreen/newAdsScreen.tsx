@@ -70,7 +70,7 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
   const [skip, setSkip] = useState(true);
   const [isValidimageUrl, setIsValidImageUrl] = useState(false);
   const [skipCity, setSkipCity] = useState(true);
-  const [createLot] = useCreateLotMutation();
+  const [createLot, {isLoading: isCreateLotLoading}] = useCreateLotMutation();
 
   const {
     data: allSelectionData,
@@ -223,6 +223,10 @@ export const NewAdsScreen: FC<Props> = ({navigation, route}) => {
 
   if (CitiesData) {
     citiesArray = mapData(CitiesData);
+  }
+
+  if (isCreateLotLoading)  {
+    return <SpinnerWrapper />;
   }
 
   return (
