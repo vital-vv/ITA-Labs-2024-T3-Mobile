@@ -9,6 +9,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    marginTop: 15,
+    marginTop: 10,
   },
 });

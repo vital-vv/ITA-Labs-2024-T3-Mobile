@@ -1,4 +1,4 @@
-import {StatusInResponce} from "../types/api/info";
+import {StatusInResponce} from '../types/api/info';
 
 const API_BASE_URL = process.env.API_BASE_URL;
 
@@ -19,9 +19,11 @@ export const API_URL = {
   lotBuy: (id: number) => `/lots/${id}/buy`,
   lotConfirm: (id: number) => `/lots/${id}/confirm`,
   lotDeactivate: (id: number) => `/lots/${id}/deactivate`,
-  users: (isChange: boolean) => `/users?isChange=${isChange}`,
+  createUser:`/users`,
+  editUser: (isChange: boolean) => `/users?isChange=${isChange}`,
   currentUser: '/users/me',
-  userAds: (status: StatusInResponce[]) => `/users/lots?status=${status.join(',')}`,
+  userAds: (status: StatusInResponce[]) =>
+    `/users/lots?status=${status.join(',')}`,
   userBets: (status: string) => `/users/bids?status=${status}`,
   userBoughtLots: '/users/lots/bought',
   bets: '/bids',

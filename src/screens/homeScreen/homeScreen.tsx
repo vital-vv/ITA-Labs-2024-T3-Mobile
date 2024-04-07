@@ -13,6 +13,7 @@ import {useGetAllCategoriesQuery} from '../../api/endpoints/index.ts';
 import {FC} from 'react';
 import {setPadding} from '../../utils/styling/padding.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Home>;
 
@@ -22,7 +23,7 @@ export const HomeScreen: FC<Props> = ({navigation, route}) => {
     isLoading,
     refetch: refetchAllCategoriesData,
   } = useGetAllCategoriesQuery();
-  
+
   if (isLoading) return <SpinnerWrapper />;
 
   return (
