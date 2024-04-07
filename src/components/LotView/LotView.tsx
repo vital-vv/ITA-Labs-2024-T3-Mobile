@@ -9,7 +9,7 @@ import {Lot} from '../../types/api/lots';
 import InfoIcon from '../../assets/icons/info.svg';
 import {lotViewData} from './utils/lotViewData';
 import {Carousel} from '../imageCarousel';
-
+import {Map} from '../mapView/map';
 type Props = {
   lot: Lot;
   position?: 'leading' | 'outbid' | 'success' | 'none';
@@ -96,6 +96,7 @@ export const LotView: FC<Props> = ({lot, position}) => {
           />
         ))}
       </View>
+      <Map />
     </ScrollView>
   );
 };

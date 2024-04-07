@@ -15,7 +15,7 @@ export const createUser = agroexAPI.injectEndpoints({
       FormData
     >({
       query: userData => ({
-        url: API_URL.users,
+        url: API_URL.createUser,
         method: 'POST',
         body: userData,
       }),

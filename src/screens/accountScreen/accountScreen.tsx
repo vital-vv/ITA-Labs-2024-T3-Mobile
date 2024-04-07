@@ -17,7 +17,7 @@ import {setMargin} from '../../utils/styling/margin';
 import {AccountStackParams} from '../../types/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ROUTES} from '../../constants/routes';
-import {FC, useEffect, useState} from 'react';
+import {FC} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selector} from '../../store/selector';
 import {logout} from '../../store/functions/userActions';
@@ -29,12 +29,9 @@ type Props = NativeStackScreenProps<AccountStackParams, ROUTES.Account>;
 export const AccountScreen: FC<Props> = ({navigation, route}) => {
   const user = useAppSelector(selector.currentUserSliceData);
   const dispatch = useAppDispatch();
-  // const [myAdsCount, setMyAdsCount] = useState(0)
-
   const onPressNavigation = (route: keyof AccountStackParams | 'logout') => {
     route !== 'logout' ? navigation.navigate(route) : dispatch(logout());
   };
-
   const {
     data: myAdsData,
     isLoading: isLoadingAds,

@@ -15,7 +15,7 @@ export const editUser = agroexAPI.injectEndpoints({
       EditUserParams
     >({
       query: userData => ({
-        url: API_URL.users(userData.isChange),
+        url: API_URL.editUser(userData.isChange),
         method: 'PUT',
         body: userData.data,
       }),

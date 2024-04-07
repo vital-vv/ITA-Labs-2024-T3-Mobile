@@ -1,9 +1,11 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {currentUserReducer} from './slices/currentUserSlice';
 import {agroexAPI} from '../api/index';
+import {amplifyAuthReducer} from './slices/amplifyAuthSlice.ts';
 
 const rootReducer = combineReducers({
   currentUserReducer,
+  amplifyAuthReducer,
   [agroexAPI.reducerPath]: agroexAPI.reducer,
 });
 

@@ -11,7 +11,6 @@ import {CurrentUserResponse} from '../../../types/api/users';
 import {ToastTypes} from '../../../types/toasts';
 import {API_URL} from '../../apiURL';
 import {agroexAPI} from '../../index';
-import {signOut} from 'aws-amplify/auth';
 
 export const getCurrentUser = agroexAPI.injectEndpoints({
   endpoints: builder => ({

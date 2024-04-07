@@ -58,6 +58,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
   const refetchToInitialPage = () => {
     setQueryParams({...queryParams, page: initialQueryParams.page});
   };
+
   const renderItems: ListRenderItem<Lot> = ({item}) => {
     return (
       <Pressable
@@ -68,7 +69,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
           });
         }}>
         <ListItem
-          image_url={item.image_url[0].url}
+          image_url={item.image_url.length ? item.image_url[0].url : undefined}
           title={item.title}
           expiration_date={item.expiration_date}
           lot_id={item.lot_id}
