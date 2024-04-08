@@ -20,43 +20,57 @@ import {setPadding} from '../../utils/styling/padding';
 import FilterIcon from '../../assets/icons/filter.svg';
 import {Colors} from '../../constants/colors';
 import {Lot} from '../../types/api/lots';
-import {FilterOptionsModal} from './components/filterOptionsModal/filterOptionsModal';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {selector} from '../../store/selector';
+import {filterActions} from '../../store/slices/filterOptionsSlice';
 
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.LotList>;
 
 export const LotListScreen: FC<Props> = ({navigation, route}) => {
   const {id} = route.params;
-  const initialPage = 1;
-  const initialQueryParams = {
-    page: initialPage,
-    limit: 10,
-    filterArgs: '',
+  const dispatch = useAppDispatch();
+  const filterState = useAppSelector(selector.filterOptionsSlice);
+
+  const filterPackaging = filterState.packaging
+    .map(item => `&packaging=${item}`)
+    .join('');
+
+  const mainSortField = filterState.mainSortField
+    ? `&sortField=${filterState.mainSortField}`
+    : '';
+  const sortOrder = filterState.sortOrder
+    ? `&sortOrder=${filterState.sortOrder}`
+    : '';
+  const fromPrice = filterState.fromPrice
+    ? `&fromPrice=${filterState.fromPrice}`
+    : '';
+  const toPrice = filterState.toPrice ? `&toPrice=${filterState.toPrice}` : '';
+  const price = fromPrice && toPrice ? fromPrice + toPrice : '';
+  const queryParams = {
     id: id,
+    page: filterState.page,
+    limit: filterState.itemsPerPage,
+    filterArgs: filterPackaging + mainSortField + sortOrder + price,
   };
-  const [queryParams, setQueryParams] = useState({...initialQueryParams});
+
   const {
     data: infiniteLotsList,
     isLoading,
     isFetching,
-    refetch,
   } = useGetLotsInSubCategoryQuery({
     ...queryParams,
   });
-  const flatListRef = useRef<FlatList<Lot>>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onEndOfListIsReached = () => {
     if (infiniteLotsList?.isNextPage) {
-      setQueryParams(prevState => {
-        return {...prevState, page: prevState.page + 1};
-      });
-    } else {
-      return;
+      dispatch(filterActions.setNextPage());
     }
   };
-
   const refetchToInitialPage = () => {
-    setQueryParams({...queryParams, page: initialQueryParams.page});
+    dispatch(filterActions.setFilterOptions({...filterState, page: 1}));
+  };
+  const onPressFilterOptions = () => {
+    navigation.navigate(ROUTES.LotsFilter);
   };
 
   const renderItems: ListRenderItem<Lot> = ({item}) => {
@@ -98,7 +112,6 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
         </Pressable>
       </View>
       <FlatList
-        ref={flatListRef}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={refetchToInitialPage} />
         }
@@ -108,15 +121,9 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
         onEndReached={onEndOfListIsReached}
       />
       {isLoading || isFetching ? <SpinnerWrapper text="Loading..." /> : null}
-      <Pressable style={styles.filter} onPress={() => setIsModalOpen(true)}>
+      <Pressable style={styles.filter} onPress={onPressFilterOptions}>
         <FilterIcon fill={Colors.WHITE} />
       </Pressable>
-      <FilterOptionsModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setQueryParams={setQueryParams}
-        queryParams={queryParams}
-      />
     </MainWrapper>
   );
 };

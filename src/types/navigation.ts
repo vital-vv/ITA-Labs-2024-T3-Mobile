@@ -18,6 +18,7 @@ export type HomeStackParams = {
   [ROUTES.Variety]: {id: number; headerTitle: string};
   [ROUTES.LotList]: {id: number; headerTitle: string};
   [ROUTES.Lot]: {id: number; headerTitle: string};
+  [ROUTES.LotsFilter]: undefined;
 };
 
 export type AccountStackParams = {

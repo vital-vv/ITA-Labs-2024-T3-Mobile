@@ -8,9 +8,9 @@ export const API_URL = {
   category: (id: number) => `/categories/${id}`,
   lotsInSubCategory: (
     id: number,
-    page: number = 1,
-    limit: number = 10,
-    filterArgs: string = '',
+    page: number,
+    limit: number,
+    filterArgs: string,
   ) => `categories/${id}/lots?page=${page}&limit=${limit}${filterArgs}`,
   lot: (id: number) => `/lots/${id}`,
   dataSelection: '/data-selection',
@@ -19,7 +19,7 @@ export const API_URL = {
   lotBuy: (id: number) => `/lots/${id}/buy`,
   lotConfirm: (id: number) => `/lots/${id}/confirm`,
   lotDeactivate: (id: number) => `/lots/${id}/deactivate`,
-  createUser:`/users`,
+  createUser: `/users`,
   editUser: (isChange: boolean) => `/users?isChange=${isChange}`,
   currentUser: '/users/me',
   userAds: (status: StatusInResponce[]) =>

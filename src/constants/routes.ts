@@ -13,6 +13,7 @@ export enum ROUTES {
   Variety = 'Variety',
   LotList = 'LotList',
   Lot = 'Lot',
+  LotsFilter = 'LotsFilter',
   Auth = 'Auth',
   OnBoarding = 'OnBoarding',
   PersonalData = 'PersonalData',
