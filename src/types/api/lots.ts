@@ -50,7 +50,7 @@ export type GetLotsInSubCategoryParams = {
   id: number;
   page?: number;
   limit: number;
-  filterArgs?: string;
+  filterArgs: string;
 };
 
 export type LotsInSubCategoryInitialResponse = {

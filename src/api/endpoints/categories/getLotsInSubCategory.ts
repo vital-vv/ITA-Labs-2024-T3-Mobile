@@ -13,7 +13,7 @@ export const getLotsInSubCategory = agroexAPI.injectEndpoints({
       GetLotsInSubCategoryParams
     >({
       query: ({id, page, limit, filterArgs}) => ({
-        url: API_URL.lotsInSubCategory(id, page, limit, filterArgs),
+        url: API_URL.lotsInSubCategory(id, (page = 1), limit, filterArgs),
         method: 'GET',
       }),
 
