@@ -6,6 +6,6 @@ const deviceHeight = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
   map: {
     height: deviceHeight * 0.3,
-    width: deviceHeight,
+    width: deviceWidth,
   },
 });

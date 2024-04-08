@@ -13,7 +13,7 @@ import {useGetAllCategoriesQuery} from '../../api/endpoints/index.ts';
 import {FC} from 'react';
 import {setPadding} from '../../utils/styling/padding.ts';
 import {SpinnerWrapper} from '../../components/spinnerWrapper/spinnerWrapper.tsx';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {Map} from '../../components/mapView/map.tsx';
 
 type Props = NativeStackScreenProps<HomeStackParams, ROUTES.Home>;
 
