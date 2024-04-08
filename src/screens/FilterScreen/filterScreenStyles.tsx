@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
   buttonsWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: 8,
   },
 
   button: {

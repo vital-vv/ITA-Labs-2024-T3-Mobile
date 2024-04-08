@@ -111,6 +111,7 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
           <AppText text={'New lots'} variant={TEXT_VARIANT.MAIN_16_400} />
         </Pressable>
       </View>
+      {infiniteLotsList && (
       <FlatList
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={refetchToInitialPage} />
@@ -120,7 +121,11 @@ export const LotListScreen: FC<Props> = ({navigation, route}) => {
         onEndReachedThreshold={0.6}
         onEndReached={onEndOfListIsReached}
       />
-      {isLoading || isFetching ? <SpinnerWrapper text="Loading..." /> : null}
+      )}
+      {isLoading || isFetching ? 
+      <View style={{paddingVertical: 25, flex: 1, justifyContent: 'center', }}>
+        <SpinnerWrapper text="Loading..." /> 
+      </View> : null}
       <Pressable style={styles.filter} onPress={onPressFilterOptions}>
         <FilterIcon fill={Colors.WHITE} />
       </Pressable>

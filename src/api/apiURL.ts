@@ -8,7 +8,7 @@ export const API_URL = {
   category: (id: number) => `/categories/${id}`,
   lotsInSubCategory: (
     id: number,
-    page: number,
+    page: number = 1,
     limit: number,
     filterArgs: string,
   ) => `categories/${id}/lots?page=${page}&limit=${limit}${filterArgs}`,
