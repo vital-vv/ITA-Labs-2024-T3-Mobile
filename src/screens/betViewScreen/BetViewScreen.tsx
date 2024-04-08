@@ -68,10 +68,10 @@ export const BetViewScreen: FC<Props> = ({navigation, route}) => {
           <ButtonWithIcon
             title="Buy now"
             type="dark"
+            onPress={() => onBuyNow(lot.lot_id)}
             icon={
               <ShoppingIcon
                 fill={Colors.WHITE}
-                onPress={() => onBuyNow(lot.lot_id)}
               />
             }
           />
